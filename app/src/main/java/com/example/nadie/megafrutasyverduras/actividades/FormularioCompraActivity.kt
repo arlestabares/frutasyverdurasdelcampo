@@ -111,34 +111,38 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
 
         if (v?.id == btnRegistrarFC.id) {
 
-            var spinnerOpciones: String = spinnerListaFC.selectedItem.toString()
-            var precio: Int = ediTxtPrecioLibraFC.text.toString().toInt()
-            var libras: Int = ediTxtLibrasFC.text.toString().toInt()
-            var bultos: Int = ediTxtBultosFC.text.toString().toInt()
-            var fechaRegistro: String = ediTxtFechaRegistroFC.text.toString()
-            var procedencia: String = spinnerCiudadFC.selectedItem.toString()
+            if(!ediTxtPrecioLibraFC.text.isEmpty() && !ediTxtLibrasFC.text.isEmpty() && !ediTxtBultosFC.text.isEmpty()) {
 
-            registroCompra = Registro()
+                var spinnerOpciones: String = spinnerListaFC.selectedItem.toString()
+                var precio: Int = ediTxtPrecioLibraFC.text.toString().toInt()
+                var libras: Int = ediTxtLibrasFC.text.toString().toInt()
+                var bultos: Int = ediTxtBultosFC.text.toString().toInt()
+                var fechaRegistro: String = ediTxtFechaRegistroFC.text.toString()
+                var procedencia: String = spinnerCiudadFC.selectedItem.toString()
 
-            registroCompra.precio = precio
-            registroCompra.libras = libras
-            registroCompra.bultos = bultos
-            registroCompra.fechaRegistro = fechaRegistro
-            registroCompra.procedencia = procedencia
-            registroCompra.nombre = spinnerOpciones
+                registroCompra = Registro()
 
-            registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
-            registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
+                registroCompra.precio = precio
+                registroCompra.libras = libras
+                registroCompra.bultos = bultos
+                registroCompra.fechaRegistro = fechaRegistro
+                registroCompra.procedencia = procedencia
+                registroCompra.nombre = spinnerOpciones
+
+                registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
+                registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
 
 
-
-            /*El objeto registroCompra que sera enviado mediante el intent al fragment que contiene la logica del negocio
+                /*El objeto registroCompra que sera enviado mediante el intent al fragment que contiene la logica del negocio
             InterfazPrincipalFragment con sus valores asociados para ser enviado a las actividades que lo requieran*/
-            var intent = Intent()
-            intent.putExtra("registroCompra", registroCompra)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+                var intent = Intent()
+                intent.putExtra("registroCompra", registroCompra)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
 
+            }else{
+                toast("error")
+            }
 
         } else if (v?.id == btnCancelarFC.id) {
 

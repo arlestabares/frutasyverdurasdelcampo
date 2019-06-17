@@ -15,20 +15,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.example.nadie.megafrutasyverduras.R
-import com.example.nadie.megafrutasyverduras.fragments.InterfazPrincipalFragment
 import com.example.nadie.megafrutasyverduras.modelo.Producto
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    lateinit var miFragment: InterfazPrincipalFragment
     lateinit var listaProductos: ArrayList<Producto>
     lateinit var listaCompra: ArrayList<Registro>
     lateinit var listaProveedores: ArrayList<Proveedor>
@@ -183,18 +180,18 @@ class MainActivity : AppCompatActivity(),
             R.id.menu_opciones -> {
                 // Handle the camera action
 
-                miFragment = InterfazPrincipalFragment()
+              //  miFragment = InterfazPrincipalFragment()
                 isFragmentSelection = true
                 //fm.beginTransaction().replace(R.id.content_main,miFragment).commit()
             }
             R.id.nav_gallery -> {
-                miFragment = InterfazPrincipalFragment()
+              //  miFragment = InterfazPrincipalFragment()
                 isFragmentSelection = true
                 // fm.beginTransaction().replace(R.id.content_main,miFragment).commit()
 
             }
             R.id.operaciones -> {
-                miFragment = InterfazPrincipalFragment()
+              //  miFragment = InterfazPrincipalFragment()
                 isFragmentSelection = true
                 //  fm.beginTransaction().replace(R.id.content_main,miFragment).commit()
 
