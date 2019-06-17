@@ -9,17 +9,17 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.LinearLayout
 import com.example.nadie.megafrutasyverduras.R
-import com.example.nadie.megafrutasyverduras.adapter.AdapterDescomposicion
+import com.example.nadie.megafrutasyverduras.adapter.AdapterDonacion
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 
-class ListarDescomposiconActivity : AppCompatActivity() {
+class ListarDonacionActivity : AppCompatActivity() {
 
 
     var pos: Int? = 0
     var registro: Registro? = null
     lateinit var recyclerView: RecyclerView
-    var listaDescomposicion: ArrayList<Registro>? = null
-    var adapter: AdapterDescomposicion? = null
+    var listaParaDonacion: ArrayList<Registro>? = null
+    var adapter: AdapterDonacion? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +28,14 @@ class ListarDescomposiconActivity : AppCompatActivity() {
 
 
         //intent proveniente de InterfazPrincipalFragment
-        listaDescomposicion = intent.getParcelableArrayListExtra("registros")
+        listaParaDonacion = intent.getParcelableArrayListExtra("registros")
         //  listaProductos=intent.getParcelableArrayListExtra("registroCompra productos")
+        Log.e("ListarDonacionActivity",listaParaDonacion.toString())
 
         recyclerView = findViewById(R.id.recyclerRegistroDescomposicionFV)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, true)
 
-        adapter = AdapterDescomposicion(this, listaDescomposicion!!)
+        adapter = AdapterDonacion(this, listaParaDonacion!!)
         recyclerView.adapter = adapter
 
     }
@@ -42,11 +43,15 @@ class ListarDescomposiconActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        /*requestCode 1118 generado en AdapterDonacion en la funcion Onclick(),y que es enviado  mediante
+          el intent a la actividad  EditarDonacionActivity,y es dicha actividad la encargada de enviar la
+          respuesta de ActivityResult_OK  a este contexto o ListarDonacionActivity,
+          mediante la llave editarDonacion recibido en el siguiente  if */
         if (requestCode == 1118) {
             if (resultCode == Activity.RESULT_OK) {
-                registro = data?.getParcelableExtra("editarDescomposicion")
+                registro = data?.getParcelableExtra("editarDonacion")
                 pos= data!!.getIntExtra("posicion",0)
-                Log.e("registro_editado", registro.toString() + " la posicion" + pos)
+                Log.e("registro_editadoListarD", registro.toString() + " la posicion = " + pos)
 
                 adapter?.actualizarDescomposicion(pos!!,registro!!)
                 adapter?.notifyDataSetChanged()
@@ -60,7 +65,7 @@ class ListarDescomposiconActivity : AppCompatActivity() {
 
         if (registro != null && pos!=null  ){
             val intent=Intent()
-            intent.putExtra("registroDesdeListarDescomposicion",registro!!)
+            intent.putExtra("registroDesdeListarDonacion",registro!!)
             intent.putExtra("posicion", pos!!)
             setResult(Activity.RESULT_OK, intent)
         }

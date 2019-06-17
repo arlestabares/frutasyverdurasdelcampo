@@ -14,11 +14,10 @@ import kotlinx.android.synthetic.main.activity_formulario_descomposicion.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FormularioDescomposicionActivity : AppCompatActivity(), View.OnClickListener,
+class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
 
     lateinit var registro: Registro
-    var listaDescomposicion: ArrayList<Registro>? = null
     lateinit var adapterSpinnerFrutas: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
 
@@ -82,8 +81,10 @@ class FormularioDescomposicionActivity : AppCompatActivity(), View.OnClickListen
             registro.tipoLista = spinnerListaFD.selectedItemPosition
 
 
+            /*intent con destino a  InterfazFragmentActivity , quien se encargar de gestionar el envio
+              de dicho registro con sus datos hacia la actividad que lo requiera */
             var intent = Intent()
-            intent.putExtra("registroDescomposicion", registro)
+            intent.putExtra("registroParaDonacion", registro)
             setResult(Activity.RESULT_OK, intent)
             finish()
 
@@ -99,7 +100,7 @@ class FormularioDescomposicionActivity : AppCompatActivity(), View.OnClickListen
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        ediTxtFechaRegistroFD.setOnClickListener {
+        btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 ediTxtFechaRegistroFD.setText("" + dayOfMonth + "/" + month + "/" + year)
 

@@ -15,10 +15,10 @@ import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_editar_descomposicion.*
 import java.util.*
 
-class EditarDescomposicionActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     var posicion: Int = 0
-    lateinit var registroDescomposicion: Registro
+    lateinit var registroParaDonacion: Registro
     lateinit var adapterSpinnerFrutas: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
@@ -42,22 +42,22 @@ class EditarDescomposicionActivity : AppCompatActivity(), View.OnClickListener, 
         btnEditarED.setOnClickListener(this)
         btnCancelarED.setOnClickListener(this)
 
-        /*intent proveniente de AdapterDescomposicion el cual trae consigo un registroDescomposicion
+        /*intent proveniente de AdapterDonacion el cual trae consigo un registroParaDonacion
         con  registros de Tipo  Registro*/
-        registroDescomposicion = intent.getParcelableExtra("listaDesdeAdapter")
+        registroParaDonacion = intent.getParcelableExtra("listaDesdeAdapter")
         posicion = intent.getIntExtra("posicionObjeto", 0)
 
         // Log.e("registros", registroCompra.toString())
 
-        ediTxtLibrasED.setText(registroDescomposicion.libras.toString())
-        ediTxtBultosED.setText(registroDescomposicion.bultos.toString())
-        ediTxtFechaRegistroED.setText(registroDescomposicion.fechaRegistro)
+        ediTxtLibrasED.setText(registroParaDonacion.libras.toString())
+        ediTxtBultosED.setText(registroParaDonacion.bultos.toString())
+        ediTxtFechaRegistroED.setText(registroParaDonacion.fechaRegistro)
 
         var tipoProducto = arrayOf("Seleccionar opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
         spinnerOpcionED.adapter = adapter
 
-        spinnerOpcionED.setSelection(registroDescomposicion.tipoOpcion)
+        spinnerOpcionED.setSelection(registroParaDonacion.tipoOpcion)
         spinnerOpcionED.onItemSelectedListener = this
         spinnerListaED.onItemSelectedListener = this
 
@@ -70,7 +70,7 @@ class EditarDescomposicionActivity : AppCompatActivity(), View.OnClickListener, 
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        ediTxtFechaRegistroED.setOnClickListener {
+        btnFecha.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 ediTxtFechaRegistroED.setText("" + dayOfMonth + "/" + month + "/" + year)
@@ -106,22 +106,22 @@ class EditarDescomposicionActivity : AppCompatActivity(), View.OnClickListener, 
 
         if (v?.id == btnEditarED.id) {
 
-            registroDescomposicion.nombre = spinnerListaED.selectedItem.toString()
-            registroDescomposicion.libras = ediTxtLibrasED.text.toString().toInt()
-            registroDescomposicion.bultos = ediTxtBultosED.text.toString().toInt()
-            registroDescomposicion.fechaRegistro = ediTxtFechaRegistroED.text.toString()
+            registroParaDonacion.nombre = spinnerListaED.selectedItem.toString()
+            registroParaDonacion.libras = ediTxtLibrasED.text.toString().toInt()
+            registroParaDonacion.bultos = ediTxtBultosED.text.toString().toInt()
+            registroParaDonacion.fechaRegistro = ediTxtFechaRegistroED.text.toString()
 
-            registroDescomposicion.tipoOpcion = spinnerOpcionED.selectedItemPosition
-            registroDescomposicion.tipoLista = spinnerListaED.selectedItemPosition
+            registroParaDonacion.tipoOpcion = spinnerOpcionED.selectedItemPosition
+            registroParaDonacion.tipoLista = spinnerListaED.selectedItemPosition
 
-            /* intent que se envia a ListarDescomposicionActivity como respuesta al ActivityForResult,
+            /* intent que se envia a ListarDonacionActivity como respuesta al ActivityForResult,
             ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
             una respuesta por enviar.
-            ya que este espera una respuesta con un objeto registroDescomposicion y una posicion para llevar a cabo la
+            ya que este espera una respuesta con un objeto registroParaDonacion y una posicion para llevar a cabo la
             actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
             tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
             val intent = Intent()
-            intent.putExtra("editarDescomposicion", registroDescomposicion)
+            intent.putExtra("editarDonacion", registroParaDonacion)
             intent.putExtra("posicionObjeto", posicion)
             setResult(Activity.RESULT_OK, intent)
 
@@ -149,13 +149,13 @@ class EditarDescomposicionActivity : AppCompatActivity(), View.OnClickListener, 
             adapterSpinnerFrutas =
                 ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
             spinnerListaED.adapter = adapterSpinnerFrutas
-            spinnerListaED.setSelection(registroDescomposicion.tipoLista)
+            spinnerListaED.setSelection(registroParaDonacion.tipoLista)
 
         } else if (position == 2) {
             adapterSpinnerVerduras =
                 ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
             spinnerListaED.adapter = adapterSpinnerVerduras
-            spinnerListaED.setSelection(registroDescomposicion.tipoLista)
+            spinnerListaED.setSelection(registroParaDonacion.tipoLista)
         }
 
     }

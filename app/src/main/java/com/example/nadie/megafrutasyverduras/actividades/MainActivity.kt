@@ -1,6 +1,8 @@
 package com.example.nadie.megafrutasyverduras.actividades
 
+import android.app.Activity
 import android.content.Intent
+import android.content.Intent.*
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -8,8 +10,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.fragments.InterfazPrincipalFragment
 import com.example.nadie.megafrutasyverduras.modelo.Producto
@@ -17,17 +21,19 @@ import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener, RegistroEscucha {
-
+    NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     lateinit var miFragment: InterfazPrincipalFragment
     lateinit var listaProductos: ArrayList<Producto>
     lateinit var listaCompra: ArrayList<Registro>
     lateinit var listaProveedores: ArrayList<Proveedor>
     lateinit var listaStock: ArrayList<Registro>
-    lateinit var listaDescomposicion: ArrayList<Registro>
+    lateinit var listaParaDonacion: ArrayList<Registro>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,23 +59,26 @@ class MainActivity : AppCompatActivity(),
         listaProductos = ArrayList()
         listaCompra = ArrayList()
         listaProveedores = ArrayList()
-        listaDescomposicion = ArrayList()
+        listaParaDonacion = ArrayList()
         listaStock = ArrayList()
 
-        // Aqui se agrega el Fragment InterfazPrincipalFragment como la  primer GUI al iniciarse la aplicacion
-        //Para que el usuario escoja las opciones de navegacion.
-        miFragment = InterfazPrincipalFragment()
-        miFragment.listener = this
 
-        var bundle = Bundle()
+        /*var bundle = Bundle()
         bundle.putParcelableArrayList("listaProductos", listaProductos)
         bundle.putParcelableArrayList("listaCompra", listaCompra)
         bundle.putParcelableArrayList("listaStock", listaStock)
         bundle.putParcelableArrayList("listaProveedores", listaProveedores)
-        bundle.putParcelableArrayList("listaDescomposicionFV", listaDescomposicion)
+        bundle.putParcelableArrayList("listaDonacionFV", listaParaDonacion)*/
 
-        miFragment.arguments = bundle
-        getSupportFragmentManager().beginTransaction().add(R.id.content_main, miFragment).commit()
+        cardViewRC.setOnClickListener(this)
+        cardViewLRC.setOnClickListener(this)
+        cardViewRStock.setOnClickListener(this)
+        cardViewLRStock.setOnClickListener(this)
+        cardViewRD.setOnClickListener(this)
+        cardViewLD.setOnClickListener(this)
+        cardViewRP.setOnClickListener(this)
+        cardViewLP.setOnClickListener(this)
+        cardViewIA.setOnClickListener(this)
 
         //Esta variable bundle lleva consigo una lista de listaProductos y listaCompra la cual se envia
         // al fragment miFragment
@@ -104,37 +113,55 @@ class MainActivity : AppCompatActivity(),
             val intent = Intent(this, InformacionFuncionalidadActivity::class.java)
             startActivity(intent)
 
-        } /*else if (item.itemId == R.id.listarServicio) {
+        } else if (item.itemId == R.id.realizarDonacion) {
+            val intent = Intent(this, RealizarDonacionesActivity::class.java)
+            intent.putParcelableArrayListExtra("registroDonacion",listaParaDonacion)
+           // intent.putExtra("registro_Desde_Activity_Main", listaParaDonacion)
 
-            val intent = Intent(this, FormularioProveedorActivity::class.java)
+            Log.e("Mensaje desd activity", listaParaDonacion.toString())
+            startActivityForResult(intent, 100)
+
+        } else if (item.itemId == R.id.centrosParaDonacion) {
+            val intent = Intent(this, CentrosParaDonacionActivity::class.java)
+            startActivity(intent)
+        } else if (item.itemId == R.id.donacionesRealizadas) {
+            val intent = Intent(this, CentrosParaDonacionActivity::class.java)
             startActivity(intent)
 
-            //con startActivityForResult se inicia una actividad esperando
-            // que nos devuelva algo,
-            //cuando la actividad envia su respuesta se invoca el método onActivityResult
-        } else if (item.itemId == R.id.registrarCompraFV) {
-            val intent = Intent(this, FormularioCompraActivity::class.java)
-            //  intent.putExtra("registros",listaCompra)
-            // intent.putExtra("productos",listaProductos)
-            startActivity(intent)
+        }
 
-        } else if (item.itemId == R.id.registroProveedor) {
-            val intent = Intent(this, FormularioProveedorActivity::class.java)
-            startActivity(intent)
+        /*else if (item.itemId == R.id.listarServicio) {
 
-        } else if (item.itemId == R.id.registrarDescomposicion) {
-            var intent = Intent(this, FormularioDescomposicionActivity::class.java)
-            // intent.putExtra("registros", listaCompra)
-            // intent.putExtra("productos", listaProductos)
-            startActivity(intent)
+                   val intent = Intent(this, FormularioProveedorActivity::class.java)
+                   startActivity(intent)
 
-        } else if (item.itemId == R.id.registrarStock) {
-            val intent = Intent(this, FormularioStockActivity::class.java)
-            intent.putExtra("registros", listaCompra)
-            //intent.putExtra("productos",listaProductos)
-            startActivity(intent)
+                   //con startActivityForResult se inicia una actividad esperando
+                   // que nos devuelva algo,
+                   //cuando la actividad envia su respuesta se invoca el método onActivityResult
+               } else if (item.itemId == R.id.registrarCompraFV) {
+                   val intent = Intent(this, FormularioCompraActivity::class.java)
+                   //  intent.putExtra("registros",listaCompra)
+                   // intent.putExtra("productos",listaProductos)
+                   startActivity(intent)
 
-        }*/
+               } else if (item.itemId == R.id.registroProveedor) {
+                   val intent = Intent(this, FormularioProveedorActivity::class.java)
+                   startActivity(intent)
+
+               } else if (item.itemId == R.id.registrarDescomposicion) {
+                   var intent = Intent(this, FormularioDonacionActivity::class.java)
+                   // intent.putExtra("registros", listaCompra)
+                   // intent.putExtra("productos", listaProductos)
+                   startActivity(intent)
+
+               } else if (item.itemId == R.id.registrarStock) {
+                   val intent = Intent(this, FormularioStockActivity::class.java)
+                   intent.putExtra("registros", listaCompra)
+                   //intent.putExtra("productos",listaProductos)
+                   startActivity(intent)
+
+               }*/
+
 
         when (item.itemId) {
             R.id.action_settings -> return true
@@ -173,6 +200,13 @@ class MainActivity : AppCompatActivity(),
 
 
             }
+            R.id.cerrarAplicacion -> {
+                intent = Intent(ACTION_MAIN)
+                intent.addCategory(CATEGORY_HOME)
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+
             R.id.nav_manage -> {
 
             }
@@ -197,54 +231,175 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
-    override fun registrarProducto(registro: Registro, bandera: Int) {
+    fun registrarProducto(registro: Registro, bandera: Int) {
 
         if (bandera == 12) {
             listaCompra.add(registro)
         } else if (bandera == 14) {
             listaStock.add(registro)
         } else if (bandera == 16) {
-            listaDescomposicion.add(registro)
+            listaParaDonacion.add(registro)
+
         }
 
     }
 
-    override fun editarProducto(pos: Int, registro: Registro, bandera: Int) {
+    fun editarProducto(pos: Int, registro: Registro, bandera: Int) {
 
         if (bandera == 13) {
             listaCompra.set(pos, registro)
         } else if (bandera == 15) {
             listaStock.set(pos, registro)
         } else if (bandera == 17) {
-            listaDescomposicion.set(pos, registro)
+            listaParaDonacion.set(pos, registro)
         }
     }
 
 
-    override fun registrarProveedor(registro: Proveedor) {
+    fun registrarProveedor(registro: Proveedor) {
         listaProveedores.add(registro)
     }
 
-    override fun editarProveedor(pos: Int, registro: Proveedor) {
+    fun editarProveedor(pos: Int, registro: Proveedor) {
         listaProveedores.set(pos, registro)
+    }
+
+    override fun onClick(v: View?) {
+        if (v == cardViewRC) {
+            var intent = Intent(this, FormularioCompraActivity::class.java)
+            // intent.putParcelableArrayListExtra("registros", listaCompra)
+            startActivityForResult(intent, 12)
+        } else if (v == cardViewLRC) {
+
+            if(listaCompra!!.isEmpty()){
+                toast("Debe ingresar Informacion a la lista por primera vez")
+            }else {
+                var intent = Intent(this, ListarCompraActivity::class.java)
+                intent.putParcelableArrayListExtra("registros", listaCompra)
+                startActivityForResult(intent, 13)
+            }
+
+        } else if (v == cardViewRStock) {
+            var intent = Intent(this, FormularioStockActivity::class.java)
+            // intent.putParcelableArrayListExtra("registros", listaStock)
+            startActivityForResult(intent, 14)
+        } else if (v == cardViewLRStock) {
+            if (listaStock!!.isEmpty()){
+                toast("Debe ingresar Informacion a la lista por primera vez")
+            }else{
+                var intent = Intent(this, ListarStockActivity::class.java)
+                intent.putParcelableArrayListExtra("registros", listaStock)
+                startActivityForResult(intent, 15)
+            }
+        } else if (v == cardViewRD) {
+            var intent = Intent(this, FormularioDonacionActivity::class.java)
+            // intent.putParcelableArrayListExtra("resgistros", listaParaDonacion)
+            startActivityForResult(intent, 16)
+        } else if (v == cardViewLD) {
+            if (listaParaDonacion!!.isEmpty()){
+                toast("Debe ingresar Informacion a la lista por primera vez")
+            }else {
+                var intent = Intent(this, ListarDonacionActivity::class.java)
+                intent.putParcelableArrayListExtra("registros", listaParaDonacion)
+                Log.e("registroInterfazPricipa",listaParaDonacion.toString())
+                startActivityForResult(intent, 17)
+            }
+        } else if (v == cardViewRP) {
+            var intent = Intent(this, FormularioProveedorActivity::class.java)
+            // intent.putExtra("registros", listaProveedores)
+            startActivityForResult(intent, 18)
+        } else if (v == cardViewLP) {
+            if (listaProveedores!!.isEmpty()){
+                toast("Debe ingresar Informacion a la lista por primera vez")
+            }else {
+                var intent = Intent(this, ListarProveedoresActivity::class.java)
+                intent.putParcelableArrayListExtra("registros", listaProveedores)
+                startActivityForResult(intent, 19)
+            }
+        } else if (v == cardViewIA) {
+            var intent = Intent(this, InformacionFuncionalidadActivity::class.java)
+            //  intent.putExtra("registros", listaCompra)
+            startActivity(intent)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 12) {
+            if (resultCode == Activity.RESULT_OK) {
+                var listaCompra = data?.getParcelableExtra<Registro>("registroCompra")
+                registrarProducto(listaCompra!!, 12)
+            }
+        } else if (requestCode == 13) {
+            if (resultCode == Activity.RESULT_OK) {
+                var editarCompra = data?.getParcelableExtra<Registro>("registro")
+                var pos = data?.getIntExtra("posicion", 0)
+                editarProducto(pos!!, editarCompra!!, 13)
+            }
+
+        } else if (requestCode == 14) {
+            if (resultCode == Activity.RESULT_OK) {
+                var registrarStock = data?.getParcelableExtra<Registro>("registroFormularioStock")
+                registrarProducto(registrarStock!!, 14)
+                Log.e("registrostock", registrarStock.toString())
+            }
+        } else if (requestCode == 15) {
+            if (resultCode == Activity.RESULT_OK) {
+                var editarStock = data?.getParcelableExtra<Registro>("registroDesdeListarStock")
+                var pos = data?.getIntExtra("posicion", 0)
+                editarProducto(pos!!, editarStock!!, 15)
+            }
+
+        } else if (requestCode == 16) {
+            if (resultCode == Activity.RESULT_OK) {
+                var registrarDonacion = data?.getParcelableExtra<Registro>("registroParaDonacion")
+                registrarProducto(registrarDonacion!!, 16)
+                Log.e("registroParaDonacion", registrarDonacion.toString())
+            }
+
+        } else if (requestCode == 17) {
+            if (resultCode == Activity.RESULT_OK) {
+                val editarDonacion = data?.getParcelableExtra<Registro>("registroDesdeListarDonacion")
+                val posicion = data?.getIntExtra("posicion", 0)
+                editarProducto(posicion!!, editarDonacion!!, 17)
+            }
+        } else if (requestCode == 18) {
+            if (resultCode == Activity.RESULT_OK) {
+                var listaProveedores = data?.getParcelableExtra<Proveedor>("registroProveedor")
+                registrarProveedor(listaProveedores!!)
+            }
+        } else if (requestCode == 19) {
+            if (resultCode == Activity.RESULT_OK) {
+                var editarRegistroProveedores = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
+                var pos = data?.getIntExtra("posicion", 0)
+                editarProveedor(pos!!, editarRegistroProveedores!!)
+            }
+
+        } else if (requestCode == 100) {
+
+            if(resultCode == Activity.RESULT_OK) {
+
+                var libras = data?.getIntExtra("libras", 0)
+                var opcionFV = data?.getIntExtra("opcionFV", 0)
+                var listaFV = data?.getIntExtra("listaFV", 0)
+
+                Log.e("libras_r", libras.toString())
+
+                for (registro in listaParaDonacion) {
+                    if(registro.tipoOpcion == opcionFV && registro.tipoLista == listaFV){
+                        registro.libras = registro.libras-libras!!
+                        break;
+                    }
+                }
+
+            }
+
+        }
+
     }
 
 }
 
-/**
- * Interfaz encargada de actualizar y mantener las listas siempre en un estado
- * disponibles con sus respectivos registros, ya que desde esta actividad son reenviadas
- * todas las listas a la InterfazPrincipalFragment para que desde alli sean
- * reenviadas a las activitys solicitantes.
- */
-interface RegistroEscucha {
 
-    fun registrarProducto(registro: Registro, bandera: Int)
-    fun editarProducto(pos: Int, registro: Registro, bandera: Int)
-
-    fun registrarProveedor(registro: Proveedor)
-    fun editarProveedor(pos: Int, registro: Proveedor)
-
-
-}
 

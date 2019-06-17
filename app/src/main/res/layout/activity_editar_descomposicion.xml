@@ -6,14 +6,15 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".editarFormularios.EditarDescomposicionActivity">
+        tools:context=".editarFormularios.EditarDonacionActivity">
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
             <TextView
                     android:id="@+id/txtTitulo"
@@ -28,9 +29,9 @@
                     android:id="@+id/spinnerOpcionED"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="120dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginTop="80dp"
+                    android:layout_marginRight="60dp"
+                    android:padding="8dp">
 
             </Spinner>
 
@@ -39,9 +40,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/spinnerOpcionED"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="30dp">
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="60dp"
+                    android:padding="8dp">
 
             </Spinner>
 
@@ -51,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerListaED"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:hint="Libras"
                     android:layout_marginLeft="20dp"/>
 
@@ -63,33 +64,56 @@
                     android:layout_marginTop="1dp"
                     android:hint="Bultos"
                     android:layout_marginLeft="20dp"/>
-            <EditText
-                    android:id="@+id/ediTxtFechaRegistroED"
+
+            <LinearLayout
+                    android:id="@+id/linearFecha"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/ediTxtBultosED"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                        android:id="@+id/ediTxtFechaRegistroED"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ediTxtBultosED"
+                        android:hint="Fecha de Registro"
+                        android:layout_marginLeft="20dp"/>
+
+                <Button
+                        android:id="@+id/btnFecha"
+                        android:text="Seleccione Fecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:layout_marginLeft="35dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ediTxtBultosED"
-                    android:hint="Fecha de Registro"
-                    android:layout_marginLeft="20dp"/>
-            <Button
-                    android:id="@+id/btnEditarED"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ediTxtFechaRegistroED"
-                    android:layout_marginTop="50dp"
-                    android:text="  Registrar  "
-                    android:layout_marginLeft="40dp"
-                    android:paddingEnd="15dp"
-                    android:background="@drawable/molde_btn_varios_background"/>
-            <Button
-                    android:id="@+id/btnCancelarED"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="  Cancelar  "
-                    android:layout_marginLeft="230dp"
-                    android:layout_below="@+id/ediTxtFechaRegistroED"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/molde_btn_varios_background"/>
-
-        </RelativeLayout>
+                    android:layout_marginTop="60dp">
+                <Button
+                        android:id="@+id/btnEditarED"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="  Registrar  "
+                        android:layout_marginLeft="20dp"
+                        android:paddingRight="30dp"
+                        android:paddingLeft="30dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+                <Button
+                        android:id="@+id/btnCancelarED"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Cancelar"
+                        android:layout_marginLeft="40dp"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

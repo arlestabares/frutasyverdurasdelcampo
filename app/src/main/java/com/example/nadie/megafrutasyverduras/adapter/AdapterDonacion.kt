@@ -1,7 +1,6 @@
 package com.example.nadie.megafrutasyverduras.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,26 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.nadie.megafrutasyverduras.R
-import com.example.nadie.megafrutasyverduras.editarFormularios.EditarDescomposicionActivity
+import com.example.nadie.megafrutasyverduras.actividades.RealizarDonacionesActivity
+import com.example.nadie.megafrutasyverduras.editarFormularios.EditarDonacionActivity
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 
-class AdapterDescomposicion(var contexto:Activity, var listaDescomposicion: ArrayList<Registro>) :
-    RecyclerView.Adapter<AdapterDescomposicion.ViewHolderRegistro>() {
+class AdapterDonacion(var contexto:Activity, var listaParaDonacion: ArrayList<Registro>) :
+    RecyclerView.Adapter<AdapterDonacion.ViewHolderRegistro>() {
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolderRegistro {
 
         val vista = LayoutInflater.from(p0.context).inflate(R.layout.molde_registro_standar, p0, false)
+
         return ViewHolderRegistro(vista)
     }
     override fun getItemCount(): Int {
 
-        return listaDescomposicion.size
+        return listaParaDonacion.size
     }
 
     override fun onBindViewHolder(holder: ViewHolderRegistro, p1: Int) {
 
-        holder.bindItem(listaDescomposicion[p1],p1)
+        holder.bindItem(listaParaDonacion[p1],p1)
     }
 
     /**
@@ -38,12 +39,12 @@ class AdapterDescomposicion(var contexto:Activity, var listaDescomposicion: Arra
      *
      */
     fun actualizarDescomposicion(pos:Int,registro: Registro){
-        listaDescomposicion.set(pos,registro)
+        listaParaDonacion.set(pos,registro)
     }
 
     inner class ViewHolderRegistro(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        lateinit var registroDescomposicion: Registro
+        lateinit var registroParaDonacion: Registro
         var pos: Int = 0
 
         init {
@@ -52,14 +53,17 @@ class AdapterDescomposicion(var contexto:Activity, var listaDescomposicion: Arra
 
         override fun onClick(v: View?) {
 
-            /*Intent con destino a la actividad EditarDescomposicionActivity, cuyo
+            /*Intent con destino a la actividad EditarDonacionActivity, cuyo
             resultado que devolvera dicha actividad le llegara primero a la actividad ListarDescomposicionActivity,
             para su respectiva operacion, la cual aplicara los cambios para notificarle al AdapterDescompsosicion
             de dichos cambios y actualizar el CarView, o la lista de registros. */
-            var intent = Intent(contexto, EditarDescomposicionActivity::class.java)
-            intent.putExtra("listaDesdeAdapter", registroDescomposicion)
+            var intent = Intent(contexto, EditarDonacionActivity::class.java)
+            intent.putExtra("listaDesdeAdapter", registroParaDonacion)
             intent.putExtra("posicionObjeto",pos)
             contexto.startActivityForResult(intent,1118)
+
+
+
         }
 
 
@@ -75,7 +79,7 @@ class AdapterDescomposicion(var contexto:Activity, var listaDescomposicion: Arra
             bultos.text = data.bultos.toString()
             fechaRegistro.text = data.fechaRegistro
 
-            registroDescomposicion = data
+            registroParaDonacion = data
             this.pos = pos
 
         }

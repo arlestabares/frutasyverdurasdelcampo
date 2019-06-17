@@ -27,31 +27,28 @@
                     android:text="Nombre:"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
             <TextView
                     android:id="@+id/txtViewLibra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Libras:"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
+                    android:textStyle="bold"/>
             <TextView
                     android:id="@+id/txtViewBultos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bultos:"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
+                    android:textStyle="bold"/>
             <TextView
                     android:id="@+id/txtViewFechaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="F. Registro:"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
+                    android:textStyle="bold"/>
 
         </LinearLayout>
         <LinearLayout
@@ -66,14 +63,13 @@
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="8dp"/>
             <TextView
                     android:id="@+id/txtLibras"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Libras"
                     android:textSize="20dp"
-                    android:layout_marginTop="15dp"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"/>
             <TextView
@@ -81,7 +77,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Bultos"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:textSize="20dp"
                     android:textStyle="bold"/>
@@ -90,7 +85,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fecha Registro"
-                    android:layout_marginTop="7dp"
                     android:layout_marginLeft="10dp"
                     android:textSize="20dp"
                     android:textStyle="bold"/>

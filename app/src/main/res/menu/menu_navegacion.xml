@@ -8,10 +8,13 @@
 
             </item>
             <item
-                    android:id= "@+id/registrarServicio"
-                    android:title= "@string/registrarProveedor">
+                    android:id= "@+id/centrosParaDonacion"
+                    android:title= "@string/centrosParaDonacion"/>
+            <item android:id="@+id/realizarDonacion"
+                  android:title="@string/realizarDonacion"/>
 
-            </item>
+            <item android:id="@+id/donacionesRealizadas"
+                  android:title="@string/donacionesRealizadas"/>
 
         </group>
 

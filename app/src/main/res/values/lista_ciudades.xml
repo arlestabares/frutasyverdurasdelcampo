@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="lista_ciudades">
-        <item>Seleccione Ciudad de la Compra</item>
+        <item>Seleccione Ciudad de Procedencia</item>
         <item>Armenia</item>
         <item>Bogota</item>
         <item>Boyaca</item>

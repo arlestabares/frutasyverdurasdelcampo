@@ -13,7 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -33,15 +34,15 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="100dp"
                     android:padding="8dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="60dp"/>
 
 
             <Spinner
                     android:id="@+id/spinnerListaFS"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="160dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="60dp"
                     android:padding="8dp"/>
 
 
@@ -50,7 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerListaFS"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
+                    android:inputType="number"
                     android:hint="Libras"
                     android:layout_marginLeft="20dp"/>
             <EditText
@@ -59,37 +61,60 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtLibrasFS"
                     android:layout_marginTop="1dp"
+                    android:inputType="number"
                     android:hint="Bultos"
                     android:layout_marginLeft="20dp"/>
-            <EditText
-                    android:id="@+id/ediTxtFechaRegistroFS"
+
+            <LinearLayout
+                    android:id="@+id/linearFecha"
+                    android:layout_below="@+id/ediTxtBultosFS"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                        android:id="@+id/ediTxtFechaRegistroFS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ediTxtBultosFS"
+                        android:hint="Fecha de Registro"
+                        android:layout_marginLeft="20dp"/>
+
+                <Button
+                        android:id="@+id/btnFecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Seleccione Fecha"
+                        android:layout_marginLeft="40dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/linearBotones"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ediTxtBultosFS"
-                    android:hint="Fecha de Registro"
-                    android:layout_marginLeft="20dp"/>
-            <Button
-                    android:id="@+id/btnRegistrarFS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Registrar"
-                    android:layout_below="@+id/ediTxtFechaRegistroFS"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginLeft="40dp"
-                    android:paddingEnd="15dp"
-                    android:paddingVertical="2dp"
-                    android:background="@drawable/molde_btn_varios_background"/>
-            <Button
-                    android:id="@+id/btnCancelarFS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cancelar"
-                    android:layout_below="@+id/ediTxtFechaRegistroFS"
-                    android:layout_marginTop="100dp"
-                    android:paddingVertical="2dp"
-                    android:layout_marginLeft="230dp"
-                    android:paddingEnd="15dp"
-                    android:background="@drawable/molde_btn_varios_background"/>
-        </RelativeLayout>
+                    android:layout_marginTop="60dp">
+                <Button
+                        android:id="@+id/btnRegistrarFS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Registrar"
+                        android:layout_marginLeft="30dp"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+                <Button
+                        android:id="@+id/btnCancelarFS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Cancelar"
+                        android:layout_marginLeft="50dp"
+                        android:paddingRight="30dp"
+                        android:paddingLeft="30dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -14,10 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <RelativeLayout
-                android:id="@+id/relatiLayout2"
+        <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
             <TextView
                     android:id="@+id/txtTitulo"
@@ -32,7 +33,7 @@
                     android:id="@+id/spinnerOpcionFC"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="50dp"
                     android:padding="8dp"
                     android:layout_marginRight="60dp"/>
             <Spinner
@@ -40,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:scrollbarSize="30dp"
-                    android:layout_marginTop="130dp"
+                    android:layout_marginTop="10dp"
                     android:padding="8dp"
                     android:layout_marginRight="60dp"/>
 
@@ -52,8 +53,7 @@
                     android:layout_below="@+id/spinnerListaFC"
                     android:hint="Precio por Libra"
                     android:inputType="number"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="20dp"/>
             <EditText
                     android:id="@+id/ediTxtLibrasFC"
                     android:layout_width="match_parent"
@@ -100,36 +100,39 @@
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
                         android:textSize="14dp"
-                        android:layout_marginLeft="45dp"
+                        android:layout_marginLeft="232dp"
                         android:padding="6dp"
                         android:background="@drawable/molde_btn_varios_background"/>
 
             </LinearLayout>
 
-            <Button
-                    android:id="@+id/btnRegistrarFC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:text="Registrar"
+            <LinearLayout
+                    android:id="@+id/linearBotones"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/linearFecha"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:paddingRight="20dp"
-                    android:paddingLeft="20dp"
-                    android:background="@drawable/molde_btn_varios_background"/>
-            <Button
-                    android:id="@+id/btnCancelarFC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:layout_below="@+id/linearFecha"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="225dp"
-                    android:text="Cancelar"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:background="@drawable/molde_btn_varios_background"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp">
+                <Button
+                        android:id="@+id/btnRegistrarFC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Registrar"
+                        android:layout_marginLeft="70dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+                <Button
+                        android:id="@+id/btnCancelarFC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:layout_marginLeft="225dp"
+                        android:text="Cancelar"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
 
-
-        </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

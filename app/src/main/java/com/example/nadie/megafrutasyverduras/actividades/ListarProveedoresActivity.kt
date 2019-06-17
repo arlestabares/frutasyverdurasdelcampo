@@ -58,8 +58,8 @@ class ListarProveedoresActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (posicion != null && registro != null) {
             val intent = Intent()
-            intent.putExtra("registroDesdeListarProveedor", posicion!!)
-            intent.putExtra("posicion", registro)
+            intent.putExtra("registroDesdeListarProveedor", registro!!)
+            intent.putExtra("posicion", posicion!!)
             setResult(Activity.RESULT_OK, intent)
         }
         super.onBackPressed()

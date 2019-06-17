@@ -13,6 +13,9 @@
 
     <string name="informacionSobreAplicacion">Informacion de Aplicacion</string>
     <string name="registrarProveedor">Registrar Proveedor</string>
+    <string name="centrosParaDonacion">Centros Para Donacion</string>
+    <string name="donacionesRealizadas">Donaciones Realizadas</string>
+    <string name="realizarDonacion">Realizar Donaciones</string>
 
     <!-- Titulos de molde_carview_interfaz_principal -->
     <string name="modelocarview_interfaz_principal">MegaFrutas y Verduras de Mercar</string>
@@ -20,12 +23,12 @@
     <string name="modelocarviewRegistrarCompraFruta">Registrar Compra de Frutas</string>
     <string name="modelocarviewRegistrarCompraVerdura">Registrar Compra de Verdura</string>
     <string name="registrarCFV">Registrar Compra de Frutas o Verduras</string>
-    <string name="registrarDFV">Registrar Frutas o Verduras en Descomposicion</string>
+    <string name="registrarDFV">Registrar Frutas o Verduras para Donacion</string>
     <string name="registrarPFV">Registrar Proveedor</string>
     <string name="listarRegistrosCompraFrutaVerdura">Listar registros de Compra de Frutas o Verduras</string>
     <string name="registrarStockFV">Registrar Stock de Frutas o Verduras</string>
     <string name="listarStockFV">Listar Registros de Frutas y Verduras en Stock</string>
-    <string name="listarFVEnDesComposicion">Listar Fruta o Verdura en Descomposicion</string>
+    <string name="listarFVEnDonacion">Listar Fruta o Verdura para Donacion</string>
     <string name="listarProveedoresFV">Listar Proveedores Registrados</string>
     <string name="informacionDeFuncionalidadAplicacion">Informacion Sobre Funcionalidad de la Aplicacion</string>
 
@@ -50,6 +53,12 @@
         ayudara
         para consultas de las mismas y futuros registros que permitiran mostrar estadisticas de los productos
         relacionados con sus operaciones correspondientes.
+    </string>
+
+
+    <!--Titulos de Centros de Atencion Al adulto Mayor-->
+    <string name="tituloCentroAtencion">Centro de Atencion al Adulto Mayor
+        Hogar del Anciano San Vicente de Paul"
     </string>
 
 

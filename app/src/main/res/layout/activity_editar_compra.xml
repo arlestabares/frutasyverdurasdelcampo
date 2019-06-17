@@ -32,7 +32,7 @@
                     android:id="@+id/spinnerOpcionEC"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="130dp"
+                    android:layout_marginTop="90dp"
                     android:padding="8dp"
                     android:layout_marginRight="60dp"/>
             <Spinner
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:scrollbarSize="30dp"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="140dp"
                     android:padding="8dp"
                     android:layout_marginRight="60dp"/>
             <EditText
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerListaEC"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:hint="Precio Libra"
                     android:layout_marginLeft="20dp"/>
             <EditText
@@ -57,14 +57,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtPrecioLibraEC"
                     android:hint="Libras"
-                    android:layout_marginTop="20dp"
+
                     android:layout_marginLeft="20dp"/>
             <EditText
                     android:id="@+id/ediTxtBultosEC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtLibrasEC"
-                    android:layout_marginTop="20dp"
                     android:hint="Bultos"
                     android:layout_marginLeft="20dp"/>
             <Spinner
@@ -73,34 +72,57 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/ediTxtBultosEC"
                     android:padding="8dp"
-                    android:layout_marginRight="60dp"
-                    android:layout_marginTop="20dp"/>
-            <EditText
-                    android:id="@+id/ediTxtFechaRegistroEC"
+                    android:layout_marginRight="60dp"/>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/linearFecha"
+                    android:layout_below="@+id/spinnerProcedenciaEC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fecha Registro"
-                    android:layout_below="@+id/spinnerProcedenciaEC"
-                    android:layout_marginTop="20dp"
-                    android:ems="10"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginTop="10dp">
+                <EditText
+                        android:id="@+id/ediTxtFechaRegistroEC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Fecha Registro"
+                        android:layout_below="@+id/spinnerProcedenciaEC"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                <Button
+                        android:id="@+id/btnFecha"
+                        android:text="Seleccione Fecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/molde_btn_varios_background"/>
+
+
+            </LinearLayout>
             <Button
                     android:id="@+id/btnEditarRegistroEC"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ediTxtFechaRegistroEC"
+                    android:layout_height="38dp"
+                    android:layout_below="@+id/linearFecha"
                     android:layout_marginTop="50dp"
-                    android:layout_marginLeft="50dp"
-                    android:text="  Registrar  "
+                    android:layout_marginLeft="30dp"
+                    android:text="Registrar"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:background="@drawable/molde_btn_varios_background"/>
             <Button
                     android:id="@+id/btnCancelarRegistroEC"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ediTxtFechaRegistroEC"
-                    android:layout_marginLeft="230dp"
+                    android:layout_height="38dp"
+                    android:layout_below="@+id/linearFecha"
+                    android:layout_marginLeft="220dp"
                     android:layout_marginTop="50dp"
-                    android:text="  Cancelar  "
+                    android:text="Cancelar"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+
                     android:background="@drawable/molde_btn_varios_background"/>
         </RelativeLayout>
     </ScrollView>

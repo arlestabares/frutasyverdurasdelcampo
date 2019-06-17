@@ -1,7 +1,9 @@
 package com.example.nadie.megafrutasyverduras.actividades
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +21,8 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
     lateinit var registroStock: Registro
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerFrutas: ArrayAdapter<CharSequence>
+    lateinit var dialogOnClickListener: DialogInterface.OnClickListener
+    lateinit var builder: AlertDialog.Builder
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +54,25 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
     }
 
     /**
+     *
+     */
+    fun cuadroDeDialogo(){
+        dialogOnClickListener =DialogInterface.OnClickListener { dialog, which ->
+
+
+            when(which){
+                DialogInterface.BUTTON_POSITIVE -> {
+                    finish()
+                }
+
+            }
+        }
+
+    }
+
+
+
+    /**
      * Funcion encargada de disparar los eventos sobre los botones
      * dentro de la interfaz con sus respectivas acciones
      */
@@ -79,7 +102,8 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
             finish()
 
         } else if (v?.id == btnCancelarFS.id) {
-            finish()
+               builder.setMessage("Esta seguro").setPositiveButton("OK",dialogOnClickListener).show()
+
         }
     }
 
@@ -94,7 +118,7 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        ediTxtFechaRegistroFS.setOnClickListener {
+        btnFecha.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + day)

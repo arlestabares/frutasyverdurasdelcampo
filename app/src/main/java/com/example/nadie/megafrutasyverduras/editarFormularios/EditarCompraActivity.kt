@@ -58,7 +58,7 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
      * en AdapterCompra.
      * y que es necesaria para saber cual es la posicion donde esta el objeto a editar en esta activida.
      * @tipoProducto Variable local, contiene un arrayOf de tres elementos para ser seleccionados.
-     * @adapter Variable local, de tipo ArrayAdapter al cual se le asignara el la variable tipoProducto
+     * @adapter Variable local, de tipo ArrayAdapter al cual se le asignara a la variable tipoProducto
      * con un tipo de lista.
      * @posCiudad Variable local al metodo, es necesaria para ubicar la posicion en la que fue seleccionada
      * la ciudad  en la lista del spinner en el adapterCompra y asignarselo a la nueva variable
@@ -80,13 +80,14 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         ediTxtPrecioLibraEC.setText(registroCompra.precio.toString())
         ediTxtLibrasEC.setText(registroCompra.libras.toString())
         ediTxtBultosEC.setText(registroCompra.bultos.toString())
+        ediTxtFechaRegistroEC.setText(registroCompra.fechaRegistro)
 
 
         var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
         spinnerOpcionEC.adapter = adapter
 
-        /*Aqui le asignamos el valor al spinnerOpcionEC y al spinnerListaEC antes de las escuchas como tal,
+        /*Aqui le asignamos el valor al spinnerOpcionEC,
         ya que primero debemos cargar los valores que le llegan con el registroCompra y despues
         le asignamos las escuchas para capturar nuevamente alguna seleccion por parte del usuario
         De lo contrario no cargaria correptamente los valores asociados anteriormente en el registro*/
@@ -97,15 +98,22 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         asignar las escuchas con el onItemSelectedListener para su correpto funcionamiento.*/
 
         spinnerOpcionEC.onItemSelectedListener = this
-        spinnerListaEC.onItemSelectedListener = this
-        spinnerProcedenciaEC.onItemSelectedListener = this
+
+
+        adapterSpinnerFrutas =
+            ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
+
+        adapterSpinnerVerduras =
+            ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
 
         adapterSpinnerCiudad =
             ArrayAdapter.createFromResource(this, R.array.lista_ciudades, android.R.layout.simple_list_item_1)
         spinnerProcedenciaEC.adapter = adapterSpinnerCiudad
+        spinnerProcedenciaEC.onItemSelectedListener = this
 
         var posCiudad = adapterSpinnerCiudad.getPosition(registroCompra.procedencia)
         spinnerProcedenciaEC.setSelection(posCiudad)
+
 
 
     }
@@ -186,7 +194,7 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         val mont = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        ediTxtFechaRegistroEC.setOnClickListener {
+        btnFecha.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
@@ -210,15 +218,12 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         if (position == 0) {
             spinnerListaEC.adapter = null
         } else if (position == 1) {
-            adapterSpinnerFrutas =
-                ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
             spinnerListaEC.adapter = adapterSpinnerFrutas
             spinnerListaEC.setSelection(registroCompra.tipoLista)
 
+
         } else if (position == 2) {
 
-            adapterSpinnerVerduras =
-                ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
             spinnerListaEC.adapter = adapterSpinnerVerduras
             spinnerListaEC.setSelection(registroCompra.tipoLista)
         }

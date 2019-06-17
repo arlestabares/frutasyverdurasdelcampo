@@ -59,7 +59,7 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
 
         spinnerOpcionES.setSelection(registroStock.tipoOpcion)
         spinnerOpcionES.onItemSelectedListener = this
-        spinnerListaES.onItemSelectedListener=this
+
     }
 
     /**
@@ -73,7 +73,7 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        ediTxtFechaRegistroES.setOnClickListener {
+        btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
                 ediTxtFechaRegistroES.setText("" + dayOfMonth + "/" + month + "/" + year)
