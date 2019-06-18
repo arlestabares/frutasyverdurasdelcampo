@@ -13,11 +13,11 @@ class Donacion() : Parcelable{
 
 
     constructor(parcel: Parcel) : this() {
-        nombreDelCentro = parcel.readString()
-        direccion = parcel.readString()
-        telefono = parcel.readString()
-        correoElectronico = parcel.readString()
-        ciudadDelCentro = parcel.readString()
+        nombreDelCentro = parcel.readString()!!
+        direccion = parcel.readString()!!
+        telefono = parcel.readString()!!
+        correoElectronico = parcel.readString()!!
+        ciudadDelCentro = parcel.readString()!!
 
     }
 

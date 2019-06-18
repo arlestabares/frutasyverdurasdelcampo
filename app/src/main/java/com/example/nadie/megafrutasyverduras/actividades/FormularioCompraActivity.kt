@@ -7,17 +7,13 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_compra.*
-import org.jetbrains.anko.longToast
-import org.jetbrains.anko.toast
 import java.util.*
 
 class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -28,7 +24,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
     lateinit var adaptadorSpinnerCiudad: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
-    var cont: Int = 0
+
 
     /**
      * Funcion encargada de ejecutar los metodos o funciones para la correpta implementacion
@@ -164,16 +160,16 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
     fun mostrarCalendario() {
 
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val mont = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val v_year = c.get(Calendar.YEAR)
+        val v_mont = c.get(Calendar.MONTH)
+        val v_day = c.get(Calendar.DAY_OF_MONTH)
 
         btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                ediTxtFechaRegistroFC.setText("" + dayOfMonth + "/" + mont + "/" + year)
+                ediTxtFechaRegistroFC.setText("" + dayOfMonth + "/" + v_mont + "/" + year)
 
-            }, year, mont, day)
+            }, v_year, v_mont, v_day)
             dpd.show()
         }
     }

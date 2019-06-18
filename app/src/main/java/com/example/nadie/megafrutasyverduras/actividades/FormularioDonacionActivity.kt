@@ -13,7 +13,6 @@ import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_descomposicion.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
@@ -105,15 +104,15 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
     fun mostrarCalendario() {
 
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val v_year = c.get(Calendar.YEAR)
+        val v_month = c.get(Calendar.MONTH)
+        val v_day = c.get(Calendar.DAY_OF_MONTH)
 
         btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 ediTxtFechaRegistroFD.setText("" + dayOfMonth + "/" + month + "/" + year)
 
-            }, year, month, day)
+            }, v_year, v_month, v_day)
             dpd.show()
         }
 

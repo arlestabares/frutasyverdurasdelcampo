@@ -24,6 +24,11 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.toast
 
+
+/**
+ * @author Arles de Jesus Tabares Carvajal
+ *
+ */
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -269,7 +274,7 @@ class MainActivity : AppCompatActivity(),
             startActivityForResult(intent, 12)
         } else if (v == cardViewLRC) {
 
-            if(listaCompra!!.isEmpty()){
+            if(listaCompra.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else {
                 var intent = Intent(this, ListarCompraActivity::class.java)
@@ -282,7 +287,7 @@ class MainActivity : AppCompatActivity(),
             // intent.putParcelableArrayListExtra("registros", listaStock)
             startActivityForResult(intent, 14)
         } else if (v == cardViewLRStock) {
-            if (listaStock!!.isEmpty()){
+            if (listaStock.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else{
                 var intent = Intent(this, ListarStockActivity::class.java)
@@ -294,7 +299,7 @@ class MainActivity : AppCompatActivity(),
             // intent.putParcelableArrayListExtra("resgistros", listaParaDonacion)
             startActivityForResult(intent, 16)
         } else if (v == cardViewLD) {
-            if (listaParaDonacion!!.isEmpty()){
+            if (listaParaDonacion.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else {
                 var intent = Intent(this, ListarDonacionActivity::class.java)
@@ -307,7 +312,7 @@ class MainActivity : AppCompatActivity(),
             // intent.putExtra("registros", listaProveedores)
             startActivityForResult(intent, 18)
         } else if (v == cardViewLP) {
-            if (listaProveedores!!.isEmpty()){
+            if (listaProveedores.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else {
                 var intent = Intent(this, ListarProveedoresActivity::class.java)
@@ -387,7 +392,7 @@ class MainActivity : AppCompatActivity(),
                 for (registro in listaParaDonacion) {
                     if(registro.tipoOpcion == opcionFV && registro.tipoLista == listaFV){
                         if (registro.libras-libras!! > 0) {
-                            registro.libras = registro.libras - libras!!
+                            registro.libras = registro.libras-libras
                             Toast.makeText(this, "Debe Ingresar menor a las libras que existen", Toast.LENGTH_LONG).show()
                             break;
                         }

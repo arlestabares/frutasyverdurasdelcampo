@@ -53,17 +53,17 @@ class FormularioProveedorActivity : AppCompatActivity(), View.OnClickListener, A
     fun mostrarCalendario() {
 
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val v_year = c.get(Calendar.YEAR)
+        val v_month = c.get(Calendar.MONTH)
+        val v_day = c.get(Calendar.DAY_OF_MONTH)
 
         btnFecha.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + day)
+                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + v_day)
 
-            }, year, month, day)
+            }, v_year, v_month, v_day)
             dpd.show()
         }
 

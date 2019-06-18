@@ -11,10 +11,10 @@ class Proveedor() :Parcelable {
     lateinit var fechaRegistro:String
 
     constructor(parcel: Parcel) : this() {
-        nombre = parcel.readString()
-        telefono = parcel.readString()
-        ciudad = parcel.readString()
-        fechaRegistro = parcel.readString()
+        nombre = parcel.readString()!!
+        telefono = parcel.readString()!!
+        ciudad = parcel.readString()!!
+        fechaRegistro = parcel.readString()!!
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
