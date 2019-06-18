@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_descomposicion.*
@@ -66,27 +67,35 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
 
         if (v?.id == btnRegistrarFD.id) {
 
-            var spinnerLista: String = spinnerListaFD.selectedItem.toString()
-            var libras: Int = ediTxtLibrasFD.text.toString().toInt()
-            var bultos: Int = ediTxtBultosFD.text.toString().toInt()
-            var fechaRegistro: String = ediTxtFechaRegistroFD.text.toString()
+            if (!spinnerOpcionFD.selectedItem.toString().equals("Seleccione Opcion")
+                && !spinnerListaFD.selectedItem.toString().equals("Seleccione Fruta")
+                && !spinnerListaFD.selectedItem.toString().equals("Seleccione Verdura")
+                && !ediTxtLibrasFD.text.isEmpty()
+                && !ediTxtBultosFD.text.isEmpty()
+                && !ediTxtFechaRegistroFD.text.isEmpty()) {
 
-            registro = Registro()
+                registro = Registro()
 
-            registro.nombre = spinnerLista
-            registro.libras = libras
-            registro.bultos = bultos
-            registro.fechaRegistro = fechaRegistro
-            registro.tipoOpcion = spinnerOpcionFD.selectedItemPosition
-            registro.tipoLista = spinnerListaFD.selectedItemPosition
+                registro.nombre = spinnerListaFD.selectedItem.toString()
+                registro.libras = ediTxtLibrasFD.text.toString().toInt()
+                registro.bultos = ediTxtBultosFD.text.toString().toInt()
+                registro.fechaRegistro = ediTxtFechaRegistroFD.text.toString()
+
+                registro.tipoOpcion = spinnerOpcionFD.selectedItemPosition
+                registro.tipoLista = spinnerListaFD.selectedItemPosition
 
 
-            /*intent con destino a  InterfazFragmentActivity , quien se encargar de gestionar el envio
-              de dicho registro con sus datos hacia la actividad que lo requiera */
-            var intent = Intent()
-            intent.putExtra("registroParaDonacion", registro)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+                /*intent con destino a  InterfazFragmentActivity , quien se encargar de gestionar el envio
+                  de dicho registro con sus datos hacia la actividad que lo requiera */
+                var intent = Intent()
+                intent.putExtra("registroParaDonacion", registro)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+
+            } else {
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
 
         } else if (v?.id == btnCancelarFD.id) {
             finish()
@@ -115,9 +124,9 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
         if (position == 0) {
             spinnerListaFD.adapter = null
         } else if (position == 1) {
-             spinnerListaFD.adapter = adapterSpinnerFrutas
+            spinnerListaFD.adapter = adapterSpinnerFrutas
         } else if (position == 2) {
-           spinnerListaFD.adapter = adapterSpinnerVerduras
+            spinnerListaFD.adapter = adapterSpinnerVerduras
         }
 
     }

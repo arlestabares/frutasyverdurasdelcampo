@@ -6,10 +6,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.CalendarView
-import android.widget.Spinner
+import android.widget.*
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import kotlinx.android.synthetic.main.activity_formulario_proveedor.*
@@ -78,30 +75,36 @@ class FormularioProveedorActivity : AppCompatActivity(), View.OnClickListener, A
      */
     override fun onClick(v: View?) {
 
-        if (v?.id == btnCancelarFS.id) {
-            finish()
 
-        } else if (v?.id == btnRegistrarFS.id) {
+        if (v?.id == btnRegistrarFS.id) {
 
-            val nombre: String = ediTxtNombreP.text.toString()
-            val telefono: String = ediTxtTelefonoP.text.toString()
-            val ciudad: String = spinnerCiudadP.selectedItem.toString()
-            val fechaRegistro: String = ediTxtFechaRegistroFS.text.toString()
+            if (!ediTxtNombreP.text.isEmpty()&&!ediTxtTelefonoP.text.isEmpty()
+                && !spinnerCiudadP.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")
+                &&!ediTxtFechaRegistroFS.text.isEmpty()){
 
-            registroProveedor = Proveedor()
+                registroProveedor = Proveedor()
 
-            registroProveedor.nombre = nombre
-            registroProveedor.ciudad = ciudad
-            registroProveedor.telefono = telefono
-            registroProveedor.fechaRegistro = fechaRegistro
+                registroProveedor.nombre = ediTxtNombreP.text.toString()
+                registroProveedor.ciudad = spinnerCiudadP.selectedItem.toString()
+                registroProveedor.telefono = ediTxtTelefonoP.text.toString()
+                registroProveedor.fechaRegistro = ediTxtFechaRegistroFS.text.toString()
 
-            //  listaProveedores.add(registroProveedor)
-            var intent = Intent()
-            intent.putExtra("registroProveedor", registroProveedor)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+                //  listaProveedores.add(registroProveedor)
+                var intent = Intent()
+                intent.putExtra("registroProveedor", registroProveedor)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
 
-        }
+            }else{
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
+
+
+        }else if (v?.id == btnCancelarFS.id) {
+                finish()
+
+            }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -65,6 +65,7 @@
                         android:layout_below="@+id/ediTxtTelefonoEP"
                         android:layout_marginTop="1dp"
                         android:hint="Fecha Registro"
+                        android:inputType="date"
                         android:layout_marginLeft="20dp"/>
 
                 <Button

@@ -152,28 +152,48 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
 
         if (v?.id == btnEditarRegistroEC.id) {
 
-            registroCompra.tipoOpcion = spinnerOpcionEC.selectedItemPosition
-            registroCompra.tipoLista = spinnerListaEC.selectedItemPosition
-            registroCompra.precio = ediTxtPrecioLibraEC.text.toString().toInt()
-            registroCompra.libras = ediTxtLibrasEC.text.toString().toInt()
-            registroCompra.bultos = ediTxtBultosEC.text.toString().toInt()
-            registroCompra.procedencia = spinnerProcedenciaEC.selectedItem.toString()
-            registroCompra.fechaRegistro = ediTxtFechaRegistroEC.text.toString()
-            registroCompra.nombre = spinnerListaEC.selectedItem.toString()
+
+            if (!spinnerOpcionEC.selectedItem.toString().equals("Seleccione Opcion")
+                &&!spinnerListaEC.selectedItem.toString().equals("Seleccione Fruta")
+                &&!spinnerListaEC.selectedItem.toString().equals("Seleccione Verdura")
+                &&!ediTxtPrecioLibraEC.text.isEmpty()
+                &&!ediTxtLibrasEC.text.isEmpty()
+                &&!ediTxtBultosEC.text.isEmpty()
+                &&!spinnerProcedenciaEC.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")
+                &&!ediTxtFechaRegistroEC.text.toString().isEmpty()){
 
 
-            /* intent que se envia a ListarCompraActivity como respuesta al ActivityForResult,
-            ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
-            una respuesta por enviar,
-            ya que este espera una respuesta con un objeto registroCompra y una posicion para llevar a cabo la
-            actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
-            tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
-            val intent = Intent()
-            intent.putExtra("editarRegistro", registroCompra)
-            intent.putExtra("posicion", posicion)
-            setResult(Activity.RESULT_OK, intent)
 
-            finish()
+                registroCompra.nombre = spinnerListaEC.selectedItem.toString()
+                registroCompra.precio = ediTxtPrecioLibraEC.text.toString().toInt()
+                registroCompra.libras = ediTxtLibrasEC.text.toString().toInt()
+                registroCompra.bultos = ediTxtBultosEC.text.toString().toInt()
+                registroCompra.procedencia = spinnerProcedenciaEC.selectedItem.toString()
+                registroCompra.fechaRegistro = ediTxtFechaRegistroEC.text.toString()
+
+
+                registroCompra.tipoOpcion = spinnerOpcionEC.selectedItemPosition
+                registroCompra.tipoLista = spinnerListaEC.selectedItemPosition
+
+
+                /* intent que se envia a ListarCompraActivity como respuesta al ActivityForResult,
+                ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
+                una respuesta por enviar,
+                ya que este espera una respuesta con un objeto registroCompra y una posicion para llevar a cabo la
+                actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
+                tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
+                val intent = Intent()
+                intent.putExtra("editarRegistro", registroCompra)
+                intent.putExtra("posicion", posicion)
+                setResult(Activity.RESULT_OK, intent)
+
+                finish()
+
+            }else{
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
+
 
         } else if (v?.id == btnCancelarRegistroEC.id) {
 

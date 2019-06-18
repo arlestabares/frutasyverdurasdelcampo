@@ -18,7 +18,7 @@
                     android:id="@+id/txtTitulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingresar Fruta o Verdura en Descomposion"
+                    android:text="@string/tituloDonacion"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtBultosFD"
-                        android:inputType="text"
+                        android:inputType="date"
                         android:hint="Fecha de Registro"
                         android:layout_marginLeft="20dp"/>
 

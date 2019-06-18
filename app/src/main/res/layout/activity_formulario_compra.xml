@@ -91,6 +91,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Fecha de Registro "
                         android:layout_below="@+id/spinnerCiudadFC"
+                        android:inputType="date"
                         android:layout_marginLeft="20dp"/>
 
 

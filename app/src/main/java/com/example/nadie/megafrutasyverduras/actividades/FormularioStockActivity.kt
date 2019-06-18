@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_stock.*
@@ -56,11 +57,11 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
     /**
      *
      */
-    fun cuadroDeDialogo(){
-        dialogOnClickListener =DialogInterface.OnClickListener { dialog, which ->
+    fun cuadroDeDialogo() {
+        dialogOnClickListener = DialogInterface.OnClickListener { dialog, which ->
 
 
-            when(which){
+            when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     finish()
                 }
@@ -69,7 +70,6 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
         }
 
     }
-
 
 
     /**
@@ -82,27 +82,36 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
         if (v?.id == btnRegistrarFS.id) {
 
 
-            var spinnerNombre: String = spinnerListaFS.selectedItem.toString()
-            var libras: Int = ediTxtLibrasFS.text.toString().toInt()
-            var bultos: Int = ediTxtBultosFS.text.toString().toInt()
-            var fechaRegistro: String = ediTxtFechaRegistroFS.text.toString()
+            if (!spinnerOpcionFS.selectedItem.toString().equals("Seleccione opcion")
+                && !spinnerListaFS.selectedItem.toString().equals("Seleccione Fruta")
+                && !spinnerListaFS.selectedItem.toString().equals("Seleccione Verdura")
+                && !ediTxtLibrasFS.text.isEmpty()
+                && !ediTxtBultosFS.text.isEmpty()
+                && !ediTxtFechaRegistroFS.text.toString().isEmpty()) {
 
-            registroStock = Registro()
 
-            registroStock.nombre = spinnerNombre
-            registroStock.libras = libras
-            registroStock.bultos = bultos
-            registroStock.fechaRegistro = fechaRegistro
-            registroStock.tipoOpcion = spinnerOpcionFS.selectedItemPosition
-            registroStock.tipoLista = spinnerListaFS.selectedItemPosition
+                registroStock = Registro()
 
-            var intent = Intent()
-            intent.putExtra("registroFormularioStock", registroStock)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+                registroStock.nombre = spinnerListaFS.selectedItem.toString()
+                registroStock.libras = ediTxtLibrasFS.text.toString().toInt()
+                registroStock.bultos = ediTxtBultosFS.text.toString().toInt()
+                registroStock.fechaRegistro = ediTxtFechaRegistroFS.text.toString()
+
+                registroStock.tipoOpcion = spinnerOpcionFS.selectedItemPosition
+                registroStock.tipoLista = spinnerListaFS.selectedItemPosition
+
+                var intent = Intent()
+                intent.putExtra("registroFormularioStock", registroStock)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+
+            }else{
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
 
         } else if (v?.id == btnCancelarFS.id) {
-               builder.setMessage("Esta seguro").setPositiveButton("OK",dialogOnClickListener).show()
+            builder.setMessage("Esta seguro").setPositiveButton("OK", dialogOnClickListener).show()
 
         }
     }

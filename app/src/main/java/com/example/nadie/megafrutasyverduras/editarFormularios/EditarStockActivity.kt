@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_editar_stock.*
@@ -53,7 +54,7 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
         ediTxtFechaRegistroES.setText(registroStock.fechaRegistro)
 
 
-        var tipoProducto = arrayOf("SeleccioneOpcin", "Fruta", "Verdura")
+        var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
         spinnerOpcionES.adapter = adapter
 
@@ -108,23 +109,33 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
     override fun onClick(v: View?) {
 
         if (v?.id == btnEditarES.id) {
+            if (!spinnerOpcionES.selectedItem.toString().equals("Seleccione Opcion")
+                &&!spinnerListaES.selectedItem.toString().equals("Seleccione Fruta")
+                &&!spinnerListaES.selectedItem.toString().equals("Seleccione Verdura")
+                &&! ediTxtLibrasES.text.isEmpty()
+                &&!ediTxtBultosES.text.isEmpty()) {
 
 
-            registroStock.libras = ediTxtLibrasES.text.toString().toInt()
-            registroStock.bultos = ediTxtBultosES.text.toString().toInt()
-            registroStock.fechaRegistro = ediTxtFechaRegistroES.text.toString()
-            registroStock.tipoOpcion = spinnerOpcionES.selectedItemPosition
-            registroStock.tipoLista = spinnerListaES.selectedItemPosition
-            registroStock.nombre = spinnerListaES.selectedItem.toString()
+                registroStock.nombre = spinnerListaES.selectedItem.toString()
+                registroStock.libras = ediTxtLibrasES.text.toString().toInt()
+                registroStock.bultos = ediTxtBultosES.text.toString().toInt()
+                registroStock.fechaRegistro = ediTxtFechaRegistroES.text.toString()
 
-            /*Intent con destino a la actividad ListarStockActivity, encargada de verificar
-              que este objeto que le llega se envie de nuevo al AdapterStock para su actualizacion
-              correspondiente y asi inflar nuevamente la lista con el registro actualizado. */
-            var intent = Intent()
-            intent.putExtra("editarStock", registroStock)
-            intent.putExtra("posicion", pos)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+                registroStock.tipoOpcion = spinnerOpcionES.selectedItemPosition
+                registroStock.tipoLista = spinnerListaES.selectedItemPosition
+
+                /*Intent con destino a la actividad ListarStockActivity, encargada de verificar
+                  que este objeto que le llega se envie de nuevo al AdapterStock para su actualizacion
+                  correspondiente y asi inflar nuevamente la lista con el registro actualizado. */
+                var intent = Intent()
+                intent.putExtra("editarStock", registroStock)
+                intent.putExtra("posicion", pos)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            } else {
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
 
         } else if (v?.id == btnCancelarES.id) {
 

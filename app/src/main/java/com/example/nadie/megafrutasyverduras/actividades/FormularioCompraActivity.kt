@@ -7,10 +7,12 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_compra.*
@@ -26,7 +28,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
     lateinit var adaptadorSpinnerCiudad: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
-    var bandera: Int = 0
+    var cont: Int = 0
 
     /**
      * Funcion encargada de ejecutar los metodos o funciones para la correpta implementacion
@@ -53,7 +55,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         btnCancelarFC.setOnClickListener(this)
         btnFecha.setOnClickListener(this)
 
-        registroCompra= Registro()
+        registroCompra = Registro()
 
         var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
@@ -69,7 +71,6 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         adaptadorSpinnerCiudad =
             ArrayAdapter.createFromResource(this, R.array.lista_ciudades, android.R.layout.simple_list_item_1)
         spinnerCiudadFC.adapter = adaptadorSpinnerCiudad
-
 
 
     }
@@ -109,39 +110,40 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
      */
     override fun onClick(v: View?) {
 
+
         if (v?.id == btnRegistrarFC.id) {
 
-            if(!ediTxtPrecioLibraFC.text.isEmpty() && !ediTxtLibrasFC.text.isEmpty() && !ediTxtBultosFC.text.isEmpty()) {
 
-                var spinnerOpciones: String = spinnerListaFC.selectedItem.toString()
-                var precio: Int = ediTxtPrecioLibraFC.text.toString().toInt()
-                var libras: Int = ediTxtLibrasFC.text.toString().toInt()
-                var bultos: Int = ediTxtBultosFC.text.toString().toInt()
-                var fechaRegistro: String = ediTxtFechaRegistroFC.text.toString()
-                var procedencia: String = spinnerCiudadFC.selectedItem.toString()
+            if (!spinnerOpcionFC.selectedItem.toString().equals("Seleccione Opcion")
+                && !spinnerListaFC.selectedItem.toString().equals("Seleccione Fruta")
+                && !spinnerListaFC.selectedItem.toString().equals("Seleccione Verdura")
+                && !ediTxtPrecioLibraFC.text.isEmpty()
+                && !ediTxtLibrasFC.text.isEmpty()
+                && !ediTxtBultosFC.text.isEmpty()
+                && !ediTxtFechaRegistroFC.text.isEmpty()
+                && !spinnerCiudadFC.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")) {
+
+
+                /*El objeto registroCompra sera enviado mediante el intent al MainActivity que contiene la logica del negocio
+                 con sus valores asociados para ser enviado a las actividades que lo requieran*/
 
                 registroCompra = Registro()
 
-                registroCompra.precio = precio
-                registroCompra.libras = libras
-                registroCompra.bultos = bultos
-                registroCompra.fechaRegistro = fechaRegistro
-                registroCompra.procedencia = procedencia
-                registroCompra.nombre = spinnerOpciones
-
+                registroCompra.nombre = spinnerListaFC.selectedItem.toString()
+                registroCompra.precio = ediTxtPrecioLibraFC.text.toString().toInt()
+                registroCompra.libras = ediTxtLibrasFC.text.toString().toInt()
+                registroCompra.bultos = ediTxtBultosFC.text.toString().toInt()
+                registroCompra.fechaRegistro = ediTxtFechaRegistroFC.text.toString()
+                registroCompra.procedencia = spinnerCiudadFC.selectedItem.toString()
                 registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
                 registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
 
-
-                /*El objeto registroCompra que sera enviado mediante el intent al fragment que contiene la logica del negocio
-            InterfazPrincipalFragment con sus valores asociados para ser enviado a las actividades que lo requieran*/
                 var intent = Intent()
                 intent.putExtra("registroCompra", registroCompra)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
-
-            }else{
-                toast("error")
+            } else {
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
             }
 
         } else if (v?.id == btnCancelarFC.id) {

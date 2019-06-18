@@ -19,7 +19,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
     lateinit var adapterSpinnerFundaciones: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerFruta: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerVerdura: ArrayAdapter<CharSequence>
-    var registroDonacion:ArrayList<Registro>?=null
+    var registroDonacion: ArrayList<Registro>? = null
     var libras: Int = 0
 
 
@@ -31,7 +31,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
         btnDonar.setOnClickListener(this)
 
         //registroDonacion = intent.getParcelableExtra("registro_Desde_Activity_Main")
-            registroDonacion=intent.getParcelableArrayListExtra("registroDonacion")
+        registroDonacion = intent.getParcelableArrayListExtra("registroDonacion")
         Log.e("lista donacion", registroDonacion.toString())
 
 
@@ -56,21 +56,21 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
 
         if (v?.id == btnCantidadDonar.id) {
 
-           // ediTxtCantidad.setText(registroDonacion.libras.toString())
+            // ediTxtCantidad.setText(registroDonacion.libras.toString())
 
-            for ( registro in registroDonacion!! ){
+            for (registro in registroDonacion!!) {
 
-                if(registro.tipoOpcion == spinnerOpcionFV.selectedItemPosition && registro.tipoLista == spinnerListaFV.selectedItemPosition){
-                    libras+=registro.libras
+                if (registro.tipoOpcion == spinnerOpcionFV.selectedItemPosition && registro.tipoLista == spinnerListaFV.selectedItemPosition) {
+                    libras += registro.libras
                 }
 
             }
 
-            Toast.makeText(this, "La cantidad de libras disponibles para donar es = "+libras , Toast.LENGTH_LONG)
+            Toast.makeText(this, "La cantidad de libras disponibles para donar es = " + libras, Toast.LENGTH_LONG)
                 .show()
 
-        }else{
-
+        }
+        else {
             var intent = Intent()
             intent.putExtra("libras", ediTxtCantidad.text.toString().toInt())
             intent.putExtra("opcionFV", spinnerOpcionFV.selectedItemPosition)
@@ -78,6 +78,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -86,6 +87,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
             spinnerListaFV.adapter = null
         } else if (position == 1) {
             spinnerListaFV.adapter = adapterSpinnerFruta
+
         } else if (position == 2) {
             spinnerListaFV.adapter = adapterSpinnerVerdura
 

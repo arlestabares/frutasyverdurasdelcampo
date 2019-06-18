@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Producto
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
@@ -385,8 +386,11 @@ class MainActivity : AppCompatActivity(),
 
                 for (registro in listaParaDonacion) {
                     if(registro.tipoOpcion == opcionFV && registro.tipoLista == listaFV){
-                        registro.libras = registro.libras-libras!!
-                        break;
+                        if (registro.libras-libras!! > 0) {
+                            registro.libras = registro.libras - libras!!
+                            Toast.makeText(this, "Debe Ingresar menor a las libras que existen", Toast.LENGTH_LONG).show()
+                            break;
+                        }
                     }
                 }
 

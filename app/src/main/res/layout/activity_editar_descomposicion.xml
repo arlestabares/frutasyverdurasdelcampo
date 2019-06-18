@@ -20,7 +20,7 @@
                     android:id="@+id/txtTitulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Editar Fruta o Verdura en Descomposion"
+                    android:text="Editar Fruta o Verdura Para Donacion"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -54,6 +54,7 @@
                     android:layout_below="@+id/spinnerListaED"
                     android:layout_marginTop="10dp"
                     android:hint="Libras"
+                    android:inputType="number"
                     android:layout_marginLeft="20dp"/>
 
             <EditText
@@ -63,6 +64,7 @@
                     android:layout_below="@+id/ediTxtLibrasED"
                     android:layout_marginTop="1dp"
                     android:hint="Bultos"
+                    android:inputType="number"
                     android:layout_marginLeft="20dp"/>
 
             <LinearLayout
@@ -78,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtBultosED"
                         android:hint="Fecha de Registro"
+                        android:inputType="date"
                         android:layout_marginLeft="20dp"/>
 
                 <Button

@@ -33,6 +33,10 @@
     <string name="informacionDeFuncionalidadAplicacion">Informacion Sobre Funcionalidad de la Aplicacion</string>
 
 
+    <!--Titulos de los Formularios de La aplicacion -->
+    <string name="tituloDonacion">Ingresar Fruta o Verdura Para Donacion</string>
+
+
     <string name="ayudaAplicacionBloqueUno">Bienvenido a la aplicacion de compra de frutas y verduras,
         esta lectura le ayudara a informarse de la funcionalidad y la navegacion de la misma.
 

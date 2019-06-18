@@ -69,6 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Fecha Registro"
+                        android:inputType="date"
                         android:layout_marginLeft="20dp"/>
                 <Button
                         android:id="@+id/btnFecha"

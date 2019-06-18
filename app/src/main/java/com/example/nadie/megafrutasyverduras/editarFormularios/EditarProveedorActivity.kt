@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.adapter.AdapterProveedores
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
@@ -60,17 +61,26 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
 
         if (v?.id == btnEditarProveedorEP.id) {
 
-            registroProveedor.nombre = ediTxtNombreEP.text.toString()
-            registroProveedor.ciudad = spinnerCiudadEP.selectedItem.toString()
-            registroProveedor.telefono = ediTxtTelefonoEP.text.toString()
-            registroProveedor.fechaRegistro = ediTxtFechaRegistroEP.text.toString()
 
-            val intent = Intent()
-            intent.putExtra("registro", registroProveedor)
-            intent.putExtra("posicion", posicion)
-            setResult(Activity.RESULT_OK, intent)
+            if (!ediTxtNombreEP.text.isEmpty()&&!spinnerCiudadEP.selectedItem.toString().isEmpty()
+                &&! ediTxtTelefonoEP.text.isEmpty()&&!ediTxtFechaRegistroEP.text.isEmpty()){
 
-            finish()
+
+                registroProveedor.nombre = ediTxtNombreEP.text.toString()
+                registroProveedor.ciudad = spinnerCiudadEP.selectedItem.toString()
+                registroProveedor.telefono = ediTxtTelefonoEP.text.toString()
+                registroProveedor.fechaRegistro = ediTxtFechaRegistroEP.text.toString()
+
+                val intent = Intent()
+                intent.putExtra("registro", registroProveedor)
+                intent.putExtra("posicion", posicion)
+                setResult(Activity.RESULT_OK, intent)
+
+                finish()
+            }else{
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
 
         }
     }

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_editar_descomposicion.*
@@ -59,7 +60,13 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
 
         spinnerOpcionED.setSelection(registroParaDonacion.tipoOpcion)
         spinnerOpcionED.onItemSelectedListener = this
-        spinnerListaED.onItemSelectedListener = this
+
+
+        adapterSpinnerFrutas =
+            ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
+
+        adapterSpinnerVerduras =
+            ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
 
     }
 
@@ -106,26 +113,39 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
 
         if (v?.id == btnEditarED.id) {
 
-            registroParaDonacion.nombre = spinnerListaED.selectedItem.toString()
-            registroParaDonacion.libras = ediTxtLibrasED.text.toString().toInt()
-            registroParaDonacion.bultos = ediTxtBultosED.text.toString().toInt()
-            registroParaDonacion.fechaRegistro = ediTxtFechaRegistroED.text.toString()
+            if (!spinnerOpcionED.selectedItem.toString().equals("Seleccionar opcion")
+                &&!spinnerListaED.selectedItem.toString().equals("Seleccione Fruta")
+                &&!spinnerListaED.selectedItem.toString().equals("Seleccione Verdura")
+                &&!ediTxtLibrasED.text.isEmpty()
+                &&!ediTxtBultosED.text.isEmpty()
+                &&!ediTxtFechaRegistroED.text.isEmpty()){
 
-            registroParaDonacion.tipoOpcion = spinnerOpcionED.selectedItemPosition
-            registroParaDonacion.tipoLista = spinnerListaED.selectedItemPosition
 
-            /* intent que se envia a ListarDonacionActivity como respuesta al ActivityForResult,
-            ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
-            una respuesta por enviar.
-            ya que este espera una respuesta con un objeto registroParaDonacion y una posicion para llevar a cabo la
-            actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
-            tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
-            val intent = Intent()
-            intent.putExtra("editarDonacion", registroParaDonacion)
-            intent.putExtra("posicionObjeto", posicion)
-            setResult(Activity.RESULT_OK, intent)
+                registroParaDonacion.nombre = spinnerListaED.selectedItem.toString()
+                registroParaDonacion.libras = ediTxtLibrasED.text.toString().toInt()
+                registroParaDonacion.bultos = ediTxtBultosED.text.toString().toInt()
+                registroParaDonacion.fechaRegistro = ediTxtFechaRegistroED.text.toString()
 
-            finish()
+                registroParaDonacion.tipoOpcion = spinnerOpcionED.selectedItemPosition
+                registroParaDonacion.tipoLista = spinnerListaED.selectedItemPosition
+
+                /* intent que se envia a ListarDonacionActivity como respuesta al ActivityForResult,
+                ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
+                una respuesta por enviar.
+                ya que este espera una respuesta con un objeto registroParaDonacion y una posicion para llevar a cabo la
+                actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
+                tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
+                val intent = Intent()
+                intent.putExtra("editarDonacion", registroParaDonacion)
+                intent.putExtra("posicionObjeto", posicion)
+                setResult(Activity.RESULT_OK, intent)
+
+                finish()
+            }else{
+                Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
+            }
+
+
 
         } else if (v?.id == btnCancelarED.id) {
 
@@ -146,14 +166,10 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
         if (position == 0) {
             spinnerListaED.adapter = null
         } else if (position == 1) {
-            adapterSpinnerFrutas =
-                ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
             spinnerListaED.adapter = adapterSpinnerFrutas
             spinnerListaED.setSelection(registroParaDonacion.tipoLista)
 
         } else if (position == 2) {
-            adapterSpinnerVerduras =
-                ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
             spinnerListaED.adapter = adapterSpinnerVerduras
             spinnerListaED.setSelection(registroParaDonacion.tipoLista)
         }
