@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_stock.*
 import java.util.*
 
@@ -130,7 +131,7 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
         btnFecha.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + v_day)
+                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + year)
             }, v_day, v_month, v_year)
             dpd.show()
         }

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_descomposicion.*
 import java.util.*
 
@@ -82,7 +83,6 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
 
                 registro.tipoOpcion = spinnerOpcionFD.selectedItemPosition
                 registro.tipoLista = spinnerListaFD.selectedItemPosition
-
 
                 /*intent con destino a  InterfazFragmentActivity , quien se encargar de gestionar el envio
                   de dicho registro con sus datos hacia la actividad que lo requiera */

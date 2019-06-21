@@ -21,6 +21,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
     lateinit var adapterSpinnerVerdura: ArrayAdapter<CharSequence>
     var registroDonacion: ArrayList<Registro>? = null
     var libras: Int = 0
+    var calculado:Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,15 +54,23 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
 
     override fun onClick(v: View?) {
 
-
         if (v?.id == btnCantidadDonar.id) {
 
-            // ediTxtCantidad.setText(registroDonacion.libras.toString())
+            if(!calculado) {
 
-            for (registro in registroDonacion!!) {
+                calculado = true
 
-                if (registro.tipoOpcion == spinnerOpcionFV.selectedItemPosition && registro.tipoLista == spinnerListaFV.selectedItemPosition) {
-                    libras += registro.libras
+                for (registro in registroDonacion!!) {
+
+                    if (registro.tipoOpcion == spinnerOpcionFV.selectedItemPosition
+                        && registro.tipoLista == spinnerListaFV.selectedItemPosition && registro.libras > 0
+                    ) {
+
+                        libras += registro.libras
+
+                    } else {
+                        Toast.makeText(this, "No hay libras en stock para donar = " + libras, Toast.LENGTH_LONG)
+                    }
                 }
 
             }
@@ -69,16 +78,22 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
             Toast.makeText(this, "La cantidad de libras disponibles para donar es = " + libras, Toast.LENGTH_LONG)
                 .show()
 
-        }
-        else {
-            var intent = Intent()
-            intent.putExtra("libras", ediTxtCantidad.text.toString().toInt())
-            intent.putExtra("opcionFV", spinnerOpcionFV.selectedItemPosition)
-            intent.putExtra("listaFV", spinnerListaFV.selectedItemPosition)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
-        }
+        }else if (v?.id==btnDonar.id){
 
+            if (ediTxtCantidad.text.toString().toInt() > libras){
+                Toast.makeText(this, "Debe ingresar un valor menor o igual a las " +
+                        "libras disponibles  que son = " + libras, Toast.LENGTH_LONG).show()
+            }else{
+                var intent = Intent()
+                intent.putExtra("libras", ediTxtCantidad.text.toString().toInt())
+                intent.putExtra("opcionFV", spinnerOpcionFV.selectedItemPosition)
+                intent.putExtra("listaFV", spinnerListaFV.selectedItemPosition)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
+
+
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

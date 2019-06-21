@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_compra.*
 import java.util.*
 
@@ -134,6 +135,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
                 registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
                 registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
 
+
                 var intent = Intent()
                 intent.putExtra("registroCompra", registroCompra)
                 setResult(Activity.RESULT_OK, intent)
@@ -167,7 +169,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                ediTxtFechaRegistroFC.setText("" + dayOfMonth + "/" + v_mont + "/" + year)
+                ediTxtFechaRegistroFC.setText("" + dayOfMonth + "/" + month + "/" + year)
 
             }, v_year, v_mont, v_day)
             dpd.show()

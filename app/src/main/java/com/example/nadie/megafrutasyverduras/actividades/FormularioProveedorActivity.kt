@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
+import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_proveedor.*
 import java.util.*
 
@@ -61,7 +62,7 @@ class FormularioProveedorActivity : AppCompatActivity(), View.OnClickListener, A
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + v_day)
+                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + year)
 
             }, v_year, v_month, v_day)
             dpd.show()

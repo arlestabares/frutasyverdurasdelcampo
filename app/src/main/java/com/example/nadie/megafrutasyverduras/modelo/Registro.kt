@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 class Registro() : Parcelable {
 
-     var nombre: String=""
+    var nombre: String=""
     var precio: Int = 0
     var libras: Int = 0
     var bultos: Int = 0
@@ -13,6 +13,7 @@ class Registro() : Parcelable {
     var fechaRegistro: String = ""
     var tipoOpcion: Int = 0
     var tipoLista: Int = 0
+    var id:String=""
 
     var producto: Producto? = null
     var proveedor: Proveedor? = null
@@ -26,6 +27,7 @@ class Registro() : Parcelable {
     }
 
     constructor(parcel: Parcel) : this() {
+        id=parcel.readString()
         nombre = parcel.readString()!!
         precio = parcel.readInt()
         libras = parcel.readInt()
@@ -38,6 +40,7 @@ class Registro() : Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
         parcel.writeString(nombre)
         parcel.writeInt(precio)
         parcel.writeInt(libras)

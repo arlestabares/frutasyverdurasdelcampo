@@ -19,6 +19,7 @@ import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Producto
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -30,19 +31,23 @@ import org.jetbrains.anko.toast
  *
  */
 class MainActivity : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ManagerFireBase.onActualizarAdaptador {
 
     lateinit var listaProductos: ArrayList<Producto>
     lateinit var listaCompra: ArrayList<Registro>
     lateinit var listaProveedores: ArrayList<Proveedor>
     lateinit var listaStock: ArrayList<Registro>
     lateinit var listaParaDonacion: ArrayList<Registro>
-
+    lateinit var managerFB:ManagerFireBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        ManagerFireBase.instanciar(this)
+        managerFB = ManagerFireBase.instant!!
+        managerFB.escucharEventoFireBase()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -121,7 +126,7 @@ class MainActivity : AppCompatActivity(),
             intent.putParcelableArrayListExtra("registroDonacion",listaParaDonacion)
            // intent.putExtra("registro_Desde_Activity_Main", listaParaDonacion)
 
-            Log.e("Mensaje desd activity", listaParaDonacion.toString())
+            Log.e("Mensaje_desde_activity", listaParaDonacion.toString())
             startActivityForResult(intent, 100)
 
         } else if (item.itemId == R.id.centrosParaDonacion) {
@@ -237,11 +242,14 @@ class MainActivity : AppCompatActivity(),
     fun registrarProducto(registro: Registro, bandera: Int) {
 
         if (bandera == 12) {
-            listaCompra.add(registro)
+            //listaCompra.add(registro)
+            managerFB.insertarCompra(registro)
         } else if (bandera == 14) {
             listaStock.add(registro)
+            managerFB.insertarStock(registro)
         } else if (bandera == 16) {
             listaParaDonacion.add(registro)
+            managerFB.insertarDonacion(registro)
 
         }
 
@@ -266,6 +274,19 @@ class MainActivity : AppCompatActivity(),
     fun editarProveedor(pos: Int, registro: Proveedor) {
         listaProveedores.set(pos, registro)
     }
+
+    override fun actualizarListaCompra(registro: Registro) {
+        listaCompra.add(registro)
+    }
+
+    override fun actualizarListaProveedor(proveedor: Proveedor) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun actualizarListaStock(registro: Registro) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
     override fun onClick(v: View?) {
         if (v == cardViewRC) {
