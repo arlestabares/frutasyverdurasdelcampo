@@ -269,6 +269,8 @@ class MainActivity : AppCompatActivity(),
 
     fun registrarProveedor(registro: Proveedor) {
         listaProveedores.add(registro)
+        ManagerFireBase.insertarProveedor(registro)
+
     }
 
     fun editarProveedor(pos: Int, registro: Proveedor) {
