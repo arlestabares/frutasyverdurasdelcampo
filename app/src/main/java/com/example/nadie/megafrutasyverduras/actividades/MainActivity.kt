@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity(),
 
     fun registrarProveedor(registro: Proveedor) {
         listaProveedores.add(registro)
-        ManagerFireBase.insertarProveedor(registro)
+        managerFB.insertarProveedor(registro)
 
     }
 
