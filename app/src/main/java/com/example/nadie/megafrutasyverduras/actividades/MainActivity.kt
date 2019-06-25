@@ -239,6 +239,9 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
+    /**
+     *Funcion encargada de registrar
+     */
     fun registrarProducto(registro: Registro, bandera: Int) {
 
         if (bandera == 12) {
