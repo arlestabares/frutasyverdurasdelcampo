@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity(),
         // Handle navigation view item clicks here.
 
         var isFragmentSelection: Boolean? = false
-        var miFragment: Fragment? = null
+        val miFragment: Fragment? = null
 
 
 
@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     /**
-     *Funcion encargada de registrar
+     *Funcion encargada de registrar los eventos de registros
      */
     fun registrarProducto(registro: Registro, bandera: Int) {
 
@@ -295,7 +295,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onClick(v: View?) {
         if (v == cardViewRC) {
-            var intent = Intent(this, FormularioCompraActivity::class.java)
+            val intent = Intent(this, FormularioCompraActivity::class.java)
             // intent.putParcelableArrayListExtra("registros", listaCompra)
             startActivityForResult(intent, 12)
         } else if (v == cardViewLRC) {
@@ -303,50 +303,50 @@ class MainActivity : AppCompatActivity(),
             if(listaCompra.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else {
-                var intent = Intent(this, ListarCompraActivity::class.java)
+                val intent = Intent(this, ListarCompraActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaCompra)
                 startActivityForResult(intent, 13)
             }
 
         } else if (v == cardViewRStock) {
-            var intent = Intent(this, FormularioStockActivity::class.java)
+            val intent = Intent(this, FormularioStockActivity::class.java)
             // intent.putParcelableArrayListExtra("registros", listaStock)
             startActivityForResult(intent, 14)
         } else if (v == cardViewLRStock) {
             if (listaStock.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else{
-                var intent = Intent(this, ListarStockActivity::class.java)
+                val intent = Intent(this, ListarStockActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaStock)
                 startActivityForResult(intent, 15)
             }
         } else if (v == cardViewRD) {
-            var intent = Intent(this, FormularioDonacionActivity::class.java)
+            val intent = Intent(this, FormularioDonacionActivity::class.java)
             // intent.putParcelableArrayListExtra("resgistros", listaParaDonacion)
             startActivityForResult(intent, 16)
         } else if (v == cardViewLD) {
             if (listaParaDonacion.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else {
-                var intent = Intent(this, ListarDonacionActivity::class.java)
+                val intent = Intent(this, ListarDonacionActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaParaDonacion)
                 Log.e("registroInterfazPricipa",listaParaDonacion.toString())
                 startActivityForResult(intent, 17)
             }
         } else if (v == cardViewRP) {
-            var intent = Intent(this, FormularioProveedorActivity::class.java)
+            val intent = Intent(this, FormularioProveedorActivity::class.java)
             // intent.putExtra("registros", listaProveedores)
             startActivityForResult(intent, 18)
         } else if (v == cardViewLP) {
             if (listaProveedores.isEmpty()){
                 toast("Debe ingresar Informacion a la lista por primera vez")
             }else {
-                var intent = Intent(this, ListarProveedoresActivity::class.java)
+                val intent = Intent(this, ListarProveedoresActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaProveedores)
                 startActivityForResult(intent, 19)
             }
         } else if (v == cardViewIA) {
-            var intent = Intent(this, InformacionFuncionalidadActivity::class.java)
+            val intent = Intent(this, InformacionFuncionalidadActivity::class.java)
             //  intent.putExtra("registros", listaCompra)
             startActivity(intent)
         }
@@ -357,32 +357,32 @@ class MainActivity : AppCompatActivity(),
 
         if (requestCode == 12) {
             if (resultCode == Activity.RESULT_OK) {
-                var listaCompra = data?.getParcelableExtra<Registro>("registroCompra")
+                val listaCompra = data?.getParcelableExtra<Registro>("registroCompra")
                 registrarProducto(listaCompra!!, 12)
             }
         } else if (requestCode == 13) {
             if (resultCode == Activity.RESULT_OK) {
-                var editarCompra = data?.getParcelableExtra<Registro>("registro")
-                var pos = data?.getIntExtra("posicion", 0)
+                val editarCompra = data?.getParcelableExtra<Registro>("registro")
+                val pos = data?.getIntExtra("posicion", 0)
                 editarProducto(pos!!, editarCompra!!, 13)
             }
 
         } else if (requestCode == 14) {
             if (resultCode == Activity.RESULT_OK) {
-                var registrarStock = data?.getParcelableExtra<Registro>("registroFormularioStock")
+                val registrarStock = data?.getParcelableExtra<Registro>("registroFormularioStock")
                 registrarProducto(registrarStock!!, 14)
                 Log.e("registrostock", registrarStock.toString())
             }
         } else if (requestCode == 15) {
             if (resultCode == Activity.RESULT_OK) {
-                var editarStock = data?.getParcelableExtra<Registro>("registroDesdeListarStock")
-                var pos = data?.getIntExtra("posicion", 0)
+                val editarStock = data?.getParcelableExtra<Registro>("registroDesdeListarStock")
+                val pos = data?.getIntExtra("posicion", 0)
                 editarProducto(pos!!, editarStock!!, 15)
             }
 
         } else if (requestCode == 16) {
             if (resultCode == Activity.RESULT_OK) {
-                var registrarDonacion = data?.getParcelableExtra<Registro>("registroParaDonacion")
+                val registrarDonacion = data?.getParcelableExtra<Registro>("registroParaDonacion")
                 registrarProducto(registrarDonacion!!, 16)
                 Log.e("registroParaDonacion", registrarDonacion.toString())
             }
@@ -395,13 +395,13 @@ class MainActivity : AppCompatActivity(),
             }
         } else if (requestCode == 18) {
             if (resultCode == Activity.RESULT_OK) {
-                var listaProveedores = data?.getParcelableExtra<Proveedor>("registroProveedor")
+                val listaProveedores = data?.getParcelableExtra<Proveedor>("registroProveedor")
                 registrarProveedor(listaProveedores!!)
             }
         } else if (requestCode == 19) {
             if (resultCode == Activity.RESULT_OK) {
-                var editarRegistroProveedores = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
-                var pos = data?.getIntExtra("posicion", 0)
+                val editarRegistroProveedores = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
+                val pos = data?.getIntExtra("posicion", 0)
                 editarProveedor(pos!!, editarRegistroProveedores!!)
             }
 
@@ -409,9 +409,9 @@ class MainActivity : AppCompatActivity(),
 
             if(resultCode == Activity.RESULT_OK) {
 
-                var libras = data?.getIntExtra("libras", 0)
-                var opcionFV = data?.getIntExtra("opcionFV", 0)
-                var listaFV = data?.getIntExtra("listaFV", 0)
+                val libras = data?.getIntExtra("libras", 0)
+                val opcionFV = data?.getIntExtra("opcionFV", 0)
+                val listaFV = data?.getIntExtra("listaFV", 0)
 
                 Log.e("libras_r", libras.toString())
 
@@ -420,7 +420,7 @@ class MainActivity : AppCompatActivity(),
                         if (registro.libras-libras!! > 0) {
                             registro.libras = registro.libras-libras
                             Toast.makeText(this, "Debe Ingresar menor a las libras que existen", Toast.LENGTH_LONG).show()
-                            break;
+
                         }
                     }
                 }
