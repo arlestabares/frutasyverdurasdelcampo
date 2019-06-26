@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_centros_para_donacion.*
 
 /**
  * Clase encargada de gestionar la donacion de frutas
+ * muestra los centros que hay en la aplicacion para asi escoger cual sera al que
+ * se le donara
  */
 class CentrosParaDonacionActivity : AppCompatActivity(), View.OnClickListener {
 
