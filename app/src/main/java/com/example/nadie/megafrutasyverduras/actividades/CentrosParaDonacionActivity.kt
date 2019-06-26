@@ -6,6 +6,9 @@ import android.view.View
 import com.example.nadie.megafrutasyverduras.R
 import kotlinx.android.synthetic.main.activity_centros_para_donacion.*
 
+/**
+ * Clase encargada de gestionar la donacion de frutas
+ */
 class CentrosParaDonacionActivity : AppCompatActivity(), View.OnClickListener {
 
 
