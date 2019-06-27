@@ -19,6 +19,8 @@ import java.util.*
 
 /**
  * Clase encargada de agregar los datos o registros asociados a el formulario StockActivity
+ *
+ * actualizacio
  */
 class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -28,6 +30,7 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
     lateinit var adapterSpinnerFrutas: ArrayAdapter<CharSequence>
     lateinit var dialogOnClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
+    lateinit var ejemplo :Registro
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
