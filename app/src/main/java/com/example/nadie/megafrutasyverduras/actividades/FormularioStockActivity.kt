@@ -17,6 +17,9 @@ import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_stock.*
 import java.util.*
 
+/**
+ * Clase encargada de agregar los datos o registros asociados a el formulario StockActivity
+ */
 class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
