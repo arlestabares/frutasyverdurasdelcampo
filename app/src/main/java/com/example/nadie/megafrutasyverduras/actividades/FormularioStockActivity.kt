@@ -20,7 +20,7 @@ import java.util.*
 /**
  * Clase encargada de agregar los datos o registros asociados a el formulario StockActivity
  *
- * actualizacio
+ * actualizacio para demostracion
  */
 class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
