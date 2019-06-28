@@ -44,7 +44,6 @@
                     android:padding="8dp"
                     android:layout_marginRight="60dp"/>
 
-
             <EditText
                     android:id="@+id/ediTxtPrecioLibraFC"
                     android:layout_width="match_parent"
@@ -52,6 +51,7 @@
                     android:layout_below="@+id/spinnerListaFC"
                     android:hint="Precio por Libra"
                     android:inputType="number"
+                    android:digits="0123456789"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"/>
             <EditText
@@ -61,6 +61,7 @@
                     android:layout_below="@+id/ediTxtPrecioLibraFC"
                     android:hint="Libras"
                     android:inputType="number"
+                    android:digits="0123456789"
                     android:layout_marginLeft="20dp"/>
             <EditText
                     android:id="@+id/ediTxtBultosFC"
@@ -69,6 +70,7 @@
                     android:layout_below="@+id/ediTxtLibrasFC"
                     android:hint="Bultos"
                     android:inputType="number"
+                    android:digits="0123456789"
                     android:layout_marginLeft="20dp"/>
             <Spinner
                     android:id="@+id/spinnerCiudadFC"

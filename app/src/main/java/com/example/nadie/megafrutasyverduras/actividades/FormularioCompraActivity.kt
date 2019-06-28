@@ -35,8 +35,6 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_compra)
 
-
-
         cargarRegistro()
         mostrarCalendario()
         mostrarCuadroDialogo()

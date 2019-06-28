@@ -57,7 +57,6 @@ object ManagerFireBase {
 
     }
     fun insertarDonacion(registro: Registro){
-
         dataRef!!.child("donacion").push().setValue(registro)
     }
     fun insertarProveedor(proveedor: Proveedor){
@@ -73,8 +72,40 @@ object ManagerFireBase {
         dataRef!!.child("producto").push().setValue(producto)
     }
 
+    fun editarCompra(registro: Registro){
+        Log.e("registro", registro.toString())
+        dataRef!!.child("registro").child(registro.id).setValue(registro)
+    }
+
     fun escucharEventoFireBase(){
         dataRef!!.child("registro").addChildEventListener(object:ChildEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+
+            }
+
+            /*
+            Lee el evento de inserciòn en firebase, captura la llave que se genera automàticamente para el registro
+             */
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                val reg:Registro = p0.getValue(Registro::class.java)!!
+                reg.id = p0.key!!
+                listener!!.actualizarListaCompra(reg)
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
+        dataRef!!.child("proveedor").addChildEventListener(object:ChildEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -91,9 +122,9 @@ object ManagerFireBase {
             Lee el evento de inserciòn en firebase, captura la llave que se genera automàticamente para el registro
              */
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                val reg:Registro = p0.getValue(Registro::class.java)!!
+                val reg:Proveedor = p0.getValue(Proveedor::class.java)!!
                 reg.id = p0.key!!
-                listener!!.actualizarListaCompra(reg)
+                listener!!.actualizarListaProveedor(reg)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {

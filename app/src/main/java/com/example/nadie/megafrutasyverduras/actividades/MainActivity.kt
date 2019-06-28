@@ -262,6 +262,7 @@ class MainActivity : AppCompatActivity(),
 
         if (bandera == 13) {
             listaCompra.set(pos, registro)
+            managerFB.editarCompra(registro)
         } else if (bandera == 15) {
             listaStock.set(pos, registro)
         } else if (bandera == 17) {
@@ -285,11 +286,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun actualizarListaProveedor(proveedor: Proveedor) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun actualizarListaStock(registro: Registro) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 
@@ -362,9 +363,16 @@ class MainActivity : AppCompatActivity(),
             }
         } else if (requestCode == 13) {
             if (resultCode == Activity.RESULT_OK) {
-                val editarCompra = data?.getParcelableExtra<Registro>("registro")
-                val pos = data?.getIntExtra("posicion", 0)
-                editarProducto(pos!!, editarCompra!!, 13)
+
+                if(data!=null) {
+
+                    val editarCompra = data?.getParcelableExtra<Registro>("editarRegistro")
+                    val pos = data?.getIntExtra("posicion", 0)
+
+                    if (editarCompra != null && pos != null) {
+                        editarProducto(pos!!, editarCompra!!, 13)
+                    }
+                }
             }
 
         } else if (requestCode == 14) {

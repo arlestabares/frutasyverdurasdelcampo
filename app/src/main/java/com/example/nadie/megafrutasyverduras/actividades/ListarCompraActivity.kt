@@ -43,11 +43,14 @@ class ListarCompraActivity() : AppCompatActivity() {
 
         if (requestCode == 118) {
             if (resultCode == Activity.RESULT_OK) {
-                registro = data?.getParcelableExtra<Registro>("editarRegistro")
-                pos = data?.getIntExtra("posicion", 0)
-                Log.e("registro_editado", registro.toString() + " " + pos)
-                adapter?.actualizarCompra(pos!!, registro!!)
-                adapter?.notifyDataSetChanged()
+
+                if(data!=null) {
+                    registro = data?.getParcelableExtra<Registro>("editarRegistro")
+                    pos = data?.getIntExtra("posicion", 0)
+                    //Log.e("registro_editado", registro.toString() + " " + pos)
+                    adapter?.actualizarCompra(pos!!, registro!!)
+                    adapter?.notifyDataSetChanged()
+                }
             }
         }
     }
@@ -65,7 +68,7 @@ class ListarCompraActivity() : AppCompatActivity() {
 
         if (registro != null && pos != null) {
             var intent = Intent()
-            intent.putExtra("registro", registro!!)
+            intent.putExtra("editarRegistro", registro!!)
             intent.putExtra("posicion", pos!!)
             setResult(Activity.RESULT_OK, intent)
         }
