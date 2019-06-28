@@ -37,7 +37,7 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
     /**
      * Funcion encargada de cargar los registros iniciales del XML asociado a esta actividad,lo
      * mismo que de iniciar las escuchas necesarias para la ejecucion de los valores y registros asociados
-     * a cada variable.
+     * a cada variable. realizar cambios lalalal
      *
      */
     fun cargarRegistros() {
