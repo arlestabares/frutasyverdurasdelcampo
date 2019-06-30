@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Registrar Proveedor"
@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="130dp"
                     android:hint="Nombre"
+                    android:maxLength="28"
                     android:inputType="text"
                     android:layout_marginLeft="20dp"/>
             <EditText
@@ -44,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtNombreP"
                     android:hint="Telefono"
+                    android:maxLength="25"
                     android:inputType="number"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"/>
@@ -64,19 +66,20 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="20dp">
 
-                <EditText
-                        android:id="@+id/ediTxtFechaRegistroFS"
+                <TextView
+                        android:id="@+id/textViewFechaRegistroFS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Fecha Registro"
+                        android:textSize="20dp"
                         android:inputType="date"
                         android:layout_marginLeft="20dp"/>
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="45dp"
                         android:background="@drawable/molde_btn_varios_background"/>
 
             </LinearLayout>

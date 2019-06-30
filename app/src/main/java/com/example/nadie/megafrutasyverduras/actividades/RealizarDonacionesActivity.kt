@@ -32,7 +32,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
         btnDonar.setOnClickListener(this)
 
         //registroDonacion = intent.getParcelableExtra("registro_Desde_Activity_Main")
-        registroDonacion = intent.getParcelableArrayListExtra("registroDonacion")
+        registroDonacion = intent.getParcelableArrayListExtra("registroDesdeActivity")
         Log.e("lista donacion", registroDonacion.toString())
 
 
@@ -84,6 +84,9 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
                 Toast.makeText(this, "Debe ingresar un valor menor o igual a las " +
                         "libras disponibles  que son = " + libras, Toast.LENGTH_LONG).show()
             }else{
+
+                /* Intent que se envia a MainActivity para realizar las operaciones correspondientes
+                   a las validaciones de los valores en cada una de las variables que se envian con el intent mismo */
                 var intent = Intent()
                 intent.putExtra("libras", ediTxtCantidad.text.toString().toInt())
                 intent.putExtra("opcionFV", spinnerOpcionFV.selectedItemPosition)

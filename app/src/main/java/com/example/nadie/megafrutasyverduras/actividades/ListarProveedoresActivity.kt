@@ -17,6 +17,9 @@ class ListarProveedoresActivity : AppCompatActivity() {
 
     var posicion: Int? = 0
     var registro: Proveedor? = null
+    var pos:Int? =0
+    var resgistroEliminar:Proveedor?=null
+
     lateinit var recyclerView: RecyclerView
     var listaProveedores: ArrayList<Proveedor>? = null
     var adapter: AdapterProveedores? = null
@@ -46,21 +49,32 @@ class ListarProveedoresActivity : AppCompatActivity() {
                 registro = data?.getParcelableExtra("registro")
                 posicion = data?.getIntExtra("posicion", 0)
                 Log.e("registro_editado", registro.toString() + " " + posicion)
-
                 adapter?.actualizarProveedor(posicion!!, registro!!)
                 adapter?.notifyDataSetChanged()
+
 
             }
 
         }
     }
-
+    /**
+     * @registro Contiene la lista de objetos
+     * @pos Posicion en la cual sera actualizado el registro que contiene los objetos
+     * Funcion encargada de llevar a cabo el envio del objeto registro al MainActivity
+     * para su actualizacion correspondiente luego de ser editado dicho registro, ya que
+     * al presionar el boton o ir  hacia atras en la pila de actividades
+     * èsta aun esta sin resolver o sin actualizar, y para ello se remite nuevamente dicho objeto
+     * para tales fines
+     */
     override fun onBackPressed() {
         if (posicion != null && registro != null) {
             val intent = Intent()
             intent.putExtra("registroDesdeListarProveedor", registro!!)
             intent.putExtra("posicion", posicion!!)
             setResult(Activity.RESULT_OK, intent)
+
+
+
         }
         super.onBackPressed()
     }

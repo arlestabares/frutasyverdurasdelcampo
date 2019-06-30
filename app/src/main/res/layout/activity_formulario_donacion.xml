@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/tituloDonacion"
@@ -47,6 +47,8 @@
                     android:layout_marginTop="10dp"
                     android:inputType="number"
                     android:hint="Libras"
+                    android:maxLength="10"
+                    android:digits="0123456789"
                     android:layout_marginLeft="20dp"/>
 
             <EditText
@@ -57,6 +59,8 @@
                     android:layout_marginTop="1dp"
                     android:inputType="number"
                     android:hint="Bultos"
+                    android:maxLength="5"
+                    android:digits="0123456789"
                     android:layout_marginLeft="20dp"/>
 
             <LinearLayout
@@ -66,21 +70,22 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content">
-                <EditText
-                        android:id="@+id/ediTxtFechaRegistroFD"
+                <TextView
+                        android:id="@+id/txtViewFechaRegistroFD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtBultosFD"
                         android:inputType="date"
-                        android:hint="Fecha de Registro"
+                        android:hint="Fecha Registro"
+                        android:textSize="20dp"
                         android:layout_marginLeft="20dp"/>
 
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="55dp"
                         android:background="@drawable/molde_btn_varios_background"/>
             </LinearLayout>
 
@@ -106,6 +111,8 @@
                     android:paddingRight="30dp"
                     android:paddingLeft="30dp"
                     android:background="@drawable/molde_btn_varios_background"/>
+
+
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

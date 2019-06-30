@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_editar_compra.*
 import java.util.*
 import android.app.AlertDialog
 import android.content.DialogInterface
+import kotlin.collections.ArrayList
 
 
 /**
@@ -29,6 +30,8 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
     lateinit var adapterSpinnerCiudad: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
+    lateinit var txtViewFechaRegistroEC:TextView
+    var listaRegistros:ArrayList<Registro>?=null
 
     /**
      * Funcion principal, encargada de la ejecucion de todo el codigo generado
@@ -40,6 +43,11 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_compra)
 
+        txtViewFechaRegistroEC=findViewById(R.id.ediTxtFechaRegistroEC)
+
+        btnEditarRegistroEC.setOnClickListener(this)
+        btnCancelarRegistroEC.setOnClickListener(this)
+        btnEliminarRegistroEC.setOnClickListener(this)
 
         cargarRegistrosAnteriores()
         mostrarCalendario()
@@ -68,19 +76,17 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
 
     fun cargarRegistrosAnteriores() {
 
-        btnEditarRegistroEC.setOnClickListener(this)
-        btnCancelarRegistroEC.setOnClickListener(this)
-
         /*intent provenientes de AdapterCompra,la respuesta al activityForResult solicitada en el AdapterCompra
          la dara el metodo onClick() con el objeto registroCompra y la posicion del mismo cuando se seleccione
          el boton btnEditarRegistro*/
         registroCompra = intent.getParcelableExtra("listaDesdeAdapterCompra")
         posicion = intent.getIntExtra("posicionObjeto", 0)
 
+
         ediTxtPrecioLibraEC.setText(registroCompra.precio.toString())
         ediTxtLibrasEC.setText(registroCompra.libras.toString())
         ediTxtBultosEC.setText(registroCompra.bultos.toString())
-        ediTxtFechaRegistroEC.setText(registroCompra.fechaRegistro)
+        txtViewFechaRegistroEC.setText(registroCompra.fechaRegistro)
 
 
         var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
@@ -153,6 +159,8 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         if (v?.id == btnEditarRegistroEC.id) {
 
 
+            val ediTxtFechaRegistroEC:TextView=findViewById(R.id.ediTxtFechaRegistroEC)
+
             if (!spinnerOpcionEC.selectedItem.toString().equals("Seleccione Opcion")
                 &&!spinnerListaEC.selectedItem.toString().equals("Seleccione Fruta")
                 &&!spinnerListaEC.selectedItem.toString().equals("Seleccione Verdura")
@@ -161,8 +169,6 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
                 &&!ediTxtBultosEC.text.isEmpty()
                 &&!spinnerProcedenciaEC.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")
                 &&!ediTxtFechaRegistroEC.text.toString().isEmpty()){
-
-
 
                 try {
 
@@ -178,12 +184,14 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
                     registroCompra.tipoLista = spinnerListaEC.selectedItemPosition
 
 
+
+                   // listaRegistros?.add(registroCompra)
+
                     /* intent que se envia a ListarCompraActivity como respuesta al ActivityForResult,
-                    ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
+                    ya que en el metodo cargarRegistrosAnteriores() de esta activity se recibe el objeto y la posicion, faltando
                     una respuesta por enviar,
                     ya que este espera una respuesta con un objeto registroCompra y una posicion para llevar a cabo la
-                    actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
-                    tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
+                    actualizacion del registro recien editado y la cual se le envia con el siguiente intent.*/
                     val intent = Intent()
                     intent.putExtra("editarRegistro", registroCompra)
                     intent.putExtra("posicion", posicion)
@@ -204,9 +212,17 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         } else if (v?.id == btnCancelarRegistroEC.id) {
 
             builder = AlertDialog.Builder(this)
-            builder.setMessage("Està seguro?").setPositiveButton("Si", dialogClickListener)
+            builder.setMessage("Està seguro de abandonar el registro?").setPositiveButton("Si", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show()
 
+        }else if (v?.id==btnEliminarRegistroEC.id){
+
+           // listaRegistros?.remove(registroCompra)
+            val intent=Intent()
+            intent.putExtra("registroEliminar",registroCompra)
+            intent.putExtra("posicionEliminar",posicion)
+            setResult(Activity.RESULT_OK,intent)
+            finish()
         }
     }
 
@@ -220,10 +236,11 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
         val v_month = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
-        btnFecha.setOnClickListener {
+        btnFechaFS.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
+                val ediTxtFechaRegistroEC:TextView=findViewById(R.id.ediTxtFechaRegistroEC)
                 ediTxtFechaRegistroEC.setText("" + dayOfMonth + "/" + month + "/" + year)
             }, v_year, v_month, v_day)
             dpd.show()

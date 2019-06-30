@@ -10,10 +10,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
-import kotlinx.android.synthetic.main.activity_editar_descomposicion.*
+import kotlinx.android.synthetic.main.activity_editar_donacion.*
 import java.util.*
 
 class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -24,11 +25,18 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
+    lateinit var txtViewFechaRegistroED:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_editar_descomposicion)
+        setContentView(R.layout.activity_editar_donacion)
 
+        btnEditarED.setOnClickListener(this)
+        btnCancelarED.setOnClickListener(this)
+       // btnEliminarRegistro.setOnClickListener(this)
+
+
+        txtViewFechaRegistroED=findViewById(R.id.txtViewFechaRegistroED)
 
         cargarValores()
         mostrarCalendario()
@@ -40,9 +48,6 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
      */
     fun cargarValores() {
 
-        btnEditarED.setOnClickListener(this)
-        btnCancelarED.setOnClickListener(this)
-
         /*intent proveniente de AdapterDonacion el cual trae consigo un registroParaDonacion
         con  registros de Tipo  Registro*/
         registroParaDonacion = intent.getParcelableExtra("listaDesdeAdapter")
@@ -52,7 +57,7 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
 
         ediTxtLibrasED.setText(registroParaDonacion.libras.toString())
         ediTxtBultosED.setText(registroParaDonacion.bultos.toString())
-        ediTxtFechaRegistroED.setText(registroParaDonacion.fechaRegistro)
+        txtViewFechaRegistroED.setText(registroParaDonacion.fechaRegistro)
 
         var tipoProducto = arrayOf("Seleccionar opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
@@ -77,10 +82,10 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
         val v_month = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
-        btnFecha.setOnClickListener {
+        btnFechaFS.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                ediTxtFechaRegistroED.setText("" + dayOfMonth + "/" + month + "/" + year)
+                txtViewFechaRegistroED.setText("" + dayOfMonth + "/" + month + "/" + year)
 
             }, v_year, v_month, v_day)
             dpd.show()
@@ -118,13 +123,13 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
                 &&!spinnerListaED.selectedItem.toString().equals("Seleccione Verdura")
                 &&!ediTxtLibrasED.text.isEmpty()
                 &&!ediTxtBultosED.text.isEmpty()
-                &&!ediTxtFechaRegistroED.text.isEmpty()){
+                &&!txtViewFechaRegistroED.text.isEmpty()){
 
 
                 registroParaDonacion.nombre = spinnerListaED.selectedItem.toString()
                 registroParaDonacion.libras = ediTxtLibrasED.text.toString().toInt()
                 registroParaDonacion.bultos = ediTxtBultosED.text.toString().toInt()
-                registroParaDonacion.fechaRegistro = ediTxtFechaRegistroED.text.toString()
+                registroParaDonacion.fechaRegistro = txtViewFechaRegistroED.text.toString()
 
                 registroParaDonacion.tipoOpcion = spinnerOpcionED.selectedItemPosition
                 registroParaDonacion.tipoLista = spinnerListaED.selectedItemPosition
@@ -150,10 +155,17 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
         } else if (v?.id == btnCancelarED.id) {
 
             builder = AlertDialog.Builder(this)
-            builder.setMessage("Esta seguro?").setPositiveButton("Si", dialogClickListener)
+            builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show()
 
 
+        }else if (v?.id==btnEliminarRegistro.id){
+
+            val intent = Intent()
+            intent.putExtra("eliminarDonacion", registroParaDonacion)
+            intent.putExtra("eliminarPosicion", posicion)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
         }
     }
 

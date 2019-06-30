@@ -28,6 +28,11 @@ import org.jetbrains.anko.toast
 
 /**
  * @author Arles de Jesus Tabares Carvajal
+ * Clase Principal que maneja todas las operaciones relacionadas con la logica del negocio,
+ * es la encargada de inicializar las listas  que seran enviadas a las correspondientes
+ * clases para su manipulacion y ejecucion, asi como de mantener los registros actualizados
+ * para su correspondiente verificacion y mantenibilidad en la base de datos FireBase en linea.
+ * como en la memoria del telefono
  *
  */
 class MainActivity : AppCompatActivity(),
@@ -38,7 +43,7 @@ class MainActivity : AppCompatActivity(),
     lateinit var listaProveedores: ArrayList<Proveedor>
     lateinit var listaStock: ArrayList<Registro>
     lateinit var listaParaDonacion: ArrayList<Registro>
-    lateinit var managerFB:ManagerFireBase
+    lateinit var managerFB: ManagerFireBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,8 +128,8 @@ class MainActivity : AppCompatActivity(),
 
         } else if (item.itemId == R.id.realizarDonacion) {
             val intent = Intent(this, RealizarDonacionesActivity::class.java)
-            intent.putParcelableArrayListExtra("registroDonacion",listaParaDonacion)
-           // intent.putExtra("registro_Desde_Activity_Main", listaParaDonacion)
+            intent.putParcelableArrayListExtra("registroDesdeActivity", listaParaDonacion)
+            // intent.putExtra("registro_Desde_Activity_Main", listaParaDonacion)
 
             Log.e("Mensaje_desde_activity", listaParaDonacion.toString())
             startActivityForResult(intent, 100)
@@ -190,19 +195,20 @@ class MainActivity : AppCompatActivity(),
         when (item.itemId) {
             R.id.menu_opciones -> {
                 // Handle the camera action
-
-              //  miFragment = InterfazPrincipalFragment()
+                val intent = Intent(this, CentrosParaDonacionActivity::class.java)
+                startActivity(intent)
+                //  miFragment = InterfazPrincipalFragment()
                 isFragmentSelection = true
                 //fm.beginTransaction().replace(R.id.content_main,miFragment).commit()
             }
             R.id.nav_gallery -> {
-              //  miFragment = InterfazPrincipalFragment()
+                //  miFragment = InterfazPrincipalFragment()
                 isFragmentSelection = true
                 // fm.beginTransaction().replace(R.id.content_main,miFragment).commit()
 
             }
             R.id.operaciones -> {
-              //  miFragment = InterfazPrincipalFragment()
+                //  miFragment = InterfazPrincipalFragment()
                 isFragmentSelection = true
                 //  fm.beginTransaction().replace(R.id.content_main,miFragment).commit()
 
@@ -253,12 +259,14 @@ class MainActivity : AppCompatActivity(),
         } else if (bandera == 16) {
             listaParaDonacion.add(registro)
             managerFB.insertarDonacion(registro)
-
         }
-
     }
 
-    fun editarProducto(pos: Int, registro: Registro, bandera: Int) {
+    /**
+     * Funcion encargada de editar el registro seleccionado por el usuario en
+     * la lista de items existentes llamada ListarCompraActivity
+     */
+    fun actualizarProducto(pos: Int, registro: Registro, bandera: Int) {
 
         if (bandera == 13) {
             listaCompra.set(pos, registro)
@@ -270,16 +278,44 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    /**
+     * Funcion encargada de eliminar los registros asociados a las listas
+     * creadas en cada una de las Listas de activitys (Listar......)
+     */
+    fun eliminarProducto(registro: Registro, bandera: Int) {
 
+        if (bandera == 13) {
+            listaCompra.remove(registro)
+        } else if (bandera == 21) {
+            listaStock.remove(registro)
+        } else if (bandera == 22) {
+            listaParaDonacion.remove(registro)
+        }
+    }
+
+    /**
+     * Funcion encargada de registrar un proveedor ingresado por el usuario
+     * en la activity FormularioCompraActivity
+     */
     fun registrarProveedor(registro: Proveedor) {
         listaProveedores.add(registro)
         managerFB.insertarProveedor(registro)
 
     }
 
-    fun editarProveedor(pos: Int, registro: Proveedor) {
+    fun actualizarProveedor(pos: Int, registro: Proveedor) {
         listaProveedores.set(pos, registro)
     }
+
+    fun eliminarProveedor(proveedor: Proveedor) {
+        listaProveedores.remove(proveedor)
+
+    }
+
+
+    /**
+     * Funcion sobreescrita perteneciente a la interfaz
+     */
 
     override fun actualizarListaCompra(registro: Registro) {
         listaCompra.add(registro)
@@ -293,7 +329,10 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-
+    /**
+     * Funcion encargada de disparar los eventos asociados a las escuchas en cada una de las
+     * variables asignadas en el XML asociadas a  esta activity
+     */
     override fun onClick(v: View?) {
         if (v == cardViewRC) {
             val intent = Intent(this, FormularioCompraActivity::class.java)
@@ -301,9 +340,9 @@ class MainActivity : AppCompatActivity(),
             startActivityForResult(intent, 12)
         } else if (v == cardViewLRC) {
 
-            if(listaCompra.isEmpty()){
+            if (listaCompra.isEmpty()) {
                 toast("Debe ingresar Informacion a la lista por primera vez")
-            }else {
+            } else {
                 val intent = Intent(this, ListarCompraActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaCompra)
                 startActivityForResult(intent, 13)
@@ -314,9 +353,9 @@ class MainActivity : AppCompatActivity(),
             // intent.putParcelableArrayListExtra("registros", listaStock)
             startActivityForResult(intent, 14)
         } else if (v == cardViewLRStock) {
-            if (listaStock.isEmpty()){
+            if (listaStock.isEmpty()) {
                 toast("Debe ingresar Informacion a la lista por primera vez")
-            }else{
+            } else {
                 val intent = Intent(this, ListarStockActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaStock)
                 startActivityForResult(intent, 15)
@@ -326,12 +365,12 @@ class MainActivity : AppCompatActivity(),
             // intent.putParcelableArrayListExtra("resgistros", listaParaDonacion)
             startActivityForResult(intent, 16)
         } else if (v == cardViewLD) {
-            if (listaParaDonacion.isEmpty()){
+            if (listaParaDonacion.isEmpty()) {
                 toast("Debe ingresar Informacion a la lista por primera vez")
-            }else {
+            } else {
                 val intent = Intent(this, ListarDonacionActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaParaDonacion)
-                Log.e("registroInterfazPricipa",listaParaDonacion.toString())
+                Log.e("registroInterfazPricipa", listaParaDonacion.toString())
                 startActivityForResult(intent, 17)
             }
         } else if (v == cardViewRP) {
@@ -339,9 +378,9 @@ class MainActivity : AppCompatActivity(),
             // intent.putExtra("registros", listaProveedores)
             startActivityForResult(intent, 18)
         } else if (v == cardViewLP) {
-            if (listaProveedores.isEmpty()){
+            if (listaProveedores.isEmpty()) {
                 toast("Debe ingresar Informacion a la lista por primera vez")
-            }else {
+            } else {
                 val intent = Intent(this, ListarProveedoresActivity::class.java)
                 intent.putParcelableArrayListExtra("registros", listaProveedores)
                 startActivityForResult(intent, 19)
@@ -364,14 +403,14 @@ class MainActivity : AppCompatActivity(),
         } else if (requestCode == 13) {
             if (resultCode == Activity.RESULT_OK) {
 
-                if(data!=null) {
+                if (data != null) {
 
-                    val editarCompra = data?.getParcelableExtra<Registro>("editarRegistro")
+                    val actualizarCompra = data?.getParcelableExtra<Registro>("editarRegistro")
                     val pos = data?.getIntExtra("posicion", 0)
-
-                    if (editarCompra != null && pos != null) {
-                        editarProducto(pos!!, editarCompra!!, 13)
+                    if (actualizarCompra != null && pos != null) {
+                        actualizarProducto(pos, actualizarCompra, 13)
                     }
+
                 }
             }
 
@@ -383,39 +422,50 @@ class MainActivity : AppCompatActivity(),
             }
         } else if (requestCode == 15) {
             if (resultCode == Activity.RESULT_OK) {
-                val editarStock = data?.getParcelableExtra<Registro>("registroDesdeListarStock")
-                val pos = data?.getIntExtra("posicion", 0)
-                editarProducto(pos!!, editarStock!!, 15)
+
+                if (data != null) {
+                    val editarStock = data?.getParcelableExtra<Registro>("registroDesdeListarStock")
+                    val pos = data?.getIntExtra("posicion", 0)
+                    if (editarStock != null) {
+                        actualizarProducto(pos!!, editarStock!!, 15)
+                    }
+                }
             }
 
         } else if (requestCode == 16) {
             if (resultCode == Activity.RESULT_OK) {
-                val registrarDonacion = data?.getParcelableExtra<Registro>("registroParaDonacion")
+                val registrarDonacion = data?.getParcelableExtra<Registro>("registroDesdeFormularioDonacion")
                 registrarProducto(registrarDonacion!!, 16)
                 Log.e("registroParaDonacion", registrarDonacion.toString())
             }
 
         } else if (requestCode == 17) {
             if (resultCode == Activity.RESULT_OK) {
-                val editarDonacion = data?.getParcelableExtra<Registro>("registroDesdeListarDonacion")
+                val actualizarDonacion = data?.getParcelableExtra<Registro>("registroDesdeListarDonacion")
                 val posicion = data?.getIntExtra("posicion", 0)
-                editarProducto(posicion!!, editarDonacion!!, 17)
+                actualizarProducto(posicion!!, actualizarDonacion!!, 17)
             }
         } else if (requestCode == 18) {
             if (resultCode == Activity.RESULT_OK) {
-                val listaProveedores = data?.getParcelableExtra<Proveedor>("registroProveedor")
-                registrarProveedor(listaProveedores!!)
+                val registroProveedor = data?.getParcelableExtra<Proveedor>("registroProveedor")
+                registrarProveedor(registroProveedor!!)
             }
         } else if (requestCode == 19) {
             if (resultCode == Activity.RESULT_OK) {
-                val editarRegistroProveedores = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
+                val actualizarProveedores = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
                 val pos = data?.getIntExtra("posicion", 0)
-                editarProveedor(pos!!, editarRegistroProveedores!!)
+              //  val posicion = data?.getIntExtra("posicionEliminar", 0)
+              //  val eliminarProveedor = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
+
+                actualizarProveedor(pos!!, actualizarProveedores!!)
+
+
+
             }
 
         } else if (requestCode == 100) {
 
-            if(resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
 
                 val libras = data?.getIntExtra("libras", 0)
                 val opcionFV = data?.getIntExtra("opcionFV", 0)
@@ -424,10 +474,11 @@ class MainActivity : AppCompatActivity(),
                 Log.e("libras_r", libras.toString())
 
                 for (registro in listaParaDonacion) {
-                    if(registro.tipoOpcion == opcionFV && registro.tipoLista == listaFV){
-                        if (registro.libras-libras!! > 0) {
-                            registro.libras = registro.libras-libras
-                            Toast.makeText(this, "Debe Ingresar menor a las libras que existen", Toast.LENGTH_LONG).show()
+                    if (registro.tipoOpcion == opcionFV && registro.tipoLista == listaFV) {
+                        if (registro.libras - libras!! > 0) {
+                            registro.libras = registro.libras - libras
+                            Toast.makeText(this, "Debe Ingresar menor a las libras que existen", Toast.LENGTH_LONG)
+                                .show()
 
                         }
                     }

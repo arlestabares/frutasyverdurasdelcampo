@@ -10,10 +10,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_editar_stock.*
+import org.jetbrains.anko.find
+import java.lang.Exception
 import java.util.*
 
 class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -24,6 +27,7 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
+    lateinit var txtViewFechaRegistroES:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,9 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
 
         btnEditarES.setOnClickListener(this)
         btnCancelarES.setOnClickListener(this)
+        btnEliminarRegistroS.setOnClickListener(this)
 
+        txtViewFechaRegistroES=findViewById(R.id.txtViewFechaRegistroES)
 
         cargarValores()
         mostarCalendario()
@@ -51,7 +57,7 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
 
         ediTxtLibrasES.setText(registroStock.libras.toString())
         ediTxtBultosES.setText(registroStock.bultos.toString())
-        ediTxtFechaRegistroES.setText(registroStock.fechaRegistro)
+        txtViewFechaRegistroES.setText(registroStock.fechaRegistro)
 
 
         var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
@@ -60,6 +66,13 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
 
         spinnerOpcionES.setSelection(registroStock.tipoOpcion)
         spinnerOpcionES.onItemSelectedListener = this
+
+
+        adapterSpinnerFrutas =
+            ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
+
+        adapterSpinnerVerduras =
+            ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
 
     }
 
@@ -74,10 +87,10 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
         val v_month = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
-        btnFecha.setOnClickListener {
+        btnFechaFS.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                ediTxtFechaRegistroES.setText("" + dayOfMonth + "/" + month + "/" + year)
+                txtViewFechaRegistroES.setText("" + dayOfMonth + "/" + month + "/" + year)
             }, v_year, v_month, v_day)
             dpd.show()
         }
@@ -110,28 +123,34 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
 
         if (v?.id == btnEditarES.id) {
             if (!spinnerOpcionES.selectedItem.toString().equals("Seleccione Opcion")
-                &&!spinnerListaES.selectedItem.toString().equals("Seleccione Fruta")
-                &&!spinnerListaES.selectedItem.toString().equals("Seleccione Verdura")
-                &&! ediTxtLibrasES.text.isEmpty()
-                &&!ediTxtBultosES.text.isEmpty()) {
+                && !spinnerListaES.selectedItem.toString().equals("Seleccione Fruta")
+                && !spinnerListaES.selectedItem.toString().equals("Seleccione Verdura")
+                && !ediTxtLibrasES.text.isEmpty()
+                && !ediTxtBultosES.text.isEmpty()
+            ) {
 
+                try {
+                    registroStock.nombre = spinnerListaES.selectedItem.toString()
+                    registroStock.libras = ediTxtLibrasES.text.toString().toInt()
+                    registroStock.bultos = ediTxtBultosES.text.toString().toInt()
+                    registroStock.fechaRegistro = txtViewFechaRegistroES.text.toString()
 
-                registroStock.nombre = spinnerListaES.selectedItem.toString()
-                registroStock.libras = ediTxtLibrasES.text.toString().toInt()
-                registroStock.bultos = ediTxtBultosES.text.toString().toInt()
-                registroStock.fechaRegistro = ediTxtFechaRegistroES.text.toString()
+                    registroStock.tipoOpcion = spinnerOpcionES.selectedItemPosition
+                    registroStock.tipoLista = spinnerListaES.selectedItemPosition
 
-                registroStock.tipoOpcion = spinnerOpcionES.selectedItemPosition
-                registroStock.tipoLista = spinnerListaES.selectedItemPosition
+                    /*Intent con destino a la actividad ListarStockActivity, encargada de verificar
+                      que este objeto que le llega se envie de nuevo al AdapterStock para su actualizacion
+                      correspondiente y asi inflar nuevamente la lista con el registro actualizado. */
+                    var intent = Intent()
+                    intent.putExtra("editarStock", registroStock)
+                    intent.putExtra("posicion", pos)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
 
-                /*Intent con destino a la actividad ListarStockActivity, encargada de verificar
-                  que este objeto que le llega se envie de nuevo al AdapterStock para su actualizacion
-                  correspondiente y asi inflar nuevamente la lista con el registro actualizado. */
-                var intent = Intent()
-                intent.putExtra("editarStock", registroStock)
-                intent.putExtra("posicion", pos)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
+                }
+
             } else {
                 Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
             }
@@ -140,9 +159,18 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
         } else if (v?.id == btnCancelarES.id) {
 
             builder = AlertDialog.Builder(this)
-            builder.setMessage("Esta seguro de Salir").setPositiveButton("Si", dialogClickListener)
+            builder.setMessage("Esta seguro de abandonar el registro").setPositiveButton("Si", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show()
+
+        }else if (v?.id==btnEliminarRegistroS.id){
+            val intent=Intent()
+            intent.putExtra("eliminarRegistroStock",registroStock)
+            intent.putExtra("posicionEliminar",pos)
+            setResult(Activity.RESULT_OK,intent)
+            finish()
+
         }
+
     }
 
     /**
@@ -154,13 +182,10 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
         if (position == 0) {
             spinnerListaES.adapter = null
         } else if (position == 1) {
-            adapterSpinnerFrutas =
-                ArrayAdapter.createFromResource(this, R.array.lista_frutas, android.R.layout.simple_list_item_1)
             spinnerListaES.adapter = adapterSpinnerFrutas
             spinnerListaES.setSelection(registroStock.tipoLista)
         } else if (position == 2) {
-            adapterSpinnerVerduras =
-                ArrayAdapter.createFromResource(this, R.array.lista_verduras, android.R.layout.simple_list_item_1)
+
             spinnerListaES.adapter = adapterSpinnerVerduras
             spinnerListaES.setSelection(registroStock.tipoLista)
 

@@ -8,7 +8,6 @@
         tools:context=".editarFormularios.EditarStockActivity">
 
 
-
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -17,10 +16,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Editar Stock de Fruta o Verdura"
+                    android:text="@string/editarStock"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -55,6 +54,7 @@
                     android:layout_below="@+id/spinnerListaES"
                     android:layout_marginTop="30dp"
                     android:hint="Libras"
+                    android:digits="0123456789"
                     android:inputType="number"
                     android:layout_marginLeft="20dp"/>
 
@@ -65,6 +65,7 @@
                     android:layout_below="@+id/ediTxtLibrasES"
                     android:layout_marginTop="1dp"
                     android:hint="Bultos"
+                    android:digits="0123456789"
                     android:inputType="number"
                     android:layout_marginLeft="20dp"/>
             <LinearLayout
@@ -74,19 +75,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
-                <EditText
-                        android:id="@+id/ediTxtFechaRegistroES"
+                <TextView
+                        android:id="@+id/txtViewFechaRegistroES"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtBultosES"
-                        android:hint="Fecha de Registro"
+                        android:hint="Fecha Registro"
+                        android:textSize="20dp"
                         android:layout_marginLeft="20dp"/>
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="50dp"
                         android:background="@drawable/molde_btn_varios_background"/>
             </LinearLayout>
 
@@ -95,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_below="@+id/linearFecha"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="60dp"
                     android:text="Registrar"
                     android:layout_marginLeft="20dp"
                     android:paddingLeft="30dp"
@@ -105,13 +107,26 @@
                     android:id="@+id/btnCancelarES"
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
-                    android:text=" Cancelar "
+                    android:text="Cancelar"
                     android:layout_marginLeft="210dp"
                     android:layout_below="@+id/linearFecha"
-                    android:layout_marginTop="50dp"
-                    android:paddingRight="30dp"
-                    android:paddingLeft="30dp"
+                    android:layout_marginTop="60dp"
+                    android:paddingRight="33dp"
+                    android:paddingLeft="33dp"
                     android:background="@drawable/molde_btn_varios_background"/>
+
+
+            <Button
+                    android:id="@+id/btnEliminarRegistroS"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:text="Eliminar registro"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="520dp"
+                    android:background="@drawable/molde_btn_varios_background"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
 
         </RelativeLayout>
     </ScrollView>

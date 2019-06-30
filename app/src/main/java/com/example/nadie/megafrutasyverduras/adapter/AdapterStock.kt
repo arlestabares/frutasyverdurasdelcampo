@@ -34,11 +34,20 @@ class AdapterStock(var contexto: Activity, var listaStock: ArrayList<Registro>) 
     }
 
     /**
-     * Funcion encargada de actualizar la lista
+     * Funcion encargada de actualizar la lista de registros contenidos en el stock
+     * actual
      *
      */
-    fun actualizarCompra(pos:Int,registro: Registro){
+    fun actualizarStock(pos:Int, registro: Registro){
         listaStock.set(pos,registro)
+    }
+
+    /**
+     * Funcion encargada de eliminar el registro seleccionado por el usuario en la
+     * interfaz de registros mostrados al usuario contenido en ListarStockActivity
+     */
+    fun eliminarRegistroStock(registro: Registro){
+        listaStock.remove(registro)
     }
 
     inner class ViewHolderRegistroStock(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

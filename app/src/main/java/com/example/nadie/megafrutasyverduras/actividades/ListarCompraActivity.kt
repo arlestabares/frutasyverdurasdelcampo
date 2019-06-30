@@ -44,7 +44,7 @@ class ListarCompraActivity() : AppCompatActivity() {
         if (requestCode == 118) {
             if (resultCode == Activity.RESULT_OK) {
 
-                if(data!=null) {
+                if (data != null) {
                     registro = data?.getParcelableExtra<Registro>("editarRegistro")
                     pos = data?.getIntExtra("posicion", 0)
                     //Log.e("registro_editado", registro.toString() + " " + pos)
@@ -58,7 +58,7 @@ class ListarCompraActivity() : AppCompatActivity() {
     /**
      * @registro Contiene la lista de objetos
      * @pos Posicion en la cual sera actualizado el registro que contiene los objetos
-     * Funcion encargada de llevar a cabo el envio del objeto registro al AdapeterCompra
+     * Funcion encargada de llevar a cabo el envio del objeto registro al MainActivity
      * para su actualizacion correspondiente luego de ser editado dicho registro, ya que
      * al presionar el boton o ir  hacia atras en la pila de actividades
      * èsta aun esta sin resolver o sin actualizar, y para ello se remite nuevamente dicho objeto

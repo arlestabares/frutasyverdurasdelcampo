@@ -10,10 +10,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
-import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_stock.*
 import java.util.*
 
@@ -30,22 +30,31 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
     lateinit var adapterSpinnerFrutas: ArrayAdapter<CharSequence>
     lateinit var dialogOnClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
-    lateinit var ejemplo :Registro
+    lateinit var textViewFechaRegistroFS: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_stock)
 
-
-        cargarRegistros()
-        mostrarCalendario()
-    }
-
-    fun cargarRegistros() {
+        textViewFechaRegistroFS = findViewById(R.id.textViewFechaRegistroFS)
 
         btnRegistrarFS.setOnClickListener(this)
         btnCancelarFS.setOnClickListener(this)
+
+        cargarRegistros()
+        mostrarCalendario()
+        mostarCuadroDeDialogo()
+
+    }
+
+
+    /**
+     *Funcion encargada de llevar a cabo la asignacion  e inicializacion de valores a las variables
+     *asociados al XML relacionado con esta actividad,para el correpto despliegue y
+     * funcionamiento de la misma
+     */
+    fun cargarRegistros() {
 
         var tipoProducto = arrayOf("Seleccione opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
@@ -61,10 +70,16 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
 
     }
 
+
     /**
-     *
+     * @dialogClickListener Variable que contiene la accion del DialogInterface.OnclickListener y
+     * si la accion al boton del cuadro de dialogo mostrado es positivo o SI, llama a finish() y sale de
+     * la actividad de edicion del registro en el que se encuentre.
+     * La accion se lleva a cabo dentro de la funcion onClick cuando se presiona el
+     * boton btnCancelar.
+     * Funcion que contiene la variable que lleva a cabo la accion antes mencionada
      */
-    fun cuadroDeDialogo() {
+    fun mostarCuadroDeDialogo() {
         dialogOnClickListener = DialogInterface.OnClickListener { dialog, which ->
 
 
@@ -81,7 +96,7 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
 
     /**
      * Funcion encargada de disparar los eventos sobre los botones
-     * dentro de la interfaz con sus respectivas acciones
+     * dentro de la interfaz con sus respectivas acciones asociadas a este contexto
      */
     override fun onClick(v: View?) {
 
@@ -94,31 +109,41 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
                 && !spinnerListaFS.selectedItem.toString().equals("Seleccione Verdura")
                 && !ediTxtLibrasFS.text.isEmpty()
                 && !ediTxtBultosFS.text.isEmpty()
-                && !ediTxtFechaRegistroFS.text.toString().isEmpty()) {
+                && !textViewFechaRegistroFS.text.toString().isEmpty()
+            ) {
 
 
-                registroStock = Registro()
+                try {
+                    registroStock = Registro()
 
-                registroStock.nombre = spinnerListaFS.selectedItem.toString()
-                registroStock.libras = ediTxtLibrasFS.text.toString().toInt()
-                registroStock.bultos = ediTxtBultosFS.text.toString().toInt()
-                registroStock.fechaRegistro = ediTxtFechaRegistroFS.text.toString()
+                    registroStock.nombre = spinnerListaFS.selectedItem.toString()
+                    registroStock.libras = ediTxtLibrasFS.text.toString().toInt()
+                    registroStock.bultos = ediTxtBultosFS.text.toString().toInt()
+                    registroStock.fechaRegistro = textViewFechaRegistroFS.text.toString()
 
-                registroStock.tipoOpcion = spinnerOpcionFS.selectedItemPosition
-                registroStock.tipoLista = spinnerListaFS.selectedItemPosition
+                    registroStock.tipoOpcion = spinnerOpcionFS.selectedItemPosition
+                    registroStock.tipoLista = spinnerListaFS.selectedItemPosition
 
-                var intent = Intent()
-                intent.putExtra("registroFormularioStock", registroStock)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                    var intent = Intent()
+                    intent.putExtra("registroFormularioStock", registroStock)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
 
-            }else{
+                } catch (e: Exception) {
+
+                    Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
+                }
+
+
+            } else {
                 Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
             }
 
 
         } else if (v?.id == btnCancelarFS.id) {
-            builder.setMessage("Esta seguro").setPositiveButton("OK", dialogOnClickListener).show()
+            builder = AlertDialog.Builder(this)
+            builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("OK", dialogOnClickListener)
+                .setNegativeButton("No", dialogOnClickListener).show()
 
         }
     }
@@ -134,11 +159,11 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
         val v_month = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
-        btnFecha.setOnClickListener {
+        btnFechaFS.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                ediTxtFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + year)
-            }, v_day, v_month, v_year)
+                textViewFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + year)
+            }, v_year, v_day, v_month)
             dpd.show()
         }
 

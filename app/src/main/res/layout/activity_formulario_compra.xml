@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Registro de Compra Frutas o Verduras"
@@ -51,6 +51,7 @@
                     android:layout_below="@+id/spinnerListaFC"
                     android:hint="Precio por Libra"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:digits="0123456789"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"/>
@@ -61,6 +62,7 @@
                     android:layout_below="@+id/ediTxtPrecioLibraFC"
                     android:hint="Libras"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:digits="0123456789"
                     android:layout_marginLeft="20dp"/>
             <EditText
@@ -70,6 +72,7 @@
                     android:layout_below="@+id/ediTxtLibrasFC"
                     android:hint="Bultos"
                     android:inputType="number"
+                    android:maxLength="5"
                     android:digits="0123456789"
                     android:layout_marginLeft="20dp"/>
             <Spinner
@@ -87,23 +90,24 @@
                     android:layout_below="@+id/spinnerCiudadFC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <EditText
+                <TextView
                         android:id="@+id/ediTxtFechaRegistroFC"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Fecha de Registro "
+                        android:hint="Fecha Registro "
                         android:layout_below="@+id/spinnerCiudadFC"
                         android:inputType="date"
-                        android:layout_marginLeft="20dp"/>
+                        android:textSize="20dp"
+                        android:layout_marginLeft="25dp"/>
 
 
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Ingrese Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
                         android:textSize="14dp"
-                        android:layout_marginLeft="45dp"
+                        android:layout_marginLeft="60dp"
                         android:padding="6dp"
                         android:background="@drawable/molde_btn_varios_background"/>
 

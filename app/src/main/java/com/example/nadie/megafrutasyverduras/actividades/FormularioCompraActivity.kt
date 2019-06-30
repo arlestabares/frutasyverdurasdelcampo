@@ -10,11 +10,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
-import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_formulario_compra.*
+import java.lang.Exception
 import java.util.*
 
 class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -25,15 +26,17 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
     lateinit var adaptadorSpinnerCiudad: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
+    lateinit var txtViewFechaRegistroFC: TextView
 
-
-    /**
-     * Funcion encargada de ejecutar los metodos o funciones para la correpta implementacion
-     * de las variables y sus relaciones dentro de este contexto
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_compra)
+
+        txtViewFechaRegistroFC = findViewById(R.id.ediTxtFechaRegistroFC)
+        btnRegistrarFC.setOnClickListener(this)
+        btnCancelarFC.setOnClickListener(this)
+        btnFechaFS.setOnClickListener(this)
+        txtViewFechaRegistroFC.setOnClickListener(this)
 
         cargarRegistro()
         mostrarCalendario()
@@ -46,11 +49,6 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
      * funcionamiento de la misma
      */
     fun cargarRegistro() {
-        btnRegistrarFC.setOnClickListener(this)
-        btnCancelarFC.setOnClickListener(this)
-        btnFecha.setOnClickListener(this)
-
-        registroCompra = Registro()
 
         var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
@@ -115,38 +113,46 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
                 && !ediTxtPrecioLibraFC.text.isEmpty()
                 && !ediTxtLibrasFC.text.isEmpty()
                 && !ediTxtBultosFC.text.isEmpty()
-                && !ediTxtFechaRegistroFC.text.isEmpty()
-                && !spinnerCiudadFC.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")) {
+                && !txtViewFechaRegistroFC.text.isEmpty()
+                && !spinnerCiudadFC.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")
+            ) {
 
 
-                /*El objeto registroCompra sera enviado mediante el intent al MainActivity que contiene la logica del negocio
-                 con sus valores asociados para ser enviado a las actividades que lo requieran*/
+                try {
+                    /*El objeto registroCompra sera enviado mediante el intent al MainActivity que contiene la logica del negocio
+               con sus valores asociados para ser enviado desde alli  a las actividades que lo requieran*/
 
-                registroCompra = Registro()
+                    registroCompra = Registro()
 
-                registroCompra.nombre = spinnerListaFC.selectedItem.toString()
-                registroCompra.precio = ediTxtPrecioLibraFC.text.toString().toInt()
-                registroCompra.libras = ediTxtLibrasFC.text.toString().toInt()
-                registroCompra.bultos = ediTxtBultosFC.text.toString().toInt()
-                registroCompra.fechaRegistro = ediTxtFechaRegistroFC.text.toString()
-                registroCompra.procedencia = spinnerCiudadFC.selectedItem.toString()
-                registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
-                registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
+                    registroCompra.nombre = spinnerListaFC.selectedItem.toString()
+                    registroCompra.precio = ediTxtPrecioLibraFC.text.toString().toInt()
+                    registroCompra.libras = ediTxtLibrasFC.text.toString().toInt()
+                    registroCompra.bultos = ediTxtBultosFC.text.toString().toInt()
+                    registroCompra.fechaRegistro = txtViewFechaRegistroFC.text.toString()
+                    registroCompra.procedencia = spinnerCiudadFC.selectedItem.toString()
+                    registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
+                    registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
 
 
-                var intent = Intent()
-                intent.putExtra("registroCompra", registroCompra)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                    var intent = Intent()
+                    intent.putExtra("registroCompra", registroCompra)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
+
+                }
+
+
             } else {
                 Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
             }
 
         } else if (v?.id == btnCancelarFC.id) {
-
-            builder.setMessage("Esta seguro").setPositiveButton("Si", dialogClickListener)
+            builder = AlertDialog.Builder(this)
+            builder.setMessage("Esta seguro de Cancelar el registro").setPositiveButton("Si", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show()
-        } else if (v?.id == btnFecha.id) {
+        } else if (v?.id == btnFechaFS.id) {
             mostrarCalendario()
 
         }
@@ -164,10 +170,10 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         val v_mont = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
-        btnFecha.setOnClickListener {
+        btnFechaFS.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                ediTxtFechaRegistroFC.setText("" + dayOfMonth + "/" + month + "/" + year)
+                txtViewFechaRegistroFC.setText("" + dayOfMonth + "/" + month + "/" + year)
 
             }, v_year, v_mont, v_day)
             dpd.show()

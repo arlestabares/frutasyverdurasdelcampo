@@ -45,6 +45,13 @@ class AdapterProveedores(var contexto: Activity, var listaProveedores: ArrayList
     }
 
     /**
+     * Funcion encargada de eliminar el registro que contiene un proveedor
+     */
+    fun eliminarProveedor(proveedor: Proveedor){
+        listaProveedores.remove(proveedor)
+
+    }
+    /**
      * Clase ViewHolderOpciones que sirve de tipoOpcion en parametros de las funciones,onBindViewHolder,
      * y la funcion onCreateViewHolder
      *

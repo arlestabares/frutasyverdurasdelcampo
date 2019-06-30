@@ -21,7 +21,7 @@
                 android:layout_height="match_parent">
 
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Registro de Compra Frutas o Verduras"
@@ -95,7 +95,7 @@
 
 
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Ingrese Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"

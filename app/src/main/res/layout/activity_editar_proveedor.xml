@@ -19,21 +19,24 @@
                 android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Editar Proveedor"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:gravity="center"/>
+
             <EditText
                     android:id="@+id/ediTxtNombreEP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="110dp"
                     android:hint="Nombre"
+                    android:maxLength="28"
                     android:inputType="text"
                     android:layout_marginLeft="20dp"/>
+
             <Spinner
                     android:id="@+id/spinnerCiudadEP"
                     android:layout_width="match_parent"
@@ -48,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerCiudadEP"
                     android:hint="Telefono"
+                    android:maxLength="10"
                     android:inputType="number"
                     android:layout_marginLeft="20dp"/>
             <LinearLayout
@@ -58,18 +62,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                <EditText
-                        android:id="@+id/ediTxtFechaRegistroEP"
+                <TextView
+                        android:id="@+id/txtViewFechaRegistroEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtTelefonoEP"
                         android:layout_marginTop="1dp"
                         android:hint="Fecha Registro"
+                        android:textSize="20dp"
+                        android:maxLength="9"
                         android:inputType="date"
                         android:layout_marginLeft="20dp"/>
 
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
@@ -101,6 +107,16 @@
                         android:layout_marginLeft="50dp"
                         android:background="@drawable/molde_btn_varios_background"/>
             </LinearLayout>
+
+            <Button
+                    android:id="@+id/btnEliminarProveedor"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:text="Eliminar Proveedor"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/molde_btn_varios_background"/>
 
         </LinearLayout>
     </ScrollView>

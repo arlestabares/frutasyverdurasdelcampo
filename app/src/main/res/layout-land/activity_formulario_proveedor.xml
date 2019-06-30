@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Registrar Proveedor"
@@ -63,13 +63,13 @@
                     android:layout_marginTop="20dp">
 
                 <EditText
-                        android:id="@+id/ediTxtFechaRegistroFS"
+                        android:id="@+id/textViewFechaRegistroFS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Fecha Registro"
                         android:layout_marginLeft="20dp"/>
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"

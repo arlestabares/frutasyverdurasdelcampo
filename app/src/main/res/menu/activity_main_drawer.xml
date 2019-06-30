@@ -7,7 +7,7 @@
         <item
                 android:id="@+id/menu_opciones"
                 android:icon="@drawable/ic_menu_camera"
-                android:title="Menu Opciones"/>
+                android:title="Listar Centros de Donacion"/>
         <item
                 android:id="@+id/nav_gallery"
                 android:icon="@drawable/ic_menu_gallery"

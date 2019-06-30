@@ -45,6 +45,12 @@ class AdapterCompra(var contexto: Activity, var listaCompra: ArrayList<Registro>
         listaCompra.set(pos, registro)
     }
 
+
+    fun eliminarCompra(pos:Int,registro: Registro){
+        listaCompra.remove(registro)
+
+    }
+
     /**
      * Clase encargada de poner los valores asociados a cada variable de tipoOpcion Producto
      */

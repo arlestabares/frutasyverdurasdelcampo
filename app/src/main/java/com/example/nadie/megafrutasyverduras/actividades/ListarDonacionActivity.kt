@@ -61,6 +61,15 @@ class ListarDonacionActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * @registro Contiene la lista de objetos
+     * @pos Posicion en la cual sera actualizado el registro que contiene los objetos
+     * Funcion encargada de llevar a cabo el envio del objeto registro al MainActivity
+     * para su actualizacion correspondiente luego de ser editado dicho registro, ya que
+     * al presionar el boton o ir  hacia atras en la pila de actividades
+     * èsta aun esta sin resolver o sin actualizar, y para ello se remite nuevamente dicho objeto
+     * para tales fines
+     */
     override fun onBackPressed() {
 
         if (registro != null && pos!=null  ){

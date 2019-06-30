@@ -2,17 +2,19 @@ package com.example.nadie.megafrutasyverduras.actividades
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
-import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
-import kotlinx.android.synthetic.main.activity_formulario_descomposicion.*
+import kotlinx.android.synthetic.main.activity_formulario_donacion.*
 import java.util.*
 
 class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
@@ -21,29 +23,32 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
     lateinit var registro: Registro
     lateinit var adapterSpinnerFrutas: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
-
+    lateinit var dialogClickListener: DialogInterface.OnClickListener
+    lateinit var builder: AlertDialog.Builder
+    lateinit var txtViewFechaRegistroFD:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_formulario_descomposicion)
+        setContentView(R.layout.activity_formulario_donacion)
 
+        btnRegistrarFD.setOnClickListener(this)
+        btnCancelarFD.setOnClickListener(this)
 
+        txtViewFechaRegistroFD=findViewById(R.id.txtViewFechaRegistroFD)
 
         cargarRegistros()
         mostrarCalendario()
+        mostrarCuadroDeDialogo()
 
     }
 
     /**
      * Funcion encargada de cargar los registros iniciales del XML asociado a esta actividad,lo
      * mismo que de iniciar las escuchas necesarias para la ejecucion de los valores y registros asociados
-     * a cada variable. realizar cambios lalalal
+     * a cada variable.
      *
      */
     fun cargarRegistros() {
-
-        btnRegistrarFD.setOnClickListener(this)
-        btnCancelarFD.setOnClickListener(this)
 
         var tipoProducto = arrayOf("Seleccione Opcion", "Fruta", "Verdura")
         var adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, tipoProducto)
@@ -60,7 +65,7 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
 
     /**
      * funcion encargada de disparar los eventos asociados a los botones
-     * de la interfaz
+     * de la interfaz del XML de esta activity con sus correspondientes acciones
      */
     override fun onClick(v: View?) {
 
@@ -72,24 +77,35 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
                 && !spinnerListaFD.selectedItem.toString().equals("Seleccione Verdura")
                 && !ediTxtLibrasFD.text.isEmpty()
                 && !ediTxtBultosFD.text.isEmpty()
-                && !ediTxtFechaRegistroFD.text.isEmpty()) {
+                && !txtViewFechaRegistroFD.text.isEmpty()
+            ) {
 
-                registro = Registro()
 
-                registro.nombre = spinnerListaFD.selectedItem.toString()
-                registro.libras = ediTxtLibrasFD.text.toString().toInt()
-                registro.bultos = ediTxtBultosFD.text.toString().toInt()
-                registro.fechaRegistro = ediTxtFechaRegistroFD.text.toString()
+                try {
 
-                registro.tipoOpcion = spinnerOpcionFD.selectedItemPosition
-                registro.tipoLista = spinnerListaFD.selectedItemPosition
+                    registro = Registro()
 
-                /*intent con destino a  InterfazFragmentActivity , quien se encargar de gestionar el envio
-                  de dicho registro con sus datos hacia la actividad que lo requiera */
-                var intent = Intent()
-                intent.putExtra("registroParaDonacion", registro)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                    registro.nombre = spinnerListaFD.selectedItem.toString()
+                    registro.libras = ediTxtLibrasFD.text.toString().toInt()
+                    registro.bultos = ediTxtBultosFD.text.toString().toInt()
+                    registro.fechaRegistro = txtViewFechaRegistroFD.text.toString()
+
+                    registro.tipoOpcion = spinnerOpcionFD.selectedItemPosition
+                    registro.tipoLista = spinnerListaFD.selectedItemPosition
+
+                    /*intent con destino a  MainActivity , quien se encarga de gestionar los registros guaradandolos
+                    en cada una de las listas para ser enviadas hacia la actividad que lo requiera */
+                    var intent = Intent()
+                    intent.putExtra("registroDesdeFormularioDonacion", registro)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+
+
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
+
+                }
+
 
             } else {
                 Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
@@ -97,10 +113,18 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
 
 
         } else if (v?.id == btnCancelarFD.id) {
-            finish()
+
+            builder = AlertDialog.Builder(this)
+            builder.setMessage("Esta seguro de cancelar el registro?").setPositiveButton("Si", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show()
+
         }
     }
 
+    /**
+     * Funcion encargada de mostrar el calendario para realizar el registro
+     * del año, mes y dia de la fecha asociada a la compra
+     */
     fun mostrarCalendario() {
 
         val c = Calendar.getInstance()
@@ -108,12 +132,36 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
         val v_month = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
-        btnFecha.setOnClickListener {
+        btnFechaFS.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                ediTxtFechaRegistroFD.setText("" + dayOfMonth + "/" + month + "/" + year)
+                txtViewFechaRegistroFD.setText("" + dayOfMonth + "/" + month + "/" + year)
 
             }, v_year, v_month, v_day)
             dpd.show()
+        }
+
+    }
+
+    /**
+     * @dialogClickListener Variable que contiene la accion del DialogInterface.OnclickListener y
+     * si la accion al boton del cuadro de dialogo mostrado es positivo , llama a finish() y sale de
+     * la actividad  del registro en el que se encuentre.
+     * La accion se lleva a cabo dentro de la funcion onClick cuando se presiona el
+     * boton btnCancelar.
+     * Funcion que contiene la variable que lleva a cabo la accion antes mencionada
+     */
+    fun mostrarCuadroDeDialogo() {
+
+        dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    finish()
+                }
+
+            }
+
+
         }
 
     }

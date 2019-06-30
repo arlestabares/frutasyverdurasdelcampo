@@ -14,8 +14,10 @@ import com.example.nadie.megafrutasyverduras.modelo.Registro
 
 class ListarStockActivity(var adapter: AdapterStock? = null) : AppCompatActivity() {
 
-    var pos: Int? = 0
+    var pos: Int = 0
+    var posEliminar:Int = 0
     var registro: Registro ?=null
+    var registroEliminar:Registro?=null
     lateinit var recyclerView: RecyclerView
     var listaStock: ArrayList<Registro>? = null
 
@@ -43,28 +45,36 @@ class ListarStockActivity(var adapter: AdapterStock? = null) : AppCompatActivity
 
         if (requestCode == 1825) {
             if (resultCode == Activity.RESULT_OK) {
-                registro= data?.getParcelableExtra("editarStock")
-                pos =data?.getIntExtra("posicion",0)
-                Log.e("registro_editado", registro.toString() + " " + pos)
-                adapter?.actualizarCompra(pos!!, registro!!)
-                adapter?.notifyDataSetChanged()
 
+                    registro= data?.getParcelableExtra("editarStock")
+                    pos =data!!.getIntExtra("posicion",0)
+                    Log.e("registro_editado", registro.toString() + " " + pos)
+                    adapter?.actualizarStock(pos, registro!!)
+                    adapter?.notifyDataSetChanged()
+                   
+
+                }
             }
         }
-    }
 
     /**
-     * Funcion encargada de
-     *
+     * @registro Contiene la lista de objetos
+     * @pos Posicion en la cual sera actualizado el registro que contiene los objetos
+     * Funcion encargada de llevar a cabo el envio del objeto registro al MainActivity
+     * para su actualizacion correspondiente luego de ser editado dicho registro, ya que
+     * al presionar el boton o ir  hacia atras en la pila de actividades
+     * èsta aun esta sin resolver o sin actualizar, y para ello se remite nuevamente dicho objeto
+     * para tales fines
      */
     override fun onBackPressed() {
 
-        if (registro!=null && pos !=null){
+        if (registro!=null && pos!=null){
 
             val intent=Intent()
             intent.putExtra("registroDesdeListarStock",registro)
-            intent.putExtra("posicion",pos!!)
+            intent.putExtra("posicion",pos)
             setResult(Activity.RESULT_OK,intent)
+
         }
         super.onBackPressed()
     }

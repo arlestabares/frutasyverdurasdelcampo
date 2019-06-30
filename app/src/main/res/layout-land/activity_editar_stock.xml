@@ -9,7 +9,7 @@
 
 
     <TextView
-            android:id="@+id/txtTitulo"
+            android:id="@+id/txtTituloFS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Editar Stock de Fruta o Verdura"
@@ -75,14 +75,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
                 <EditText
-                        android:id="@+id/ediTxtFechaRegistroES"
+                        android:id="@+id/txtViewFechaRegistroES"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtBultosES"
                         android:hint="Fecha de Registro"
                         android:layout_marginLeft="20dp"/>
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"

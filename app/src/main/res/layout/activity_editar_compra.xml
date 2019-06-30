@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Editar Registro  de Frutas o Verduras"
@@ -83,22 +83,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
-                <EditText
+                <TextView
                         android:id="@+id/ediTxtFechaRegistroEC"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Fecha Registro"
+                        android:textSize="20dp"
                         android:layout_below="@+id/spinnerProcedenciaEC"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="25dp"
                         android:inputType="date"
                         android:layout_gravity="center_vertical"/>
 
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:layout_marginLeft="70dp"
+                        android:layout_marginLeft="60dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/molde_btn_varios_background"/>
 
@@ -125,8 +126,18 @@
                     android:text="Cancelar"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-
                     android:background="@drawable/molde_btn_varios_background"/>
+            <Button
+                    android:id="@+id/btnEliminarRegistroEC"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:text="Eliminar"
+                    android:background="@drawable/molde_btn_varios_background"
+                    android:layout_marginTop="550dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

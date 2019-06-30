@@ -14,13 +14,13 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/txtTitulo"
+                    android:id="@+id/txtTituloFS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Editar Fruta o Verdura Para Donacion"
+                    android:text="Editar Fruta o Verdura en Descomposion"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -29,7 +29,7 @@
                     android:id="@+id/spinnerOpcionED"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginRight="60dp"
                     android:padding="8dp">
 
@@ -75,20 +75,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <EditText
-                        android:id="@+id/ediTxtFechaRegistroED"
+                        android:id="@+id/txtViewFechaRegistroED"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ediTxtBultosED"
                         android:hint="Fecha de Registro"
-                        android:inputType="date"
                         android:layout_marginLeft="20dp"/>
 
                 <Button
-                        android:id="@+id/btnFecha"
+                        android:id="@+id/btnFechaFS"
                         android:text="Seleccione Fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="243dp"
                         android:background="@drawable/molde_btn_varios_background"/>
 
             </LinearLayout>
@@ -97,13 +96,13 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp">
+                    android:layout_marginTop="40dp">
                 <Button
                         android:id="@+id/btnEditarED"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:text="  Registrar  "
-                        android:layout_marginLeft="20dp"
+                        android:text="Registrar"
+                        android:layout_marginLeft="70dp"
                         android:paddingRight="30dp"
                         android:paddingLeft="30dp"
                         android:background="@drawable/molde_btn_varios_background"/>
@@ -112,10 +111,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
                         android:text="Cancelar"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="210dp"
                         android:paddingLeft="30dp"
                         android:paddingRight="30dp"
                         android:background="@drawable/molde_btn_varios_background"/>
+
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
