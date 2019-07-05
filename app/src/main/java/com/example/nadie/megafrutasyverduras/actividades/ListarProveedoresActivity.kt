@@ -12,12 +12,14 @@ import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.adapter.AdapterProveedores
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 
 class ListarProveedoresActivity : AppCompatActivity() {
 
     var posicion: Int? = 0
+    var posEliminar :Int?= 0
     var registro: Proveedor? = null
-    var pos:Int? =0
+    var regEliminar:Proveedor?=null
     var resgistroEliminar:Proveedor?=null
 
     lateinit var recyclerView: RecyclerView
@@ -46,21 +48,40 @@ class ListarProveedoresActivity : AppCompatActivity() {
 
         if (requestCode == 2534) {
             if (resultCode == Activity.RESULT_OK) {
-                registro = data?.getParcelableExtra("registro")
-                posicion = data?.getIntExtra("posicion", 0)
-                Log.e("registro_editado", registro.toString() + " " + posicion)
-                adapter?.actualizarProveedor(posicion!!, registro!!)
-                adapter?.notifyDataSetChanged()
 
+                val codigo = data?.getIntExtra("codigo", 0)
 
+                if(codigo == 1) {
+
+                    registro = data?.getParcelableExtra("registro")
+                    posicion = data?.getIntExtra("posicion", 0)
+
+                    if(registro!= null && posicion != null){
+                        Log.e("registro_editado", registro.toString() + " " + posicion)
+
+                        adapter?.actualizarProveedor(posicion!!, registro!!)
+                        adapter?.notifyDataSetChanged()
+
+                    }
+
+                }else if(codigo == 2) {
+
+                    regEliminar=data?.getParcelableExtra("registroEliminar")
+                    posEliminar = data?.getIntExtra("posicionEliminar", 0)
+
+                    if (posEliminar != null && regEliminar!=null) {
+                        adapter?.eliminarProveedor(posEliminar!!, regEliminar!!)
+                        adapter?.notifyDataSetChanged()
+                    }
+
+                }
             }
-
         }
     }
     /**
      * @registro Contiene la lista de objetos
      * @pos Posicion en la cual sera actualizado el registro que contiene los objetos
-     * Funcion encargada de llevar a cabo el envio del objeto registro al MainActivity
+     * Funcion encargada de llevar a cabo el envio del objregistroEliminareto registro al MainActivity
      * para su actualizacion correspondiente luego de ser editado dicho registro, ya que
      * al presionar el boton o ir  hacia atras en la pila de actividades
      * èsta aun esta sin resolver o sin actualizar, y para ello se remite nuevamente dicho objeto
@@ -73,8 +94,11 @@ class ListarProveedoresActivity : AppCompatActivity() {
             intent.putExtra("posicion", posicion!!)
             setResult(Activity.RESULT_OK, intent)
 
-
-
+        }else if (posEliminar!=null && regEliminar!=null){
+            val intent=Intent()
+            intent.putExtra("registroEliminar",regEliminar!!)
+            intent.putExtra("posEliminar",posEliminar!!)
+            setResult(Activity.RESULT_OK,intent)
         }
         super.onBackPressed()
     }

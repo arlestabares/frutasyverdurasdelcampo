@@ -248,10 +248,10 @@ class MainActivity : AppCompatActivity(),
     /**
      *Funcion encargada de registrar los eventos de registros
      */
-    fun registrarProducto(registro: Registro, bandera: Int) {
+    fun guardarRegistro(registro: Registro, bandera: Int) {
 
         if (bandera == 12) {
-            //listaCompra.add(registro)
+            listaCompra.add(registro)
             managerFB.insertarCompra(registro)
         } else if (bandera == 14) {
             listaStock.add(registro)
@@ -266,7 +266,7 @@ class MainActivity : AppCompatActivity(),
      * Funcion encargada de editar el registro seleccionado por el usuario en
      * la lista de items existentes llamada ListarCompraActivity
      */
-    fun actualizarProducto(pos: Int, registro: Registro, bandera: Int) {
+    fun actualizarRegistro(pos: Int, registro: Registro, bandera: Int) {
 
         if (bandera == 13) {
             listaCompra.set(pos, registro)
@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity(),
      * Funcion encargada de eliminar los registros asociados a las listas
      * creadas en cada una de las Listas de activitys (Listar......)
      */
-    fun eliminarProducto(registro: Registro, bandera: Int) {
+    fun eliminarRegistro(registro: Registro, bandera: Int) {
 
         if (bandera == 13) {
             listaCompra.remove(registro)
@@ -298,20 +298,20 @@ class MainActivity : AppCompatActivity(),
      * en la activity FormularioCompraActivity
      */
     fun registrarProveedor(registro: Proveedor) {
-        listaProveedores.add(registro)
+        //listaProveedores.add(registro)
         managerFB.insertarProveedor(registro)
 
     }
 
     fun actualizarProveedor(pos: Int, registro: Proveedor) {
+        managerFB.editarProveedor(registro)
         listaProveedores.set(pos, registro)
     }
 
-    fun eliminarProveedor(proveedor: Proveedor) {
-        listaProveedores.remove(proveedor)
-
+    fun eliminarProveedor(pos: Int, reg:Proveedor) {
+        listaProveedores.removeAt(pos)
+        managerFB.eliminarProveedor(reg)
     }
-
 
     /**
      * Funcion sobreescrita perteneciente a la interfaz
@@ -322,10 +322,12 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun actualizarListaProveedor(proveedor: Proveedor) {
+        listaProveedores.add(proveedor)
 
     }
 
     override fun actualizarListaStock(registro: Registro) {
+        listaStock.add(registro)
 
     }
 
@@ -392,23 +394,27 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    /**
+     * Funcion encargada de recibir los valores asoiciados al requestCode y el resulCode que le envian
+     * las actividades para realizar las operaciones correspondientes
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 12) {
             if (resultCode == Activity.RESULT_OK) {
-                val listaCompra = data?.getParcelableExtra<Registro>("registroCompra")
-                registrarProducto(listaCompra!!, 12)
+                val registroNuevo = data?.getParcelableExtra<Registro>("registroCompra")
+                guardarRegistro(registroNuevo!!, 12)
             }
         } else if (requestCode == 13) {
             if (resultCode == Activity.RESULT_OK) {
 
                 if (data != null) {
 
-                    val actualizarCompra = data?.getParcelableExtra<Registro>("editarRegistro")
-                    val pos = data?.getIntExtra("posicion", 0)
-                    if (actualizarCompra != null && pos != null) {
-                        actualizarProducto(pos, actualizarCompra, 13)
+                    val actualizarCompra = data.getParcelableExtra<Registro>("editarRegistro")
+                    val pos = data.getIntExtra("posicion", 0)
+                    if (actualizarCompra != null) {
+                        actualizarRegistro(pos, actualizarCompra, 13)
                     }
 
                 }
@@ -417,17 +423,17 @@ class MainActivity : AppCompatActivity(),
         } else if (requestCode == 14) {
             if (resultCode == Activity.RESULT_OK) {
                 val registrarStock = data?.getParcelableExtra<Registro>("registroFormularioStock")
-                registrarProducto(registrarStock!!, 14)
+                guardarRegistro(registrarStock!!, 14)
                 Log.e("registrostock", registrarStock.toString())
             }
         } else if (requestCode == 15) {
             if (resultCode == Activity.RESULT_OK) {
 
                 if (data != null) {
-                    val editarStock = data?.getParcelableExtra<Registro>("registroDesdeListarStock")
-                    val pos = data?.getIntExtra("posicion", 0)
+                    val editarStock = data.getParcelableExtra<Registro>("registroDesdeListarStock")
+                    val pos = data.getIntExtra("posicion", 0)
                     if (editarStock != null) {
-                        actualizarProducto(pos!!, editarStock!!, 15)
+                        actualizarRegistro(pos, editarStock, 15)
                     }
                 }
             }
@@ -435,7 +441,7 @@ class MainActivity : AppCompatActivity(),
         } else if (requestCode == 16) {
             if (resultCode == Activity.RESULT_OK) {
                 val registrarDonacion = data?.getParcelableExtra<Registro>("registroDesdeFormularioDonacion")
-                registrarProducto(registrarDonacion!!, 16)
+                guardarRegistro(registrarDonacion!!, 16)
                 Log.e("registroParaDonacion", registrarDonacion.toString())
             }
 
@@ -443,7 +449,7 @@ class MainActivity : AppCompatActivity(),
             if (resultCode == Activity.RESULT_OK) {
                 val actualizarDonacion = data?.getParcelableExtra<Registro>("registroDesdeListarDonacion")
                 val posicion = data?.getIntExtra("posicion", 0)
-                actualizarProducto(posicion!!, actualizarDonacion!!, 17)
+                actualizarRegistro(posicion!!, actualizarDonacion!!, 17)
             }
         } else if (requestCode == 18) {
             if (resultCode == Activity.RESULT_OK) {
@@ -452,15 +458,19 @@ class MainActivity : AppCompatActivity(),
             }
         } else if (requestCode == 19) {
             if (resultCode == Activity.RESULT_OK) {
-                val actualizarProveedores = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
+
+                val actualizarRegistro = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
                 val pos = data?.getIntExtra("posicion", 0)
-              //  val posicion = data?.getIntExtra("posicionEliminar", 0)
-              //  val eliminarProveedor = data?.getParcelableExtra<Proveedor>("registroDesdeListarProveedor")
 
-                actualizarProveedor(pos!!, actualizarProveedores!!)
+                val posEliminar = data?.getIntExtra("posEliminar", 0)
+                val eliminarRegistroProveedor = data?.getParcelableExtra<Proveedor>("registroEliminar")
 
+                if (actualizarRegistro!=null && pos!=null){
+                    actualizarProveedor(pos, actualizarRegistro)
 
-
+                }else if (posEliminar !=null && eliminarRegistroProveedor!=null){
+                    eliminarProveedor(posEliminar, eliminarRegistroProveedor)
+                }
             }
 
         } else if (requestCode == 100) {

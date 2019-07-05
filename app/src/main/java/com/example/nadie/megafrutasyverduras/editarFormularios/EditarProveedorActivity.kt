@@ -28,7 +28,7 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
     lateinit var adapterSpinnerCiudad: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var build: AlertDialog.Builder
-    lateinit var txtViewFechaRegistroEP:TextView
+    lateinit var txtViewFechaRegistroEP: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +37,9 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
 
         btnCancelarEP.setOnClickListener(this)
         btnEditarProveedorEP.setOnClickListener(this)
-      //  btnEliminarProveedor.setOnClickListener(this)
+        btnEliminarProveedor.setOnClickListener(this)
 
-        txtViewFechaRegistroEP =findViewById(R.id.txtViewFechaRegistroEP)
+        txtViewFechaRegistroEP = findViewById(R.id.txtViewFechaRegistroEP)
 
         cargarRegistros()
         mostarCalendario()
@@ -75,8 +75,9 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
         if (v?.id == btnEditarProveedorEP.id) {
 
 
-            if (!ediTxtNombreEP.text.isEmpty()&&!spinnerCiudadEP.selectedItem.toString().isEmpty()
-                &&! ediTxtTelefonoEP.text.isEmpty()&&!txtViewFechaRegistroEP.text.isEmpty()){
+            if (!ediTxtNombreEP.text.isEmpty() && !spinnerCiudadEP.selectedItem.toString().isEmpty()
+                && !ediTxtTelefonoEP.text.isEmpty() && !txtViewFechaRegistroEP.text.isEmpty()
+            ) {
 
                 try {
                     registroProveedor.nombre = ediTxtNombreEP.text.toString()
@@ -85,25 +86,27 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
                     registroProveedor.fechaRegistro = txtViewFechaRegistroEP.text.toString()
 
                     val intent = Intent()
+                    intent.putExtra("codigo", 1)
                     intent.putExtra("registro", registroProveedor)
                     intent.putExtra("posicion", posicion)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
                 }
-            }else{
+            } else {
                 Toast.makeText(this, "Debe Ingresar los valores en cada uno de los items", Toast.LENGTH_LONG).show()
             }
 
-        }else if (v?.id== btnCancelarEP.id){
+        } else if (v?.id == btnCancelarEP.id) {
 
-        build=AlertDialog.Builder(this)
-            build.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si",dialogClickListener)
-                .setNegativeButton("No",dialogClickListener).show()
+            build = AlertDialog.Builder(this)
+            build.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show()
 
-        }else if (v?.id==btnEliminarProveedor.id){
+        } else if (v?.id == btnEliminarProveedor.id) {
             val intent = Intent()
+            intent.putExtra("codigo", 2)
             intent.putExtra("registroEliminar", registroProveedor)
             intent.putExtra("posicionEliminar", posicion)
             setResult(Activity.RESULT_OK, intent)
@@ -121,10 +124,10 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
      * boton btnCancelar.
      * Funcion que contiene la variable que lleva a cabo la accion antes mencionada
      */
-    fun mostrarCuadroDeDialogo(){
+    fun mostrarCuadroDeDialogo() {
 
-        dialogClickListener=DialogInterface.OnClickListener { dialog, which ->
-            when(which){
+        dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+            when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
 
                     finish()
@@ -139,21 +142,21 @@ class EditarProveedorActivity : AppCompatActivity(), View.OnClickListener, Adapt
      * Funcion encargada de mostrar el calendario para realizar el registro
      * del año, mes y dia de la fecha asociada a la compra
      */
-    fun mostarCalendario(){
+    fun mostarCalendario() {
 
-        val c=Calendar.getInstance()
-        val v_year =c.get(Calendar.YEAR)
-        val v_month =c.get(Calendar.MONTH)
-        val v_day=c.get(Calendar.DAY_OF_MONTH)
+        val c = Calendar.getInstance()
+        val v_year = c.get(Calendar.YEAR)
+        val v_month = c.get(Calendar.MONTH)
+        val v_day = c.get(Calendar.DAY_OF_MONTH)
 
 
         btnFechaFS.setOnClickListener {
 
-            val dpd=DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                txtViewFechaRegistroEP.setText(""+dayOfMonth+"/"+month+"/"+year)
+                txtViewFechaRegistroEP.setText("" + dayOfMonth + "/" + month + "/" + year)
 
-            },v_year,v_month,v_day)
+            }, v_year, v_month, v_day)
             dpd.show()
         }
 

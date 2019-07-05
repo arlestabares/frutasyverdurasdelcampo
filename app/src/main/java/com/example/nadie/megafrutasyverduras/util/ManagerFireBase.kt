@@ -28,10 +28,10 @@ object ManagerFireBase {
     /**
      *
      */
-    fun  inicializar(actividad:Activity):ManagerFireBase{
-        val instant:ManagerFireBase= ManagerFireBase
-        instant.database= FirebaseDatabase.getInstance()
-        instant.dataRef=database!!.reference
+    fun inicializar(actividad: Activity): ManagerFireBase {
+        val instant: ManagerFireBase = ManagerFireBase
+        instant.database = FirebaseDatabase.getInstance()
+        instant.dataRef = database!!.reference
 
         listener = actividad as onActualizarAdaptador
 
@@ -42,9 +42,9 @@ object ManagerFireBase {
     /**
      *
      */
-    fun instanciar(actividad:Activity){
-        if (instant==null){
-            instant=inicializar(actividad)
+    fun instanciar(actividad: Activity) {
+        if (instant == null) {
+            instant = inicializar(actividad)
 
         }
     }
@@ -52,33 +52,51 @@ object ManagerFireBase {
     /**
      *
      */
-    fun insertarCompra(registro: Registro){
+    fun insertarCompra(registro: Registro) {
         dataRef!!.child("registro").push().setValue(registro)
 
     }
-    fun insertarDonacion(registro: Registro){
+
+    fun insertarDonacion(registro: Registro) {
         dataRef!!.child("donacion").push().setValue(registro)
     }
-    fun insertarProveedor(proveedor: Proveedor){
+
+    fun insertarProveedor(proveedor: Proveedor) {
         dataRef!!.child("proveedor").push().setValue(proveedor)
 
     }
 
-    fun insertarStock(registro: Registro){
+    fun insertarStock(registro: Registro) {
         dataRef!!.child("stock").push().setValue(registro)
 
     }
-    fun insertarProducto(producto: Producto){
+
+    fun insertarProducto(producto: Producto) {
         dataRef!!.child("producto").push().setValue(producto)
     }
 
-    fun editarCompra(registro: Registro){
+    fun editarCompra(registro: Registro) {
         Log.e("registro", registro.toString())
         dataRef!!.child("registro").child(registro.id).setValue(registro)
     }
 
-    fun escucharEventoFireBase(){
-        dataRef!!.child("registro").addChildEventListener(object:ChildEventListener{
+    fun editarProveedor(proveedor: Proveedor) {
+        dataRef!!.child("proveedor").child(proveedor.id).setValue(proveedor)
+
+    }
+
+    fun eliminarProveedor(proveedor: Proveedor) {
+        dataRef!!.child("proveedor").child(proveedor.id).removeValue()
+    }
+
+    /**
+     * Funcion encargada de escuchar los eventos para val reg:Proveedor = p0.getValue(Proveedor::class.java)!!
+    listener!!.eliminarProveedor(reg)actualizar la base de datos FireBase online
+     * con cada uno de los registros
+     */
+    fun escucharEventoFireBase() {
+        dataRef!!.child("registro").addChildEventListener(object : ChildEventListener {
+
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -95,7 +113,7 @@ object ManagerFireBase {
             Lee el evento de inserciòn en firebase, captura la llave que se genera automàticamente para el registro
              */
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                val reg:Registro = p0.getValue(Registro::class.java)!!
+                val reg: Registro = p0.getValue(Registro::class.java)!!
                 reg.id = p0.key!!
                 listener!!.actualizarListaCompra(reg)
             }
@@ -105,7 +123,7 @@ object ManagerFireBase {
             }
         })
 
-        dataRef!!.child("proveedor").addChildEventListener(object:ChildEventListener{
+        dataRef!!.child("proveedor").addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -122,16 +140,15 @@ object ManagerFireBase {
             Lee el evento de inserciòn en firebase, captura la llave que se genera automàticamente para el registro
              */
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                val reg:Proveedor = p0.getValue(Proveedor::class.java)!!
+                val reg: Proveedor = p0.getValue(Proveedor::class.java)!!
                 reg.id = p0.key!!
                 listener!!.actualizarListaProveedor(reg)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
         })
     }
-
 
 }
