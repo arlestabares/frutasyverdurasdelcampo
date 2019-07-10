@@ -1,6 +1,8 @@
 package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +25,8 @@ class FormularioRealizarDonacionActivity() : AppCompatActivity(), View.OnClickLi
     lateinit var adapterSpinnerVerdura: ArrayAdapter<CharSequence>
     var registroDonacion: ArrayList<Registro>? = null
     lateinit var registro: Registro
+    lateinit var builder:AlertDialog.Builder
+    lateinit var dialogClickListener: DialogInterface.OnClickListener
     var libras: Int = 0
     var calculado: Boolean = false
 
@@ -143,5 +147,11 @@ class FormularioRealizarDonacionActivity() : AppCompatActivity(), View.OnClickLi
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onBackPressed() {
+        builder=AlertDialog.Builder(this)
+        builder.setMessage("Esta seguro de abandinar el registro?").setPositiveButton("Si",dialogClickListener)
+            .setNegativeButton("No",dialogClickListener).show()
     }
 }

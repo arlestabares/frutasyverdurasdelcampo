@@ -20,12 +20,6 @@ class CentrosParaDonacionActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_centros_para_donacion)
 
-
-
-
-
-
-
        // cardViewDonacion1.setOnClickListener(this)
 
     }

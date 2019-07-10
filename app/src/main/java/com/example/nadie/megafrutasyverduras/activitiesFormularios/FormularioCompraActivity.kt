@@ -205,4 +205,9 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun onBackPressed() {
+        builder = AlertDialog.Builder(this)
+        builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si",dialogClickListener)
+            .setNegativeButton("No",dialogClickListener).show()
+    }
 }

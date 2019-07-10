@@ -21,7 +21,7 @@ class FormularioProveedorActivity : AppCompatActivity(), View.OnClickListener, A
     lateinit var registroProveedor: Proveedor
     lateinit var spinnerCiudadProveedor: ArrayAdapter<CharSequence>
     lateinit var dialogOnClickListener: DialogInterface.OnClickListener
-    lateinit var build: AlertDialog.Builder
+    lateinit var builder: AlertDialog.Builder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,8 +123,8 @@ class FormularioProveedorActivity : AppCompatActivity(), View.OnClickListener, A
 
 
         } else if (v?.id == btnCancelarFS.id) {
-            build = AlertDialog.Builder(this)
-            build.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si", dialogOnClickListener)
+            builder = AlertDialog.Builder(this)
+            builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si", dialogOnClickListener)
                 .setNegativeButton("No", dialogOnClickListener).show()
 
         }
@@ -161,5 +161,12 @@ class FormularioProveedorActivity : AppCompatActivity(), View.OnClickListener, A
             // spinnerCiudades.adapter=spinnerCiudadProveedor
 
         }
+    }
+
+    override fun onBackPressed() {
+        builder=AlertDialog.Builder(this)
+        builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si",dialogOnClickListener)
+            .setNegativeButton("No",dialogOnClickListener).show()
+
     }
 }
