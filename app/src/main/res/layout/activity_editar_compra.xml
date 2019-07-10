@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerListaEC"
                     android:layout_marginTop="10dp"
-                    android:hint="Precio Libra"
+                    android:hint="Precio Kilo"
                     android:inputType="number"
                     android:layout_marginLeft="20dp"/>
             <EditText
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtPrecioLibraEC"
-                    android:hint="Libras"
+                    android:hint="Kilos"
                     android:inputType="number"
                     android:layout_marginLeft="20dp"/>
             <EditText

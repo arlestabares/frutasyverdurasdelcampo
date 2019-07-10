@@ -1,10 +1,8 @@
 package com.example.nadie.megafrutasyverduras.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import android.widget.TextView
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.editarFormularios.EditarProveedorActivity
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
-import org.jetbrains.anko.startActivityForResult
 
 class AdapterProveedores(var contexto: Activity, var listaProveedores: ArrayList<Proveedor>) :
     RecyclerView.Adapter<AdapterProveedores.ViewHolderProducto>() {
@@ -83,14 +80,14 @@ class AdapterProveedores(var contexto: Activity, var listaProveedores: ArrayList
          *Este metodo bindItems recibe los datos que se agregaran dentro de la vista
          *Creamos variables para las vistas
          * @image
-         * @nombre
+         * @nombreFV
          */
         fun bindItems(data: Proveedor, pos: Int) {
 
             val nombre: TextView = itemView.findViewById(R.id.txtNombre)
             val ciudad: TextView = itemView.findViewById(R.id.txtCiudad)
             val telefono: TextView = itemView.findViewById(R.id.txtTelefono)
-            val fechaRegistro: TextView = itemView.findViewById(R.id.txtFechaRegistro)
+            val fechaRegistro: TextView = itemView.findViewById(R.id.txtNombreFundacion)
 
 
             nombre.text = data.nombre

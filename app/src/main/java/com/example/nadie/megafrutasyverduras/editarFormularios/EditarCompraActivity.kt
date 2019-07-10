@@ -172,7 +172,7 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
 
                 try {
 
-                    registroCompra.nombre = spinnerListaEC.selectedItem.toString()
+                    registroCompra.nombreFV = spinnerListaEC.selectedItem.toString()
                     registroCompra.precio = ediTxtPrecioLibraEC.text.toString().toInt()
                     registroCompra.libras = ediTxtLibrasEC.text.toString().toInt()
                     registroCompra.bultos = ediTxtBultosEC.text.toString().toInt()
@@ -189,11 +189,10 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
 
                     /* intent que se envia a ListarCompraActivity como respuesta al ActivityForResult,
                     ya que en el metodo cargarRegistrosAnteriores() de esta activity se recibe el objeto y la posicion, faltando
-                    una respuesta por enviar,
-                    ya que este espera una respuesta con un objeto registroCompra y una posicion para llevar a cabo la
-                    actualizacion del registro recien editado y la cual se le envia con el siguiente intent.*/
+                    una respuesta por enviar la cual se le envia con el siguiente intent.*/
                     val intent = Intent()
-                    intent.putExtra("editarRegistro", registroCompra)
+                    intent.putExtra("codigo",1)
+                    intent.putExtra("actualizarCompra", registroCompra)
                     intent.putExtra("posicion", posicion)
                     setResult(Activity.RESULT_OK, intent)
 
@@ -219,6 +218,7 @@ class EditarCompraActivity : AppCompatActivity(), View.OnClickListener, AdapterV
 
            // listaRegistros?.remove(registroCompra)
             val intent=Intent()
+            intent.putExtra("codigo",2)
             intent.putExtra("registroEliminar",registroCompra)
             intent.putExtra("posicionEliminar",posicion)
             setResult(Activity.RESULT_OK,intent)

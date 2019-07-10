@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.nadie.megafrutasyverduras.R
-import com.example.nadie.megafrutasyverduras.actividades.RealizarDonacionesActivity
 import com.example.nadie.megafrutasyverduras.editarFormularios.EditarDonacionActivity
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 
-class AdapterDonacion(var contexto:Activity, var listaParaDonacion: ArrayList<Registro>) :
-    RecyclerView.Adapter<AdapterDonacion.ViewHolderRegistro>() {
+class AdapterBancoDonacion(var contexto:Activity, var listaBancoDonacion: ArrayList<Registro>) :
+    RecyclerView.Adapter<AdapterBancoDonacion.ViewHolderRegistro>() {
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolderRegistro {
@@ -24,12 +23,12 @@ class AdapterDonacion(var contexto:Activity, var listaParaDonacion: ArrayList<Re
     }
     override fun getItemCount(): Int {
 
-        return listaParaDonacion.size
+        return listaBancoDonacion.size
     }
 
     override fun onBindViewHolder(holder: ViewHolderRegistro, p1: Int) {
 
-        holder.bindItem(listaParaDonacion[p1],p1)
+        holder.bindItem(listaBancoDonacion[p1],p1)
     }
 
     /**
@@ -38,8 +37,13 @@ class AdapterDonacion(var contexto:Activity, var listaParaDonacion: ArrayList<Re
      * en la posicion pos
      *
      */
-    fun actualizarDescomposicion(pos:Int,registro: Registro){
-        listaParaDonacion.set(pos,registro)
+    fun actualizarDonacion(pos:Int, registro: Registro){
+        listaBancoDonacion.set(pos,registro)
+    }
+
+    fun eliminarDonacion(pos: Int){
+        listaBancoDonacion.removeAt(pos)
+
     }
 
     inner class ViewHolderRegistro(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -72,9 +76,9 @@ class AdapterDonacion(var contexto:Activity, var listaParaDonacion: ArrayList<Re
             val nombre: TextView = itemView.findViewById(R.id.txtNombre)
             val libras: TextView = itemView.findViewById(R.id.txtLibras)
             val bultos: TextView = itemView.findViewById(R.id.txtBultos)
-            val fechaRegistro: TextView = itemView.findViewById(R.id.txtFechaRegistro)
+            val fechaRegistro: TextView = itemView.findViewById(R.id.txtNombreFundacion)
 
-            nombre.text = data.nombre
+            nombre.text = data.nombreFV
             libras.text = data.libras.toString()
             bultos.text = data.bultos.toString()
             fechaRegistro.text = data.fechaRegistro

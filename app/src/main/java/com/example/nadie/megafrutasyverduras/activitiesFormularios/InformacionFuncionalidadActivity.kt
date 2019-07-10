@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

@@ -15,7 +15,6 @@ import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_editar_stock.*
-import org.jetbrains.anko.find
 import java.lang.Exception
 import java.util.*
 
@@ -130,7 +129,7 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
             ) {
 
                 try {
-                    registroStock.nombre = spinnerListaES.selectedItem.toString()
+                    registroStock.nombreFV = spinnerListaES.selectedItem.toString()
                     registroStock.libras = ediTxtLibrasES.text.toString().toInt()
                     registroStock.bultos = ediTxtBultosES.text.toString().toInt()
                     registroStock.fechaRegistro = txtViewFechaRegistroES.text.toString()
@@ -142,7 +141,8 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
                       que este objeto que le llega se envie de nuevo al AdapterStock para su actualizacion
                       correspondiente y asi inflar nuevamente la lista con el registro actualizado. */
                     var intent = Intent()
-                    intent.putExtra("editarStock", registroStock)
+                    intent.putExtra("codigo",1)
+                    intent.putExtra("actualizarStock", registroStock)
                     intent.putExtra("posicion", pos)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
@@ -164,7 +164,8 @@ class EditarStockActivity : AppCompatActivity(), View.OnClickListener, AdapterVi
 
         }else if (v?.id==btnEliminarRegistroS.id){
             val intent=Intent()
-            intent.putExtra("eliminarRegistroStock",registroStock)
+            intent.putExtra("codigo",2)
+            intent.putExtra("eliminarDonacionRealizada",registroStock)
             intent.putExtra("posicionEliminar",pos)
             setResult(Activity.RESULT_OK,intent)
             finish()

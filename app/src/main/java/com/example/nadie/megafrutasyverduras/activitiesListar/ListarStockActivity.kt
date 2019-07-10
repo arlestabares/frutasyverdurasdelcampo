@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesListar
 
 import android.app.Activity
 import android.content.Intent
@@ -15,9 +15,9 @@ import com.example.nadie.megafrutasyverduras.modelo.Registro
 class ListarStockActivity(var adapter: AdapterStock? = null) : AppCompatActivity() {
 
     var pos: Int = 0
-    var posEliminar:Int = 0
-    var registro: Registro ?=null
-    var registroEliminar:Registro?=null
+    var posEliminar: Int = 0
+    var registro: Registro? = null
+    var registroEliminar: Registro? = null
     lateinit var recyclerView: RecyclerView
     var listaStock: ArrayList<Registro>? = null
 
@@ -46,16 +46,33 @@ class ListarStockActivity(var adapter: AdapterStock? = null) : AppCompatActivity
         if (requestCode == 1825) {
             if (resultCode == Activity.RESULT_OK) {
 
-                    registro= data?.getParcelableExtra("editarStock")
-                    pos =data!!.getIntExtra("posicion",0)
-                    Log.e("registro_editado", registro.toString() + " " + pos)
-                    adapter?.actualizarStock(pos, registro!!)
-                    adapter?.notifyDataSetChanged()
-                   
+                val codigo = data?.getIntExtra("codigo", 0)
 
+                if (codigo == 1) {
+
+                    registro = data.getParcelableExtra("actualizarStock")
+                    pos = data.getIntExtra("posicion", 0)
+                    Log.e("registro_editado", registro.toString() + " " + pos)
+
+                    if (registro != null) {
+                        adapter?.actualizarStock(pos, registro!!)
+                        adapter?.notifyDataSetChanged()
+                    }
+
+
+                } else if (codigo == 2) {
+
+                    registroEliminar = data.getParcelableExtra("eliminarDonacionRealizada")
+                    posEliminar = data.getIntExtra("posicionEliminar", 0)
+
+                    if (registroEliminar != null) {
+                        adapter?.eliminarRegistroStock(registroEliminar!!,posEliminar)
+                        adapter?.notifyDataSetChanged()
+                    }
                 }
             }
         }
+    }
 
     /**
      * @registro Contiene la lista de objetos
@@ -68,14 +85,21 @@ class ListarStockActivity(var adapter: AdapterStock? = null) : AppCompatActivity
      */
     override fun onBackPressed() {
 
-        if (registro!=null && pos!=null){
+        if (registro != null) {
 
+            val intent = Intent()
+            intent.putExtra("registroDesdeListarStock", registro)
+            intent.putExtra("posicion", pos)
+            setResult(Activity.RESULT_OK, intent)
+
+        }else if (registroEliminar !=null ){
             val intent=Intent()
-            intent.putExtra("registroDesdeListarStock",registro)
-            intent.putExtra("posicion",pos)
-            setResult(Activity.RESULT_OK,intent)
+            intent.putExtra("eliminarDonacionRealizada",registroEliminar)
+            intent.putExtra("posicionEliminar",posEliminar)
+            setResult(Activity.RESULT_OK, intent)
 
         }
+
         super.onBackPressed()
     }
 }

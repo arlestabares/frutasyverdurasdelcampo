@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -109,14 +109,13 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
                 && !spinnerListaFS.selectedItem.toString().equals("Seleccione Verdura")
                 && !ediTxtLibrasFS.text.isEmpty()
                 && !ediTxtBultosFS.text.isEmpty()
-                && !textViewFechaRegistroFS.text.toString().isEmpty()
-            ) {
+                && !textViewFechaRegistroFS.text.toString().isEmpty()) {
 
 
                 try {
                     registroStock = Registro()
 
-                    registroStock.nombre = spinnerListaFS.selectedItem.toString()
+                    registroStock.nombreFV = spinnerListaFS.selectedItem.toString()
                     registroStock.libras = ediTxtLibrasFS.text.toString().toInt()
                     registroStock.bultos = ediTxtBultosFS.text.toString().toInt()
                     registroStock.fechaRegistro = textViewFechaRegistroFS.text.toString()

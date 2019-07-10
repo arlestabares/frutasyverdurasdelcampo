@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerListaES"
                     android:layout_marginTop="30dp"
-                    android:hint="Libras"
+                    android:hint="Kilos"
                     android:digits="0123456789"
                     android:inputType="number"
                     android:layout_marginLeft="20dp"/>

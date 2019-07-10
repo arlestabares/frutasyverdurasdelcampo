@@ -13,7 +13,7 @@
             <item android:id="@+id/realizarDonacion"
                   android:title="@string/realizarDonacion"/>
 
-            <item android:id="@+id/donacionesRealizadas"
+            <item android:id="@+id/donacionRealizada"
                   android:title="@string/donacionesRealizadas"/>
 
         </group>

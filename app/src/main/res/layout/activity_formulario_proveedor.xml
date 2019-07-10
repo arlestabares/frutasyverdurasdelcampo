@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".actividades.FormularioProveedorActivity">
+        tools:context=".activitiesFormularios.FormularioProveedorActivity">
 
 
     <ScrollView
@@ -45,14 +45,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtNombreP"
                     android:hint="Telefono"
-                    android:maxLength="25"
+                    android:maxLength="11"
                     android:inputType="number"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"/>
             <Spinner
                     android:id="@+id/spinnerCiudadP"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="70dp"
                     android:layout_below="@+id/ediTxtTelefonoP"
                     android:layout_marginTop="10dp"
                     android:padding="8dp"

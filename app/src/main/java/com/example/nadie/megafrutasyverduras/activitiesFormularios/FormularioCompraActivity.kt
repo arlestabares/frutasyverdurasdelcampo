@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -26,17 +26,17 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
     lateinit var adaptadorSpinnerCiudad: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
-    lateinit var txtViewFechaRegistroFC: TextView
+    lateinit var txtViewFechaRegistro: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_compra)
 
-        txtViewFechaRegistroFC = findViewById(R.id.ediTxtFechaRegistroFC)
+        txtViewFechaRegistro = findViewById(R.id.ediTxtFechaRegistroFC)
         btnRegistrarFC.setOnClickListener(this)
         btnCancelarFC.setOnClickListener(this)
         btnFechaFS.setOnClickListener(this)
-        txtViewFechaRegistroFC.setOnClickListener(this)
+        txtViewFechaRegistro.setOnClickListener(this)
 
         cargarRegistro()
         mostrarCalendario()
@@ -113,7 +113,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
                 && !ediTxtPrecioLibraFC.text.isEmpty()
                 && !ediTxtLibrasFC.text.isEmpty()
                 && !ediTxtBultosFC.text.isEmpty()
-                && !txtViewFechaRegistroFC.text.isEmpty()
+                && !txtViewFechaRegistro.text.isEmpty()
                 && !spinnerCiudadFC.selectedItem.toString().equals("Seleccione Ciudad de Procedencia")
             ) {
 
@@ -124,11 +124,11 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
 
                     registroCompra = Registro()
 
-                    registroCompra.nombre = spinnerListaFC.selectedItem.toString()
+                    registroCompra.nombreFV = spinnerListaFC.selectedItem.toString()
                     registroCompra.precio = ediTxtPrecioLibraFC.text.toString().toInt()
                     registroCompra.libras = ediTxtLibrasFC.text.toString().toInt()
                     registroCompra.bultos = ediTxtBultosFC.text.toString().toInt()
-                    registroCompra.fechaRegistro = txtViewFechaRegistroFC.text.toString()
+                    registroCompra.fechaRegistro = txtViewFechaRegistro.text.toString()
                     registroCompra.procedencia = spinnerCiudadFC.selectedItem.toString()
                     registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
                     registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
@@ -173,7 +173,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         btnFechaFS.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
 
-                txtViewFechaRegistroFC.setText("" + dayOfMonth + "/" + month + "/" + year)
+                txtViewFechaRegistro.setText("" + dayOfMonth + "/" + month + "/" + year)
 
             }, v_year, v_mont, v_day)
             dpd.show()

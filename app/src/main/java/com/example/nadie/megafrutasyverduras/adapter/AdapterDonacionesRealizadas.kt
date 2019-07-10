@@ -1,36 +1,34 @@
 package com.example.nadie.megafrutasyverduras.adapter
 
 import android.app.Activity
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.nadie.megafrutasyverduras.R
-import com.example.nadie.megafrutasyverduras.editarFormularios.EditarStockActivity
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 
 
-class AdapterStock(var contexto: Activity, var listaStock: ArrayList<Registro>) :
-    RecyclerView.Adapter<AdapterStock.ViewHolderRegistroStock>() {
+class AdapterDonacionesRealizadas(var contexto: Activity, var listaDonacionRealizada: ArrayList<Registro>) :
+    RecyclerView.Adapter<AdapterDonacionesRealizadas.ViewHolderRegistroStock>() {
 
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): AdapterStock.ViewHolderRegistroStock {
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): AdapterDonacionesRealizadas.ViewHolderRegistroStock {
 
-        val vista: View = LayoutInflater.from(p0.context).inflate(R.layout.molde_registro_standar, p0, false)
+        val vista: View = LayoutInflater.from(p0.context).inflate(R.layout.molde_donaciones_realizadas, p0, false)
         return ViewHolderRegistroStock(vista)
     }
 
 
     override fun getItemCount(): Int {
 
-        return listaStock.size
+        return listaDonacionRealizada.size
     }
 
     override fun onBindViewHolder(holder: ViewHolderRegistroStock, p1: Int) {
 
-        holder.bindItem(listaStock[p1],p1)
+        holder.bindItem(listaDonacionRealizada[p1],p1)
     }
 
     /**
@@ -38,22 +36,22 @@ class AdapterStock(var contexto: Activity, var listaStock: ArrayList<Registro>) 
      * actual
      *
      */
-    fun actualizarStock(pos:Int, registro: Registro){
-        listaStock.set(pos,registro)
+    fun actualizarDonacion(pos:Int, registro: Registro){
+        listaDonacionRealizada.set(pos,registro)
     }
 
     /**
      * Funcion encargada de eliminar el registro seleccionado por el usuario en la
      * interfaz de registros mostrados al usuario contenido en ListarStockActivity
      */
-    fun eliminarRegistroStock(registro: Registro,pos: Int){
-        listaStock.removeAt(pos)
+    fun eliminarDonacionRealizada(registro: Registro, pos: Int){
+        listaDonacionRealizada.removeAt(pos)
     }
 
     inner class ViewHolderRegistroStock(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        lateinit var registroStock: Registro
+        lateinit var registroDonacion: Registro
         var pos: Int = 0
 
         init {
@@ -68,10 +66,10 @@ class AdapterStock(var contexto: Activity, var listaStock: ArrayList<Registro>) 
               actividad ListarStockActivity para notificarle alAdapterStock y que sean actualizados
               e inflar la lista con los nuevos valores de ese carView editado */
 
-            var intent = Intent(contexto, EditarStockActivity::class.java)
-            intent.putExtra("listaRegistrosStockAdapter", registroStock)
+          /*  var intent = Intent(contexto, EditarStockActivity::class.java)
+            intent.putExtra("listaRegistrosStockAdapter", registroDonacion)
             intent.putExtra("posicion", pos)
-            contexto.startActivityForResult(intent, 1825)
+            contexto.startActivityForResult(intent, 1825)*/
         }
 
 
@@ -79,16 +77,14 @@ class AdapterStock(var contexto: Activity, var listaStock: ArrayList<Registro>) 
 
             val nombre: TextView = itemView.findViewById(R.id.txtNombre)
             val libras: TextView = itemView.findViewById(R.id.txtLibras)
-            val bultos: TextView = itemView.findViewById(R.id.txtBultos)
-            val fechaRegistro: TextView = itemView.findViewById(R.id.txtNombreFundacion)
+            val nombreFundacion: TextView = itemView.findViewById(R.id.txtNombreFundacion)
 
 
             nombre.text = data.nombreFV
             libras.text = data.libras.toString()
-            bultos.text = data.bultos.toString()
-            fechaRegistro.text = data.fechaRegistro
+            nombreFundacion.text = data.nombreFundacion
 
-            registroStock = data
+            registroDonacion = data
             this.pos=pos
 
         }

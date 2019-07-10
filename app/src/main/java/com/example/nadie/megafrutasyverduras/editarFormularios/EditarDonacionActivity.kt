@@ -33,7 +33,7 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
 
         btnEditarED.setOnClickListener(this)
         btnCancelarED.setOnClickListener(this)
-       // btnEliminarRegistro.setOnClickListener(this)
+        btnEliminarRegistro.setOnClickListener(this)
 
 
         txtViewFechaRegistroED=findViewById(R.id.txtViewFechaRegistroED)
@@ -48,7 +48,7 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
      */
     fun cargarValores() {
 
-        /*intent proveniente de AdapterDonacion el cual trae consigo un registroParaDonacion
+        /*intent proveniente de AdapterBancoDonacion el cual trae consigo un registroParaDonacion
         con  registros de Tipo  Registro*/
         registroParaDonacion = intent.getParcelableExtra("listaDesdeAdapter")
         posicion = intent.getIntExtra("posicionObjeto", 0)
@@ -126,7 +126,7 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
                 &&!txtViewFechaRegistroED.text.isEmpty()){
 
 
-                registroParaDonacion.nombre = spinnerListaED.selectedItem.toString()
+                registroParaDonacion.nombreFV = spinnerListaED.selectedItem.toString()
                 registroParaDonacion.libras = ediTxtLibrasED.text.toString().toInt()
                 registroParaDonacion.bultos = ediTxtBultosED.text.toString().toInt()
                 registroParaDonacion.fechaRegistro = txtViewFechaRegistroED.text.toString()
@@ -134,14 +134,15 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
                 registroParaDonacion.tipoOpcion = spinnerOpcionED.selectedItemPosition
                 registroParaDonacion.tipoLista = spinnerListaED.selectedItemPosition
 
-                /* intent que se envia a ListarDonacionActivity como respuesta al ActivityForResult,
+                /* intent que se envia a ListarBancoDeDonacionesActivity como respuesta al ActivityForResult,
                 ya que en el metodo cargarRegistro() de esta activity se recibe el objeto y la posicion, faltando
                 una respuesta por enviar.
                 ya que este espera una respuesta con un objeto registroParaDonacion y una posicion para llevar a cabo la
                 actualizacion del registro recien editado y la cual se le envia con el siguiente intent. Este intent
                 tambien llega a InterfazPrincipalFragment para obtener un resultOK y poder editarlo */
                 val intent = Intent()
-                intent.putExtra("editarDonacion", registroParaDonacion)
+                intent.putExtra("codigo",1)
+                intent.putExtra("actualizarListaDonacion", registroParaDonacion)
                 intent.putExtra("posicionObjeto", posicion)
                 setResult(Activity.RESULT_OK, intent)
 
@@ -162,6 +163,7 @@ class EditarDonacionActivity : AppCompatActivity(), View.OnClickListener, Adapte
         }else if (v?.id==btnEliminarRegistro.id){
 
             val intent = Intent()
+            intent.putExtra("codigo",2)
             intent.putExtra("eliminarDonacion", registroParaDonacion)
             intent.putExtra("eliminarPosicion", posicion)
             setResult(Activity.RESULT_OK, intent)

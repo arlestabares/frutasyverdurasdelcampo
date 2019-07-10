@@ -46,8 +46,8 @@ class AdapterCompra(var contexto: Activity, var listaCompra: ArrayList<Registro>
     }
 
 
-    fun eliminarCompra(pos:Int,registro: Registro){
-        listaCompra.remove(registro)
+    fun eliminarCompra(pos:Int){
+        listaCompra.removeAt(pos)
 
     }
 
@@ -90,9 +90,9 @@ class AdapterCompra(var contexto: Activity, var listaCompra: ArrayList<Registro>
             val libras: TextView = itemView.findViewById(R.id.txtLibras)
             val bultos: TextView = itemView.findViewById(R.id.txtBultos)
             val procedencia: TextView = itemView.findViewById(R.id.txtProcedencia)
-            val fechaRegistro: TextView = itemView.findViewById(R.id.txtFechaRegistro)
+            val fechaRegistro: TextView = itemView.findViewById(R.id.txtNombreFundacion)
 
-            nombre.text = data.nombre
+            nombre.text = data.nombreFV
             precioLibra.text = data.precio.toString()
             libras.text = data.libras.toString()
             bultos.text = data.bultos.toString()

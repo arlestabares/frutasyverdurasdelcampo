@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         hdn.postDelayed(Runnable {
             var intent:Intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)
-        }, 1000)
+        }, 4000)
 
     }
 }

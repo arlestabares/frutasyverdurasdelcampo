@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesListar
 
 import android.app.Activity
 import android.content.Intent
@@ -11,16 +11,15 @@ import android.widget.LinearLayout
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.adapter.AdapterProveedores
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
-import com.example.nadie.megafrutasyverduras.modelo.Registro
-import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
+import org.jetbrains.anko.toast
 
 class ListarProveedoresActivity : AppCompatActivity() {
 
     var posicion: Int? = 0
-    var posEliminar :Int?= 0
+    var posEliminar: Int? = 0
     var registro: Proveedor? = null
-    var regEliminar:Proveedor?=null
-    var resgistroEliminar:Proveedor?=null
+    var regEliminar: Proveedor? = null
+    var resgistroEliminar: Proveedor? = null
 
     lateinit var recyclerView: RecyclerView
     var listaProveedores: ArrayList<Proveedor>? = null
@@ -48,36 +47,40 @@ class ListarProveedoresActivity : AppCompatActivity() {
 
         if (requestCode == 2534) {
             if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
 
-                val codigo = data?.getIntExtra("codigo", 0)
+                    val codigo = data.getIntExtra("codigo", 0)
 
-                if(codigo == 1) {
+                    if (codigo == 1) {
 
-                    registro = data?.getParcelableExtra("registro")
-                    posicion = data?.getIntExtra("posicion", 0)
+                        registro = data.getParcelableExtra("registro")
+                        posicion = data.getIntExtra("posicion", 0)
 
-                    if(registro!= null && posicion != null){
-                        Log.e("registro_editado", registro.toString() + " " + posicion)
+                        if (registro != null && posicion != null) {
+                            Log.e("registro_editado", registro.toString() + " " + posicion)
 
-                        adapter?.actualizarProveedor(posicion!!, registro!!)
-                        adapter?.notifyDataSetChanged()
+                            adapter?.actualizarProveedor(posicion!!, registro!!)
+                            adapter?.notifyDataSetChanged()
 
+                        }
+
+                    } else if (codigo == 2) {
+
+                        regEliminar = data.getParcelableExtra("registroEliminar")
+                        posEliminar = data.getIntExtra("posicionEliminar", 0)
+
+                        if (posEliminar != null && regEliminar != null) {
+                            adapter?.eliminarProveedor(posEliminar!!, regEliminar!!)
+                            adapter?.notifyDataSetChanged()
+                        }
                     }
-
-                }else if(codigo == 2) {
-
-                    regEliminar=data?.getParcelableExtra("registroEliminar")
-                    posEliminar = data?.getIntExtra("posicionEliminar", 0)
-
-                    if (posEliminar != null && regEliminar!=null) {
-                        adapter?.eliminarProveedor(posEliminar!!, regEliminar!!)
-                        adapter?.notifyDataSetChanged()
-                    }
-
+                }else{
+                    toast("Debe ingresar la informacion solicitada en el formulario")
                 }
             }
         }
     }
+
     /**
      * @registro Contiene la lista de objetos
      * @pos Posicion en la cual sera actualizado el registro que contiene los objetos
@@ -88,17 +91,18 @@ class ListarProveedoresActivity : AppCompatActivity() {
      * para tales fines
      */
     override fun onBackPressed() {
+
         if (posicion != null && registro != null) {
             val intent = Intent()
             intent.putExtra("registroDesdeListarProveedor", registro!!)
             intent.putExtra("posicion", posicion!!)
             setResult(Activity.RESULT_OK, intent)
 
-        }else if (posEliminar!=null && regEliminar!=null){
-            val intent=Intent()
-            intent.putExtra("registroEliminar",regEliminar!!)
-            intent.putExtra("posEliminar",posEliminar!!)
-            setResult(Activity.RESULT_OK,intent)
+        } else if (posEliminar != null && regEliminar != null) {
+            val intent = Intent()
+            intent.putExtra("registroEliminar", regEliminar!!)
+            intent.putExtra("posEliminar", posEliminar!!)
+            setResult(Activity.RESULT_OK, intent)
         }
         super.onBackPressed()
     }

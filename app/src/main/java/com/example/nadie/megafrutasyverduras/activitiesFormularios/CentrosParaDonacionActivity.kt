@@ -1,10 +1,10 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.nadie.megafrutasyverduras.R
-import kotlinx.android.synthetic.main.activity_centros_para_donacion.*
+import com.example.nadie.megafrutasyverduras.modelo.Registro
 
 /**
  * Clase encargada de mostrar los centros que hay en la aplicacion para asi
@@ -14,12 +14,19 @@ import kotlinx.android.synthetic.main.activity_centros_para_donacion.*
 class CentrosParaDonacionActivity : AppCompatActivity(), View.OnClickListener {
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_centros_para_donacion)
 
 
-        cardViewDonacion1.setOnClickListener(this)
+
+
+
+
+
+       // cardViewDonacion1.setOnClickListener(this)
 
     }
 

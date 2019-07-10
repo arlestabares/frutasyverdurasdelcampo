@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.app.Activity
 import android.content.Intent
@@ -12,16 +12,19 @@ import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_realizar_donaciones.*
+import java.lang.Exception
 
-class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class FormularioRealizarDonacionActivity() : AppCompatActivity(), View.OnClickListener,
+    AdapterView.OnItemSelectedListener {
 
 
     lateinit var adapterSpinnerFundaciones: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerFruta: ArrayAdapter<CharSequence>
     lateinit var adapterSpinnerVerdura: ArrayAdapter<CharSequence>
     var registroDonacion: ArrayList<Registro>? = null
+    lateinit var registro: Registro
     var libras: Int = 0
-    var calculado:Boolean = false
+    var calculado: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +59,7 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
 
         if (v?.id == btnCantidadDonar.id) {
 
-            if(!calculado) {
+            if (!calculado) {
 
                 calculado = true
 
@@ -72,32 +75,58 @@ class RealizarDonacionesActivity() : AppCompatActivity(), View.OnClickListener, 
                         Toast.makeText(this, "No hay libras en stock para donar = " + libras, Toast.LENGTH_LONG)
                     }
                 }
-
             }
-
             Toast.makeText(this, "La cantidad de libras disponibles para donar es = " + libras, Toast.LENGTH_LONG)
                 .show()
+        } else if(v?.id==btnDonar.id)
 
-        }else if (v?.id==btnDonar.id){
 
-            if (ediTxtCantidad.text.toString().toInt() > libras){
-                Toast.makeText(this, "Debe ingresar un valor menor o igual a las " +
-                        "libras disponibles  que son = " + libras, Toast.LENGTH_LONG).show()
-            }else{
 
-                /* Intent que se envia a MainActivity para realizar las operaciones correspondientes
-                   a las validaciones de los valores en cada una de las variables que se envian con el intent mismo */
-                var intent = Intent()
-                intent.putExtra("libras", ediTxtCantidad.text.toString().toInt())
-                intent.putExtra("opcionFV", spinnerOpcionFV.selectedItemPosition)
-                intent.putExtra("listaFV", spinnerListaFV.selectedItemPosition)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                if (!ediTxtCantidadLibras.toString().isEmpty()
+                    && !spinnerFundacionParaDonar.selectedItem.toString().equals("Seleccione Fundacion Para Donar")
+                    && !spinnerOpcionFV.selectedItem.toString().equals("Seleccione Opcion Fruta o Verdura")
+                    && !spinnerListaFV.selectedItem.toString().equals("Seleccione Fruta")
+                    && !spinnerListaFV.selectedItem.toString().equals("Seleccione Verdura")) {
+
+                    if (ediTxtCantidadLibras.text.toString().toInt() > libras) {
+                        Toast.makeText(
+                            this, "Debe ingresar un valor menor o igual a las " +
+                                    "libras disponibles  que son = " + libras, Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+
+                        try {
+                            registro = Registro()
+
+                            registro.nombreFV = spinnerListaFV.selectedItem.toString()
+                            registro.libras = ediTxtCantidadLibras.text.toString().toInt()
+                            registro.nombreFundacion = spinnerFundacionParaDonar.selectedItem.toString()
+
+                            registro.tipoOpcion = spinnerOpcionFV.selectedItemPosition
+                            registro.tipoLista = spinnerListaFV.selectedItemPosition
+
+                            val intent = Intent()
+                            intent.putExtra("registroDonacionRealizada", registro)
+                            intent.putExtra("libras", ediTxtCantidadLibras.text.toString().toInt())
+                            intent.putExtra("opcionFV", spinnerOpcionFV.selectedItemPosition)
+                            intent.putExtra("listaFV", spinnerListaFV.selectedItemPosition)
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+
+                        } catch (e: Exception) {
+                            Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
+
+                        }
+                    }
+
+
+
+            } else {
+
+
+                Toast.makeText(this, "Debe verificar los valores asociados al registro", Toast.LENGTH_SHORT).show()
             }
-
-
         }
-    }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 

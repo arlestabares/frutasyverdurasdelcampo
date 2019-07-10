@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".actividades.FormularioCompraActivity">
+        tools:context=".activitiesFormularios.FormularioCompraActivity">
 
     <ScrollView
 
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinnerListaFC"
-                    android:hint="Precio por Libra"
+                    android:hint="Precio por Kilo"
                     android:inputType="number"
                     android:maxLength="10"
                     android:digits="0123456789"
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ediTxtPrecioLibraFC"
-                    android:hint="Libras"
+                    android:hint="Kilos"
                     android:inputType="number"
                     android:maxLength="10"
                     android:digits="0123456789"

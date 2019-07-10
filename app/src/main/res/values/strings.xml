@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">Frutas y Verduras Del Campo</string>
+    <string name="app_name">Comercio al Por Mayor</string>
+    <string name="nombre_app_SplasActivity">COMERCIO AL POR MAYOR DE PRODUCTOS AGROPECUARIOS</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Arles Tabares Carvajal</string>
-    <string name="nav_header_subtitle">MegaFrutas y Verduras de Mercar</string>
+    <string name="nav_header_subtitle">Frutas y Verduras del Campo</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="Interfazpricipal">Registrar Compra de frutas o Verduras</string>
@@ -23,19 +24,18 @@
     <string name="modelocarviewRegistrarCompraFruta">Registrar Compra de Frutas</string>
     <string name="modelocarviewRegistrarCompraVerdura">Registrar Compra de Verdura</string>
     <string name="registrarCFV">Registrar Compra de Frutas o Verduras</string>
-    <string name="registrarDFV">Registrar Frutas o Verduras para Donacion</string>
+    <string name="registrarDFV">Registrar Frutas o Verduras en Banco de Donacion</string>
     <string name="registrarPFV">Registrar Proveedor</string>
     <string name="listarRegistrosCompraFrutaVerdura">Listar registros de Compra de Frutas o Verduras</string>
     <string name="registrarStockFV">Registrar Stock de Frutas o Verduras</string>
     <string name="listarStockFV">Listar Registros de Frutas y Verduras en Stock</string>
-    <string name="listarFVEnDonacion">Listar Fruta o Verdura para Donacion</string>
+    <string name="listarFVEnDonacion">Listar Fruta o Verdura en Banco de Donacion</string>
     <string name="listarProveedoresFV">Listar Proveedores Registrados</string>
     <string name="informacionDeFuncionalidadAplicacion">Informacion Sobre Funcionalidad de la Aplicacion</string>
 
 
     <!--Titulos de las listas listarCompraActivity, listarDonacionActivty, listarProveedorActivity, listarStockActivity -->
     <string name="tituloRegistroEditar">Seleccione registro para editar</string>
-
 
 
     <!--Titulos listas de Edicion -->
@@ -46,7 +46,8 @@
     <!--Titulos de los Formularios de La aplicacion -->
     <string name="tituloDonacion">Registrar Fruta o Verdura Para Donacion</string>
     <string name="ayudaAplicacionBloqueUno">Bienvenido a la aplicacion de compra de frutas y verduras,
-        esta lectura le ayudara a informarse de la funcionalidad y la navegacion de la misma.</string>
+        esta lectura le ayudara a informarse de la funcionalidad y la navegacion de la misma.
+    </string>
     <string name="ayudaAplicacionBloqueUnoBis">
         La lista principal le indica que puede hacer alguna operacion sobre cualquier elemento de la misma,
         con solo seleccionar algun item este le llevara a su correspondiente operacion, a continuacion vera

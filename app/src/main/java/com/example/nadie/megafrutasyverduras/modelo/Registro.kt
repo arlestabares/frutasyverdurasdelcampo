@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 class Registro() : Parcelable {
 
-    var nombre: String=""
+    var nombreFV: String = ""
+    var nombreFundacion: String = ""
     var precio: Int = 0
     var libras: Int = 0
     var bultos: Int = 0
@@ -13,22 +14,30 @@ class Registro() : Parcelable {
     var fechaRegistro: String = ""
     var tipoOpcion: Int = 0
     var tipoLista: Int = 0
-    var id:String=""
+    var id: String = ""
 
     var producto: Producto? = null
     var proveedor: Proveedor? = null
 
 
     constructor(nombre: String, libras: Int, bultos: Int, fechaRegistro: String) : this() {
-        this.nombre = nombre
+        this.nombreFV = nombre
         this.libras = libras
         this.bultos = bultos
         this.fechaRegistro = fechaRegistro
     }
 
+    constructor(nombreFV: String, libras: Int, nombreFundacion: String) : this(){
+        this.nombreFV = nombreFV
+        this.libras = libras
+        this.nombreFundacion = nombreFundacion
+
+    }
+
     constructor(parcel: Parcel) : this() {
-        id=parcel.readString()
-        nombre = parcel.readString()!!
+        id = parcel.readString()
+        nombreFV = parcel.readString()!!
+        nombreFundacion = parcel.readString()!!
         precio = parcel.readInt()
         libras = parcel.readInt()
         bultos = parcel.readInt()
@@ -41,7 +50,8 @@ class Registro() : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeString(nombre)
+        parcel.writeString(nombreFV)
+        parcel.writeString(nombreFundacion)
         parcel.writeInt(precio)
         parcel.writeInt(libras)
         parcel.writeInt(bultos)
@@ -57,7 +67,7 @@ class Registro() : Parcelable {
     }
 
     override fun toString(): String {
-        return "Registro(nombre='$nombre', precio=$precio, libras=$libras, " +
+        return "Registro(nombreFV='$nombreFV',nombreFundacion='$nombreFundacion' precio=$precio, libras=$libras, " +
                 "bultos=$bultos, procedencia='$procedencia', " +
                 "fechaRegistro='$fechaRegistro', tipoOpcion=$tipoOpcion, tipoLista=$tipoLista)"
     }

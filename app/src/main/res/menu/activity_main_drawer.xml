@@ -8,22 +8,17 @@
                 android:id="@+id/menu_opciones"
                 android:icon="@drawable/ic_menu_camera"
                 android:title="Listar Centros de Donacion"/>
+
         <item
-                android:id="@+id/nav_gallery"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="Gallery"/>
-        <item
-                android:id="@+id/operaciones"
+                android:id="@+id/donar"
                 android:icon="@drawable/ic_menu_slideshow"
-                android:title="Operaciones"/>
+                android:title="Realizar Donacion"/>
         <item
                 android:id="@+id/nav_manage"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Tools"/>
+                android:title="Cerrar Aplicacion"/>
 
-        <item
-            android:id="@+id/cerrarAplicacion"
-            android:title="Cerrar Aplicacion"/>
+
     </group>
 
     <item android:title="Communicate">

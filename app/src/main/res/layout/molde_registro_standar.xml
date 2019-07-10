@@ -32,7 +32,7 @@
                     android:id="@+id/txtViewLibra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Libras:"
+                    android:text="Kilos:"
                     android:textSize="20dp"
                     android:textStyle="bold"/>
             <TextView
@@ -43,7 +43,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold"/>
             <TextView
-                    android:id="@+id/txtViewFechaRegistro"
+                    android:id="@+id/txtViewNombreFundacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="F. Registro:"
@@ -68,7 +68,7 @@
                     android:id="@+id/txtLibras"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Libras"
+                    android:text="Kilos"
                     android:textSize="20dp"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"/>
@@ -81,7 +81,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold"/>
             <TextView
-                    android:id="@+id/txtFechaRegistro"
+                    android:id="@+id/txtNombreFundacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fecha Registro"

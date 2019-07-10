@@ -20,6 +20,10 @@
             app:srcCompat="@drawable/manzana_buena"
             android:contentDescription="@string/nav_header_desc"
             android:id="@+id/imageView"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingeniero Desarrollador"/>
 
     <TextView
             android:layout_width="match_parent"

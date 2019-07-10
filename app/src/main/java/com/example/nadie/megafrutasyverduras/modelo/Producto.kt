@@ -37,7 +37,7 @@ class Producto() : Parcelable{
     }
 
     override fun toString(): String {
-        return "Producto(imagen=$imagen, titulo=$titulo, nombre=$nombre, tipoOpcion$tipo)"
+        return "Producto(imagen=$imagen, titulo=$titulo, nombreFV=$nombre, tipoOpcion$tipo)"
     }
 
     companion object CREATOR : Parcelable.Creator<Producto> {

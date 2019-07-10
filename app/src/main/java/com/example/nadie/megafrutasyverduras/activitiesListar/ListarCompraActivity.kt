@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesListar
 
 import android.app.Activity
 import android.content.Intent
@@ -6,20 +6,22 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.widget.LinearLayout
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.adapter.AdapterCompra
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import org.jetbrains.anko.toast
 
 class ListarCompraActivity() : AppCompatActivity() {
 
 
     var pos: Int? = 0
+    var posEliminar: Int = 0
+    var registro: Registro? = null
+    var regEliminar: Registro? = null
     lateinit var recyclerView: RecyclerView
     var listaCompra: ArrayList<Registro>? = null
     var adapter: AdapterCompra? = null
-    var registro: Registro? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +45,27 @@ class ListarCompraActivity() : AppCompatActivity() {
 
         if (requestCode == 118) {
             if (resultCode == Activity.RESULT_OK) {
+                if (data !=null) {
 
-                if (data != null) {
-                    registro = data?.getParcelableExtra<Registro>("editarRegistro")
-                    pos = data?.getIntExtra("posicion", 0)
-                    //Log.e("registro_editado", registro.toString() + " " + pos)
-                    adapter?.actualizarCompra(pos!!, registro!!)
-                    adapter?.notifyDataSetChanged()
+                    val codigo = data.getIntExtra("codigo", 0)
+
+                    if (codigo == 1) {
+                        registro = data.getParcelableExtra<Registro>("actualizarCompra")
+                        pos = data.getIntExtra("posicion", 0)
+                        //Log.e("registro_editado", registro.toString() + " " + pos)
+                        adapter?.actualizarCompra(pos!!, registro!!)
+                        adapter?.notifyDataSetChanged()
+
+                    } else if (codigo == 2) {
+                        regEliminar = data.getParcelableExtra("registroEliminar")
+                        posEliminar = data.getIntExtra("posicionEliminar", 0)
+                        adapter?.eliminarCompra(posEliminar)
+                        adapter?.notifyDataSetChanged()
+
+                    }
+
+                }else{
+                    toast("Debe ingresar la informacion solicitada en el formulario")
                 }
             }
         }
@@ -71,6 +87,13 @@ class ListarCompraActivity() : AppCompatActivity() {
             intent.putExtra("editarRegistro", registro!!)
             intent.putExtra("posicion", pos!!)
             setResult(Activity.RESULT_OK, intent)
+
+        }else if ( regEliminar !=null){
+            val intent=Intent()
+            intent.putExtra("registroEliminar",regEliminar)
+            intent.putExtra("posEliminar",posEliminar)
+            setResult(Activity.RESULT_OK,intent)
+
         }
 
         super.onBackPressed()

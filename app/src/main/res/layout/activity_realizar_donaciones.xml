@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".actividades.RealizarDonacionesActivity">
+        tools:context=".activitiesFormularios.FormularioRealizarDonacionActivity">
 
     <TextView
             android:id="@+id/idTitulo"
@@ -29,7 +29,7 @@
             <Spinner
                     android:id="@+id/spinnerOpcionFV"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="30dp"/>
 
@@ -51,19 +51,21 @@
                     android:background="@drawable/molde_btn_varios_background"/>
 
             <EditText
-                    android:id="@+id/ediTxtCantidad"
+                    android:id="@+id/ediTxtCantidadLibras"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:inputType="number"
+                    android:digits="0123456789"
+                    android:maxLength="3"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:hint="Libras de Fruta o Verdura que Donara"/>
+                    android:hint="Kilos Para Donar"/>
 
             <Spinner
                     android:id="@+id/spinnerFundacionParaDonar"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginRight="10dp"/>
 
@@ -73,23 +75,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp">
-                <Button
-                        android:id="@+id/btnDonacionesAnteriores"
-                        android:layout_width="wrap_content"
-                        android:layout_height="38dp"
-                        android:text="Donaciones anteriores"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/molde_btn_varios_background"/>
 
                 <Button
                         android:id="@+id/btnDonar"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:layout_marginLeft="50dp"
-                        android:text="Donar"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:layout_marginLeft="90dp"
+                        android:text="Registrar Donacion"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
                         android:background="@drawable/molde_btn_varios_background"/>
 
             </LinearLayout>

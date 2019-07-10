@@ -1,4 +1,4 @@
-package com.example.nadie.megafrutasyverduras.actividades
+package com.example.nadie.megafrutasyverduras.activitiesFormularios
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -17,7 +17,7 @@ import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_donacion.*
 import java.util.*
 
-class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
+class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
 
     lateinit var registro: Registro
@@ -85,7 +85,7 @@ class FormularioDonacionActivity : AppCompatActivity(), View.OnClickListener,
 
                     registro = Registro()
 
-                    registro.nombre = spinnerListaFD.selectedItem.toString()
+                    registro.nombreFV = spinnerListaFD.selectedItem.toString()
                     registro.libras = ediTxtLibrasFD.text.toString().toInt()
                     registro.bultos = ediTxtBultosFD.text.toString().toInt()
                     registro.fechaRegistro = txtViewFechaRegistroFD.text.toString()
