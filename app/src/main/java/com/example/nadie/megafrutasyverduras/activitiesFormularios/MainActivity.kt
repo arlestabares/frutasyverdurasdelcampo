@@ -18,6 +18,7 @@ import com.example.nadie.megafrutasyverduras.activitiesListar.*
 import com.example.nadie.megafrutasyverduras.modelo.Producto
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import com.example.nadie.megafrutasyverduras.modelo.Registro
+import com.example.nadie.megafrutasyverduras.util.EscribirFichero
 import com.example.nadie.megafrutasyverduras.util.ManagerFireBase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -234,6 +235,16 @@ class MainActivity : AppCompatActivity(),
 
             }
             R.id.nav_share -> {
+
+
+                var cadena:String  = ""
+
+                for (registro in listaCompra){
+                    cadena+="Nombre: "+registro.nombreFV+"\n"
+                    cadena+="Precio: "+registro.precio+"\n"
+                }
+
+                EscribirFichero.savePdf(this, cadena)
 
             }
             R.id.nav_send -> {
