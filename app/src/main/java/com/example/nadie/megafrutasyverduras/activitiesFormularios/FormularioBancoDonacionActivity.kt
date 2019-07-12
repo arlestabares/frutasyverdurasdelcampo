@@ -25,7 +25,7 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
     lateinit var adapterSpinnerVerduras: ArrayAdapter<CharSequence>
     lateinit var dialogClickListener: DialogInterface.OnClickListener
     lateinit var builder: AlertDialog.Builder
-    lateinit var txtViewFechaRegistroFD:TextView
+    lateinit var textViewFechaRegistroFD: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
         btnRegistrarFD.setOnClickListener(this)
         btnCancelarFD.setOnClickListener(this)
 
-        txtViewFechaRegistroFD=findViewById(R.id.txtViewFechaRegistroFD)
+        textViewFechaRegistroFD = findViewById(R.id.txtViewFechaRegistroFD)
 
         cargarRegistros()
         mostrarCalendario()
@@ -77,7 +77,7 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
                 && !spinnerListaFD.selectedItem.toString().equals("Seleccione Verdura")
                 && !ediTxtLibrasFD.text.isEmpty()
                 && !ediTxtBultosFD.text.isEmpty()
-                && !txtViewFechaRegistroFD.text.isEmpty()
+                && !textViewFechaRegistroFD.text.isEmpty()
             ) {
 
 
@@ -88,7 +88,7 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
                     registro.nombreFV = spinnerListaFD.selectedItem.toString()
                     registro.libras = ediTxtLibrasFD.text.toString().toInt()
                     registro.bultos = ediTxtBultosFD.text.toString().toInt()
-                    registro.fechaRegistro = txtViewFechaRegistroFD.text.toString()
+                    registro.fechaRegistro = textViewFechaRegistroFD.text.toString()
 
                     registro.tipoOpcion = spinnerOpcionFD.selectedItemPosition
                     registro.tipoLista = spinnerListaFD.selectedItemPosition
@@ -133,10 +133,13 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
         btnFechaFS.setOnClickListener {
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                txtViewFechaRegistroFD.setText("" + dayOfMonth + "/" + month + "/" + year)
 
-            }, v_year, v_month, v_day)
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                val txtViewFechaRegistro: TextView = findViewById(R.id.txtViewFechaRegistroFD)
+
+                txtViewFechaRegistro.setText("" + dayOfMonth + "/" + month + "/" + year)
+
+            }, v_day, v_month, v_year)
             dpd.show()
         }
 
@@ -184,8 +187,8 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
 
     override fun onBackPressed() {
         builder = AlertDialog.Builder(this)
-        builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si",dialogClickListener)
-            .setNegativeButton("No",dialogClickListener).show()
+        builder.setMessage("Esta seguro de abandonar el registro?").setPositiveButton("Si", dialogClickListener)
+            .setNegativeButton("No", dialogClickListener).show()
     }
 
 }

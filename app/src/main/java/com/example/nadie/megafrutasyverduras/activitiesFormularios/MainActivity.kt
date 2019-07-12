@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.nadie.megafrutasyverduras.R
 import com.example.nadie.megafrutasyverduras.activitiesListar.*
+import com.example.nadie.megafrutasyverduras.bd.ConexionSQLite
 import com.example.nadie.megafrutasyverduras.modelo.Producto
 import com.example.nadie.megafrutasyverduras.modelo.Proveedor
 import com.example.nadie.megafrutasyverduras.modelo.Registro
@@ -95,6 +96,10 @@ class MainActivity : AppCompatActivity(),
         //Esta variable bundle lleva consigo una lista de listaProductos y listaCompra la cual se envia
         // al fragment miFragment
         //var bundle = Bundle()
+
+        val sqlite = ConexionSQLite(this, 1)
+        Log.e("lista", sqlite.obtenerListaRegistros().toString())
+
     }
 
 
@@ -240,8 +245,11 @@ class MainActivity : AppCompatActivity(),
                 var cadena:String  = ""
 
                 for (registro in listaCompra){
-                    cadena+="Nombre: "+registro.nombreFV+"\n"
-                    cadena+="Precio: "+registro.precio+"\n"
+                    cadena+="Nombre:   " +registro.nombreFV+"\n"
+                    cadena+="Precio Por Kilo: " +registro.precio +" pesos\n"
+                    cadena+="Ciudad de procedencia: " +registro.procedencia + "\n"
+                    cadena+="Fecha de  Registro: " +registro.fechaRegistro+"\n"
+                    cadena+="-----------------------------------------------"+"\n"
                 }
 
                 EscribirFichero.savePdf(this, cadena)

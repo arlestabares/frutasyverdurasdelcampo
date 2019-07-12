@@ -13,7 +13,7 @@ import java.util.*
 
 object EscribirFichero {
 
-    fun savePdf(contexto:Context, mText:String) {
+    fun savePdf(contexto:Context, mostrarText:String) {
         //create object of Document class
         val mDoc = Document()
         //pdf file name
@@ -31,7 +31,7 @@ object EscribirFichero {
             mDoc.addAuthor("Arles Tabares")
 
             //add paragraph to the document
-            mDoc.add(Paragraph(mText))
+            mDoc.add(Paragraph(mostrarText))
 
             //close document
             mDoc.close()

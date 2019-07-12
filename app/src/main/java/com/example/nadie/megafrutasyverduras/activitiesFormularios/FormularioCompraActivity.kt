@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import com.example.nadie.megafrutasyverduras.R
+import com.example.nadie.megafrutasyverduras.bd.ConexionSQLite
 import com.example.nadie.megafrutasyverduras.modelo.Registro
 import kotlinx.android.synthetic.main.activity_formulario_compra.*
 import java.lang.Exception
@@ -41,6 +42,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
         cargarRegistro()
         mostrarCalendario()
         mostrarCuadroDialogo()
+
     }
 
     /**
@@ -133,12 +135,15 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
                     registroCompra.tipoOpcion = spinnerOpcionFC.selectedItemPosition
                     registroCompra.tipoLista = spinnerListaFC.selectedItemPosition
 
+                    var sqlite = ConexionSQLite(this, 1)
+                    sqlite.insertarRegistro(registroCompra)
 
                     var intent = Intent()
                     intent.putExtra("registroCompra", registroCompra)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
                 } catch (e: Exception) {
+                    e.printStackTrace()
                     Toast.makeText(this, "Verifique la información ingresada", Toast.LENGTH_LONG).show()
 
                 }
@@ -175,7 +180,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
 
                 txtViewFechaRegistro.setText("" + dayOfMonth + "/" + month + "/" + year)
 
-            }, v_year, v_mont, v_day)
+            },  v_day,v_mont, v_year)
             dpd.show()
         }
     }
