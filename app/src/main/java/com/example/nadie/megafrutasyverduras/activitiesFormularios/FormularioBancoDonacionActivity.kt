@@ -139,7 +139,7 @@ class FormularioBancoDonacionActivity : AppCompatActivity(), View.OnClickListene
 
                 txtViewFechaRegistro.setText("" + dayOfMonth + "/" + month + "/" + year)
 
-            }, v_day, v_month, v_year)
+            }, v_year, v_month,v_day)
             dpd.show()
         }
 

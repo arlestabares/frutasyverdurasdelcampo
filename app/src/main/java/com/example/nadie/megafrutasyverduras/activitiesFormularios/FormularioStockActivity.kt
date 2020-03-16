@@ -162,7 +162,7 @@ class FormularioStockActivity : AppCompatActivity(), View.OnClickListener, Adapt
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 textViewFechaRegistroFS.setText("" + dayOfMonth + "/" + month + "/" + year)
-            }, v_year, v_day, v_month)
+            }, v_year, v_month,v_day)
             dpd.show()
         }
 

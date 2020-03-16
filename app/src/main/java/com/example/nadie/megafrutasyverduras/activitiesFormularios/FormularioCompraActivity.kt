@@ -172,7 +172,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
 
         val c = Calendar.getInstance()
         val v_year = c.get(Calendar.YEAR)
-        val v_mont = c.get(Calendar.MONTH)
+        val v_month = c.get(Calendar.MONTH)
         val v_day = c.get(Calendar.DAY_OF_MONTH)
 
         btnFechaFS.setOnClickListener {
@@ -180,7 +180,7 @@ class FormularioCompraActivity : AppCompatActivity(), View.OnClickListener, Adap
 
                 txtViewFechaRegistro.setText("" + dayOfMonth + "/" + month + "/" + year)
 
-            },  v_day,v_mont, v_year)
+            }, v_year,v_month, v_day)
             dpd.show()
         }
     }
